@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Obtainium.org</title>
+    <title>Fred Heald - Obtainium.org</title>
     <style>
         * {
             margin: 0;
@@ -12,89 +12,119 @@
         }
         
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            line-height: 1.6;
+            font-family: Georgia, 'Times New Roman', serif;
+            line-height: 1.8;
             color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
+            background: #f5f5f5;
+            padding: 40px 20px;
         }
         
         .container {
+            max-width: 700px;
+            margin: 0 auto;
             background: white;
-            padding: 3rem;
-            border-radius: 12px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            max-width: 600px;
-            text-align: center;
+            padding: 60px 50px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
         
         h1 {
             font-size: 2.5rem;
-            margin-bottom: 1rem;
-            color: #667eea;
+            margin-bottom: 0.5rem;
+            color: #222;
+            font-weight: normal;
         }
         
-        p {
+        .subtitle {
             font-size: 1.1rem;
             color: #666;
-            margin-bottom: 1.5rem;
-        }
-        
-        .status {
-            display: inline-block;
-            padding: 0.5rem 1rem;
-            background: #10b981;
-            color: white;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            margin: 1rem 0;
+            margin-bottom: 3rem;
+            font-style: italic;
         }
         
         .links {
-            margin-top: 2rem;
-            padding-top: 2rem;
-            border-top: 1px solid #e5e7eb;
+            list-style: none;
+            margin: 2rem 0;
+        }
+        
+        .links li {
+            margin: 0.8rem 0;
+            font-size: 1.1rem;
         }
         
         .links a {
-            color: #667eea;
+            color: #2563eb;
             text-decoration: none;
-            margin: 0 1rem;
-            transition: color 0.3s;
+            transition: color 0.2s;
         }
         
         .links a:hover {
-            color: #764ba2;
+            color: #1e40af;
+            text-decoration: underline;
+        }
+        
+        .links .label {
+            display: inline-block;
+            min-width: 100px;
+            color: #666;
+        }
+        
+        footer {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid #e5e7eb;
+            font-size: 0.9rem;
+            color: #999;
         }
         
         @media (max-width: 600px) {
             .container {
-                padding: 2rem;
+                padding: 40px 30px;
             }
             
             h1 {
                 font-size: 2rem;
             }
+            
+            .links .label {
+                display: block;
+                margin-bottom: 0.2rem;
+            }
         }
     </style>
+    <!-- GoatCounter Analytics - Add your code here when ready -->
+    <!-- <script data-goatcounter="https://YOURCODE.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script> -->
 </head>
 <body>
     <div class="container">
-        <h1>Obtainium.org</h1>
-        <div class="status">🚀 Active</div>
-        <p>Personal site and testing ground.</p>
-        <p>Currently migrated to GitHub Pages for simpler, faster hosting.</p>
+        <h1>Fred Heald</h1>
+        <p class="subtitle">obtainium.org</p>
         
-        <div class="links">
-            <a href="mailto:fred@obtainium.org">Email</a>
-            <a href="https://github.com">GitHub</a>
-        </div>
+        <ul class="links">
+            <li>
+                <span class="label">Email:</span>
+                <a href="mailto:fheald@obtainium.org">fheald@obtainium.org</a>
+            </li>
+            <li>
+                <span class="label">GitHub:</span>
+                <a href="https://github.com/justfred" target="_blank" rel="noopener">github.com/justfred</a>
+            </li>
+            <li>
+                <span class="label">Photos:</span>
+                <a href="https://www.flickr.com/photos/justfred/albums/" target="_blank" rel="noopener">Flickr Albums</a>
+            </li>
+            <li>
+                <span class="label">Facebook:</span>
+                <a href="https://www.facebook.com/justfred" target="_blank" rel="noopener">facebook.com/justfred</a>
+            </li>
+        </ul>
+        
+        <footer>
+            © 2025 Fred Heald
+        </footer>
     </div>
 </body>
 </html>
+
+
 
 
