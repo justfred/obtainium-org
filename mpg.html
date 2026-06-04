@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MPG Cost Calculator</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: Georgia, 'Times New Roman', serif;
+            line-height: 1.8;
+            color: #333;
+            background: #f5f5f5;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: white;
+            padding: 60px 50px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: #222;
+            font-weight: normal;
+        }
+
+        .subtitle {
+            font-size: 1rem;
+            color: #666;
+            margin-bottom: 2.5rem;
+            font-style: italic;
+        }
+
+        .controls {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.2rem 2rem;
+            margin-bottom: 2rem;
+        }
+
+        label {
+            display: block;
+            font-size: 0.9rem;
+            color: #555;
+            margin-bottom: 0.3rem;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 0.4rem 0.6rem;
+            font-size: 1rem;
+            font-family: inherit;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            color: #222;
+        }
+
+        .mpg-list {
+            margin-bottom: 2rem;
+        }
+
+        .mpg-row {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .mpg-row label { margin: 0; min-width: 60px; }
+        .mpg-row input { width: 80px; }
+
+        .mpg-controls {
+            margin-top: 0.5rem;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        button {
+            font-family: inherit;
+            font-size: 0.85rem;
+            padding: 0.3rem 0.8rem;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            background: #f9f9f9;
+            cursor: pointer;
+            color: #333;
+        }
+        button:hover { background: #eee; }
+
+        .remove-btn {
+            background: none;
+            border: none;
+            color: #999;
+            font-size: 1.1rem;
+            cursor: pointer;
+            padding: 0 0.2rem;
+            line-height: 1;
+        }
+        .remove-btn:hover { color: #c00; }
+
+        /* Chart */
+        #chart-wrap {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        canvas { display: block; width: 100% !important; }
+
+        /* Results table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+        }
+
+        th {
+            text-align: left;
+            padding: 0.4rem 0.6rem;
+            border-bottom: 2px solid #e5e7eb;
+            color: #555;
+            font-weight: normal;
+            font-size: 0.85rem;
+        }
+
+        td {
+            padding: 0.4rem 0.6rem;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        tr:last-child td { border-bottom: none; }
+
+        .savings { color: #16a34a; }
+        .savings-neg { color: #dc2626; }
+
+        .back { font-size: 0.9rem; color: #666; margin-top: 1rem; }
+        .back a { color: #2563eb; text-decoration: none; }
+        .back a:hover { text-decoration: underline; }
+
+        @media (max-width: 600px) {
+            .container { padding: 40px 25px; }
+            .controls { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+    <h1>MPG Cost Calculator</h1>
+    <p class="subtitle">Fuel cost over lifetime miles — adjust any value to recalculate</p>
+
+    <div class="controls">
+        <div>
+            <label for="price">Gas price ($/gal)</label>
+            <input type="number" id="price" value="5.00" min="0.50" step="0.10">
+        </div>
+        <div>
+            <label for="miles">Total miles</label>
+            <input type="number" id="miles" value="100000" min="1000" step="1000">
+        </div>
+    </div>
+
+    <div class="mpg-list" id="mpg-list">
+        <!-- rows injected by JS -->
+    </div>
+    <div class="mpg-controls">
+        <button onclick="addRow()">+ Add MPG</button>
+        <button onclick="resetRows()">Reset</button>
+    </div>
+
+    <div id="chart-wrap" style="margin-top:2rem;">
+        <canvas id="chart" height="280"></canvas>
+    </div>
+
+    <table id="results-table">
+        <thead>
+            <tr>
+                <th>MPG</th>
+                <th>Gallons used</th>
+                <th>Total fuel cost</th>
+                <th>vs. lowest MPG</th>
+            </tr>
+        </thead>
+        <tbody id="results-body"></tbody>
+    </table>
+
+    <p class="back"><a href="index.html">← Back</a></p>
+</div>
+
+<script>
+// ── palette ────────────────────────────────────────────────────────────────
+const COLORS = ['#2563eb','#16a34a','#dc2626','#d97706','#7c3aed','#0891b2','#db2777'];
+
+// ── state ──────────────────────────────────────────────────────────────────
+let mpgValues = [15, 20, 25];
+
+function addRow(val) {
+    const last = mpgValues[mpgValues.length - 1];
+    mpgValues.push(val !== undefined ? val : last + 5);
+    renderRows();
+    recalc();
+}
+
+function removeRow(i) {
+    if (mpgValues.length <= 1) return;
+    mpgValues.splice(i, 1);
+    renderRows();
+    recalc();
+}
+
+function resetRows() {
+    mpgValues = [15, 20, 25];
+    renderRows();
+    recalc();
+}
+
+function renderRows() {
+    const list = document.getElementById('mpg-list');
+    list.innerHTML = '';
+    mpgValues.forEach((v, i) => {
+        const row = document.createElement('div');
+        row.className = 'mpg-row';
+        row.innerHTML = `
+            <label style="color:${COLORS[i % COLORS.length]}">MPG ${i+1}</label>
+            <input type="number" min="1" max="200" step="1" value="${v}"
+                   oninput="mpgValues[${i}]=+this.value||1; recalc()">
+            <button class="remove-btn" onclick="removeRow(${i})" title="Remove">×</button>`;
+        list.appendChild(row);
+    });
+}
+
+// ── calculation ────────────────────────────────────────────────────────────
+function recalc() {
+    const price = +document.getElementById('price').value || 5;
+    const miles = +document.getElementById('miles').value || 100000;
+
+    const rows = mpgValues.map((mpg, i) => ({
+        mpg,
+        gallons: miles / mpg,
+        cost: (miles / mpg) * price,
+        color: COLORS[i % COLORS.length]
+    }));
+
+    const baseline = rows[0].cost;
+
+    // table
+    const tbody = document.getElementById('results-body');
+    tbody.innerHTML = '';
+    rows.forEach(r => {
+        const diff = r.cost - baseline;
+        const diffStr = diff === 0 ? '—'
+            : (diff > 0 ? '+' : '') + '$' + Math.abs(diff).toLocaleString('en-US', {maximumFractionDigits:0});
+        const cls = diff < 0 ? 'savings' : diff > 0 ? 'savings-neg' : '';
+        tbody.innerHTML += `<tr>
+            <td><span style="color:${r.color}">&#9632;</span> ${r.mpg}</td>
+            <td>${r.gallons.toLocaleString('en-US',{maximumFractionDigits:0})}</td>
+            <td>$${r.cost.toLocaleString('en-US',{maximumFractionDigits:0})}</td>
+            <td class="${cls}">${diffStr}</td>
+        </tr>`;
+    });
+
+    drawChart(rows, miles);
+}
+
+// ── canvas chart ───────────────────────────────────────────────────────────
+function drawChart(rows, miles) {
+    const canvas = document.getElementById('chart');
+    const dpr = window.devicePixelRatio || 1;
+    const W = canvas.parentElement.clientWidth;
+    const H = 280;
+    canvas.width  = W * dpr;
+    canvas.height = H * dpr;
+    canvas.style.width  = W + 'px';
+    canvas.style.height = H + 'px';
+
+    const ctx = canvas.getContext('2d');
+    ctx.scale(dpr, dpr);
+
+    const pad = { top: 20, right: 20, bottom: 50, left: 70 };
+    const pw = W - pad.left - pad.right;
+    const ph = H - pad.top  - pad.bottom;
+
+    ctx.clearRect(0, 0, W, H);
+
+    // build smooth curve data: cost vs mpg from min/2 to max*1.5
+    const allMpg = rows.map(r => r.mpg);
+    const xMin = Math.max(1, Math.min(...allMpg) * 0.5);
+    const xMax = Math.max(...allMpg) * 1.6;
+    const price = +document.getElementById('price').value || 5;
+
+    const pts = 200;
+    const curveX = [], curveY = [];
+    for (let i = 0; i <= pts; i++) {
+        const mpg = xMin + (xMax - xMin) * i / pts;
+        curveX.push(mpg);
+        curveY.push((miles / mpg) * price);
+    }
+
+    const yMax = Math.max(...curveY) * 1.05;
+    const yMin = 0;
+
+    function cx(mpg) { return pad.left + (mpg - xMin) / (xMax - xMin) * pw; }
+    function cy(cost) { return pad.top  + ph - (cost - yMin) / (yMax - yMin) * ph; }
+
+    // grid lines
+    ctx.strokeStyle = '#e5e7eb';
+    ctx.lineWidth = 1;
+    const nGridY = 5;
+    for (let i = 0; i <= nGridY; i++) {
+        const cost = yMin + (yMax - yMin) * i / nGridY;
+        const y = cy(cost);
+        ctx.beginPath(); ctx.moveTo(pad.left, y); ctx.lineTo(pad.left + pw, y); ctx.stroke();
+
+        ctx.fillStyle = '#999';
+        ctx.font = '11px sans-serif';
+        ctx.textAlign = 'right';
+        ctx.fillText('$' + Math.round(cost/1000) + 'k', pad.left - 8, y + 4);
+    }
+
+    // curve
+    ctx.beginPath();
+    ctx.strokeStyle = '#94a3b8';
+    ctx.lineWidth = 2;
+    curveX.forEach((x, i) => {
+        const px = cx(x), py = cy(curveY[i]);
+        i === 0 ? ctx.moveTo(px, py) : ctx.lineTo(px, py);
+    });
+    ctx.stroke();
+
+    // axes
+    ctx.strokeStyle = '#ccc';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(pad.left, pad.top); ctx.lineTo(pad.left, pad.top + ph);
+    ctx.lineTo(pad.left + pw, pad.top + ph);
+    ctx.stroke();
+
+    // x-axis labels — only at each MPG value
+    ctx.fillStyle = '#666';
+    ctx.font = '11px sans-serif';
+    ctx.textAlign = 'center';
+    rows.forEach(r => {
+        const x = cx(r.mpg);
+        ctx.fillText(r.mpg + ' mpg', x, pad.top + ph + 16);
+    });
+
+    // x-axis title
+    ctx.fillStyle = '#999';
+    ctx.font = '11px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('Miles per gallon', pad.left + pw/2, H - 6);
+
+    // y-axis title
+    ctx.save();
+    ctx.translate(14, pad.top + ph/2);
+    ctx.rotate(-Math.PI/2);
+    ctx.fillText('Total fuel cost', 0, 0);
+    ctx.restore();
+
+    // dots + drop lines for each MPG row
+    rows.forEach(r => {
+        const x = cx(r.mpg);
+        const y = cy(r.cost);
+
+        // dashed drop line
+        ctx.setLineDash([3,3]);
+        ctx.strokeStyle = r.color;
+        ctx.lineWidth = 1;
+        ctx.globalAlpha = 0.4;
+        ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x, pad.top + ph); ctx.stroke();
+        ctx.setLineDash([]);
+        ctx.globalAlpha = 1;
+
+        // dot
+        ctx.beginPath();
+        ctx.arc(x, y, 6, 0, Math.PI*2);
+        ctx.fillStyle = r.color;
+        ctx.fill();
+        ctx.strokeStyle = 'white';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        // cost label above dot
+        ctx.fillStyle = r.color;
+        ctx.font = 'bold 11px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('$' + Math.round(r.cost/1000) + 'k', x, y - 11);
+    });
+}
+
+// ── init ───────────────────────────────────────────────────────────────────
+renderRows();
+recalc();
+
+document.getElementById('price').addEventListener('input', recalc);
+document.getElementById('miles').addEventListener('input', recalc);
+window.addEventListener('resize', recalc);
+</script>
+</body>
+</html>
