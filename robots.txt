@@ -1,0 +1,10 @@
+# obtainium.org
+#
+# /wiki/ is intentionally CRAWLABLE so that each page's <meta name="robots"
+# content="noindex"> is actually read and honored — a `Disallow: /wiki/` here
+# would block the crawl and could leave bare URLs in search results instead.
+#
+# To make /wiki/ publicly discoverable: set `noindex: false` in WikiFred's
+# src/_data/site.js, rebuild, and deploy (the meta tag disappears).
+User-agent: *
+Allow: /
