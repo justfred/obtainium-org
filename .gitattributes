@@ -1,0 +1,5 @@
+*.jpg binary -delta
+*.jpeg binary -delta
+*.png binary -delta
+*.gif binary -delta
+*.webp binary -delta

@@ -1,0 +1,222 @@
+/* WikiFred — warm, readable, unfussy. Content is king. */
+:root {
+  --ink: #2b2620;
+  --ink-soft: #6b6055;
+  --paper: #faf6ef;
+  --paper-2: #f1e9dc;
+  --rule: #e0d6c5;
+  --accent: #9a5b34;      /* terracotta */
+  --accent-soft: #c98a5e;
+  --link: #7a4a2a;
+  --measure: 38rem;
+  --font-body: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --font-ui: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html { font-size: 18px; }
+
+body {
+  margin: 0;
+  /* Placeholder playa texture — replace with real cracked-playa photo in src/img/playa-bg.jpg */
+  background-color: #e8dfc8;
+  background-image:
+    linear-gradient(45deg,  rgba(0,0,0,0.04) 1px, transparent 1px),
+    linear-gradient(-45deg, rgba(0,0,0,0.04) 1px, transparent 1px),
+    linear-gradient(90deg,  rgba(0,0,0,0.03) 1px, transparent 1px),
+    linear-gradient(0deg,   rgba(0,0,0,0.03) 1px, transparent 1px),
+    linear-gradient(30deg,  rgba(0,0,0,0.02) 1px, transparent 1px),
+    linear-gradient(-30deg, rgba(0,0,0,0.02) 1px, transparent 1px);
+  background-size: 97px 97px, 97px 97px, 43px 43px, 43px 43px, 61px 61px, 61px 61px;
+  color: var(--ink);
+  font-family: var(--font-body);
+  line-height: 1.6;
+}
+
+a { color: var(--link); text-underline-offset: 2px; }
+a:hover { color: var(--accent); }
+
+/* --- header --------------------------------------------------------------*/
+.site-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.25rem;
+  padding: 0.9rem 1.25rem;
+  border-bottom: 1px solid var(--rule);
+  background: var(--paper-2);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.brand {
+  font-weight: 700;
+  font-size: 1.15rem;
+  text-decoration: none;
+  color: var(--accent);
+  letter-spacing: 0.02em;
+}
+.top-links { display: flex; gap: 1rem; font-family: var(--font-ui); font-size: 0.85rem; }
+.top-links a { text-decoration: none; color: var(--ink-soft); }
+.top-links a:hover { color: var(--accent); }
+.search { margin-left: auto; min-width: 12rem; flex: 1 1 14rem; max-width: 22rem; }
+
+/* --- layout --------------------------------------------------------------*/
+main {
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: 2.5rem 1.25rem 4rem;
+}
+.site-foot {
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: 2rem 1.25rem;
+  border-top: 1px solid var(--rule);
+  color: var(--ink-soft);
+  font-family: var(--font-ui);
+  font-size: 0.8rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* --- article -------------------------------------------------------------*/
+.article-title { font-size: 2rem; line-height: 1.15; margin: 0.4rem 0 1rem; }
+.article-body { font-size: 1.08rem; }
+.article-body p:first-child em { color: var(--ink-soft); }
+
+/* thread nav stack at top of an article */
+.thread-stack { display: flex; flex-direction: column; gap: 0.3rem; margin-bottom: 1.5rem; }
+.thread-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-ui);
+  font-size: 0.82rem;
+  padding: 0.35rem 0.6rem;
+  background: var(--paper-2);
+  border: 1px solid var(--rule);
+  border-radius: 0.4rem;
+}
+.tn-home { text-decoration: none; font-size: 1rem; }
+.tn-name { font-weight: 600; text-decoration: none; }
+.tn-kind { color: var(--accent-soft); text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.65rem; }
+.tn-controls { margin-left: auto; display: flex; align-items: center; gap: 0.5rem; }
+.tn-controls a { text-decoration: none; font-size: 1.1rem; line-height: 1; }
+.tn-pos { color: var(--ink-soft); font-variant-numeric: tabular-nums; font-size: 0.75rem; }
+.tn-disabled { color: var(--rule); font-size: 1.1rem; }
+.tn-rand { color: var(--accent); }
+
+/* inline entity links + first-mention affordances */
+.ent { text-decoration: none; border-bottom: 1px solid var(--accent-soft); }
+.ent:hover { background: var(--paper-2); }
+.ent-dim { border-bottom-style: dotted; color: var(--ink-soft); }
+.ent-nav { font-family: var(--font-ui); white-space: nowrap; }
+.ent-nav a {
+  text-decoration: none;
+  font-size: 0.7rem;
+  color: var(--accent);
+  padding: 0 0.12em;
+  vertical-align: 0.1em;
+}
+.ent-nav a:hover { color: var(--ink); }
+
+/* article source attribution */
+.foot-email { user-select: all; }
+
+/* article source attribution */
+.article-source {
+  margin-top: 2rem;
+  padding-top: 0.8rem;
+  border-top: 1px solid var(--rule);
+  font-family: var(--font-ui);
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+}
+.article-source a { color: var(--ink-soft); }
+
+/* photos */
+.photos figure { margin: 0 0 1.5rem; }
+.photos img { width: 100%; height: auto; border-radius: 0.4rem; }
+.photos figcaption { font-family: var(--font-ui); font-size: 0.8rem; color: var(--ink-soft); margin-top: 0.4rem; }
+
+/* --- thread hub / timeline ----------------------------------------------*/
+.kicker, .thread-hub .kicker {
+  font-family: var(--font-ui);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.72rem;
+  color: var(--accent-soft);
+  margin-bottom: 0.2rem;
+}
+.thread-hub h1 { font-size: 2rem; margin: 0 0 0.5rem; }
+.blurb { color: var(--ink-soft); font-style: italic; }
+.hub-controls { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 1.2rem 0 1.6rem; }
+.btn {
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  text-decoration: none;
+  color: var(--ink);
+  background: var(--paper-2);
+  border: 1px solid var(--rule);
+  border-radius: 0.4rem;
+  padding: 0.45rem 0.8rem;
+  cursor: pointer;
+}
+.btn:hover { border-color: var(--accent-soft); color: var(--accent); }
+
+.timeline, .all-articles { list-style: none; padding: 0; margin: 0; }
+.timeline li, .all-articles li {
+  display: flex;
+  gap: 0.9rem;
+  align-items: flex-start;
+  padding: 0.4rem 0;
+  border-bottom: 1px dotted var(--rule);
+}
+.tl-date { font-family: var(--font-ui); font-size: 0.75rem; color: var(--ink-soft); min-width: 9rem; align-self: flex-start; padding-top: 0.1rem; }
+.tl-body { display: flex; flex-direction: column; gap: 0.15rem; }
+.tl-link { text-decoration: none; }
+.tl-source { font-family: var(--font-ui); font-size: 0.68rem; color: var(--ink-soft); font-style: italic; }
+.count { color: var(--ink-soft); font-family: var(--font-ui); font-size: 0.8rem; margin-top: 1rem; }
+
+/* --- browse / index ------------------------------------------------------*/
+.browse h2 { margin-top: 2.4rem; border-bottom: 1px solid var(--rule); padding-bottom: 0.3rem; }
+.thread-group h3 { font-family: var(--font-ui); text-transform: capitalize; color: var(--accent); font-size: 0.95rem; margin: 1.2rem 0 0.4rem; }
+.thread-list { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 0.4rem 0.6rem; }
+.thread-list li { background: var(--paper-2); border: 1px solid var(--rule); border-radius: 1rem; padding: 0.15rem 0.7rem; }
+.thread-list a { text-decoration: none; }
+.badge { font-family: var(--font-ui); font-size: 0.7rem; color: var(--ink-soft); margin-left: 0.3rem; }
+
+/* --- welcome -------------------------------------------------------------*/
+.welcome { text-align: center; }
+.welcome h1 { font-size: 2.6rem; margin: 0.2rem 0; }
+.lede { color: var(--ink-soft); }
+.featured { margin: 2rem auto; min-height: 6rem; }
+.feature-card {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  text-decoration: none;
+  background: var(--paper-2);
+  border: 1px solid var(--rule);
+  border-radius: 0.6rem;
+  padding: 1.6rem 2rem;
+  transition: border-color 0.15s;
+}
+.feature-card:hover { border-color: var(--accent-soft); }
+.feature-go { font-family: var(--font-ui); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-soft); }
+.feature-title { font-size: 1.5rem; color: var(--ink); }
+.welcome-actions { display: flex; gap: 0.6rem; justify-content: center; flex-wrap: wrap; }
+
+/* --- search page ---------------------------------------------------------*/
+.search-page h1 { margin-bottom: 1.2rem; }
+
+/* --- pagefind tweak ------------------------------------------------------*/
+.pagefind-ui { --pagefind-ui-scale: 0.8; --pagefind-ui-primary: var(--accent); --pagefind-ui-font: var(--font-ui); }
+
+@media (max-width: 540px) {
+  .tl-date { min-width: 7rem; }
+  .search { order: 3; width: 100%; max-width: none; margin-left: 0; }
+}
