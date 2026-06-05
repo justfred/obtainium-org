@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex, nofollow">
+    <title>The MONEY Data Type · WikiFred</title>
+    <link rel="stylesheet" href="/wiki/css/style.css">
+    <link rel="stylesheet" href="/wiki/pagefind/pagefind-ui.css">
+  </head>
+  <body data-rotate="0">
+    <header class="site-head">
+      <a class="brand" href="/wiki/" id="brand-random">WikiFred</a>
+      <nav class="top-links">
+        <a href="/wiki/browse/">Index</a>
+        <a href="/wiki/recent/">New</a>
+        <a href="/wiki/search/">🔍 Search</a>
+        <a href="/wiki/" id="header-random" title="random article">🎲 Random</a>
+      </nav>
+    </header>
+
+    <main>
+      
+
+<article class="article" data-pagefind-body="">
+  <div class="thread-stack">
+    
+      
+      <div class="thread-nav" data-thread="tech" data-url="/articles/tech/money-datatype-rant/">
+        <a class="tn-home" href="/wiki/thread/tech/" title="Tech — home / timeline">🏠</a>
+        <a class="tn-name" href="/wiki/thread/tech/">Tech</a>
+        <span class="tn-kind">curated</span>
+        <span class="tn-controls">
+          <a class="tn-prev" href="/wiki/articles/tech/media-licensing-rant/" title="previous in Tech">◀</a>
+          <span class="tn-pos">19/115</span>
+        </span>
+      </div>
+      
+    
+      
+      <div class="thread-nav" data-thread="src-blog" data-url="/articles/tech/money-datatype-rant/">
+        <a class="tn-home" href="/wiki/thread/src-blog/" title="Blog — home / timeline">🏠</a>
+        <a class="tn-name" href="/wiki/thread/src-blog/">Blog</a>
+        <span class="tn-kind">source</span>
+        <span class="tn-controls">
+          <a class="tn-prev" href="/wiki/articles/tech/media-licensing-rant/" title="previous in Blog">◀</a>
+          <span class="tn-pos">3/102</span>
+        </span>
+      </div>
+      
+    
+  </div>
+
+  <h1 class="article-title">The MONEY Data Type</h1>
+
+  
+    <div class="photos">
+      
+    </div>
+  
+
+  <div class="article-body">
+    <p><em>June 2002. Waiting for a database to convert 5 million records from MONEY to DECIMAL.</em></p>
+<p>The most important part of my job at Cybertel is preparing telephone bills. I spend most of my time manipulating dollar amounts in databases — buy rate, sell rate, payments, credits, commissions, past due. This means I have to choose data types carefully. Dollar amounts need exactly two decimal places: $4.20, not $4.2; 12 or 13 cents, not 12.5.</p>
+<p>Microsoft SQL Server has a data type called MONEY. Seems like the obvious choice. It isn’t.</p>
+<p>MONEY stores four digits of decimal but displays only two. And the number of stored decimals isn’t adjustable. So if a customer owes $4.21 and I add a 10% late fee, the amount becomes $4.6310. Add up enough of these and you get: .244 + .383 + .684 = 1.311, which displays as “$1.31” — just different enough from the correct answer to be annoying on a phone bill.</p>
+<p>This is commonly known as the Superman problem, because in one of the Superman movies, Richard Pryor’s character adds up all the partial pennies left off from people’s paychecks and deposits them in his own account — and shows up for work the next day in a Ferrari.</p>
+<p>Perl is worse. It only knows “numeric” or “alpha,” and floating point numbers are stored in binary as integers plus calculated fractions. $4.20 is stored, hidden in binary, as 4 1/5. Add .70 + .15 in Perl and you might get .84999999.</p>
+<p>The correct answer is DECIMAL(10,2) — stores exactly two decimal places, no funny business. The downside is I have to specify the total number of digits, including to the left of the decimal, and I have to guess the largest number I’ll ever encounter. Is it possible for a customer to owe more than $100,000? I hope not. But it’s possible.</p>
+<p>The reason I’m ranting about this now: I’m waiting for my database to convert the cost of 5 million calls from MONEY to DECIMAL(10,2). Some of my bills last month were off by a penny. Tragedy of epic proportions.</p>
+<p>Don’t even get me started on NULL, because it’s 12:45 and time for lunch.</p>
+
+  </div>
+
+  
+    <footer class="article-source">
+      Source:
+      Blog
+    </footer>
+  
+</article>
+
+    </main>
+
+    <footer class="site-foot">
+      <span>A life, threaded.</span>
+      <span class="foot-comment">
+        <a id="comment-link" href="mailto:justfred@obtainium.org">Comment</a>
+        <span class="foot-email"> · justfred@obtainium.org</span>
+      </span>
+    </footer>
+
+    <script>window.WF_BASE = "/wiki/";</script>
+    <script src="/wiki/pagefind/pagefind-ui.js"></script>
+    <script>if (document.getElementById("search")) new PagefindUI({ element: "#search", bundlePath: "/wiki/pagefind/", showImages: false });</script>
+    <script src="/wiki/js/wikifred.js" type="module"></script>
+    <script data-goatcounter="https://obtainium.goatcounter.com/count" async="" src="//gc.zgo.at/count.js"></script>
+  </body>
+</html>
