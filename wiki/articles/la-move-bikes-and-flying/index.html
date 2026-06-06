@@ -16,11 +16,14 @@
         <a href="/wiki/recent/">New</a>
         <a href="/wiki/search/">🔍 Search</a>
         <a href="/wiki/" id="header-random" title="random article">🎲 Random</a>
+        
       </nav>
     </header>
 
     <main>
       
+
+
 
 <article class="article" data-pagefind-body="">
   <div class="thread-stack">
@@ -84,6 +87,7 @@
   </div>
 
   <h1 class="article-title">LA: Bikes, Bandwidth, and Back in the Air</h1>
+  <p class="article-date">November 16, 2004</p>
 
   
     <div class="photos">
@@ -92,7 +96,7 @@
   
 
   <div class="article-body">
-    <p><em>November 2004. Settling into Culver City after the road trip.</em></p>
+    <p><em>Settling into Culver City after the road trip.</em></p>
 <p>What, you’ve got nothing better to do than surf the web and check once again if I’ve posted an update to my blog? Well, I haven’t. Off my back — I’ve been working. Well, not exactly working, but working on working. Getting settled up here in LA, catching up on my PHP and MySQL, getting started on the big open source project I’ve been muttering about for so many years.</p>
 <p>I’ve also started bike riding again. Traded the 18-year-old Specialized Rock Combo road/mountain combo for a Specialized Sirrus flat-bar road bike — a lot skinnier tires, somewhat lighter, clean indexed shifting, and doesn’t make a bunch of crunching noises when I shift gears. For some reason I’m a lot more inclined to ride here in LA — no hills unless I seek them out, nice long empty bike paths, nice weather. About a mile from my house there are two routes out to the beach: the Ballona Creek Bike Path that goes to Marina Del Rey, and Venice Blvd, which has a nice wide margin for biking. Culver City has another bike path between lanes. So far the longest I’ve gone is about 26 miles, mostly averaging about 18 miles every three or four days.</p>
 <p>And tomorrow I’m going up for a refresher flight lesson. It’s been about nine years since I’ve been up, even longer since I’ve solo’d — it’ll take me a while before I’m comfortable again. But it’s something I enjoyed and really don’t like to be so out of practice on. It should be especially fun here in LA; I’m hoping to work up to some cross-country flights down to San Diego, and perhaps an instrument rating.</p>
@@ -112,6 +116,78 @@
     </footer>
   
 </article>
+
+
+
+<section class="review-box" aria-label="Admin review">
+  
+  <form class="rb-form" data-url="/articles/la-move-bikes-and-flying/" data-input="./src/articles/stories/la-move-bikes-and-flying.md" data-title="LA: Bikes, Bandwidth, and Back in the Air" data-next="">
+    <label class="rb-label">Corrections / enhancements <span>→ Claude</span></label>
+    <textarea class="rb-text" rows="3" placeholder="Optional comment…"></textarea>
+    
+    <div class="rb-row"><button class="rb-submit" type="submit">Submit comment</button> <span class="rb-status" role="status"></span></div>
+    
+  </form>
+</section>
+
+<style>
+.review-nav{max-width:42rem;margin:1rem auto 0;display:flex;justify-content:space-between;align-items:center;gap:.6rem;padding:.4rem .7rem;border:1px solid #d9b8b2;border-radius:8px;background:#fbf1ef;font-size:.85rem;position:sticky;top:0;z-index:5}
+.review-nav a{text-decoration:none;color:#c0392b;font-weight:600}
+.rn-controls{display:flex;align-items:center;gap:.7rem}
+.rn-pos{color:#9a7a74;font-variant-numeric:tabular-nums}
+.review-note{max-width:42rem;margin:2rem auto -1rem;padding:.6rem .9rem;border:1px solid #cdbf7a;border-left:4px solid #b59a2a;border-radius:6px;background:#fdfae9;font-size:.9rem}
+.review-note .rn-badge{display:inline-block;font-size:.7rem;text-transform:uppercase;letter-spacing:.04em;color:#8a7320;font-weight:700;margin-bottom:.2rem}
+.review-note p{margin:0;color:#5c5226}
+.review-box{max-width:42rem;margin:2rem auto;padding:.75rem 1rem;border:1px dashed #b9b1a6;border-radius:8px;background:#faf8f4;font-size:.9rem}
+.review-box--flagged{border-color:#c0392b;background:#fdf3f1}
+.rb-flag{margin:0 0 .4rem;color:#c0392b;font-weight:600}
+.rb-label{display:block;margin-bottom:.3rem;color:#6b6256}
+.rb-label span{opacity:.6}
+.rb-text{width:100%;box-sizing:border-box;font:inherit;padding:.5rem;border:1px solid #ccc;border-radius:6px;resize:vertical}
+.rb-row{margin-top:.5rem;display:flex;align-items:center;gap:.6rem}
+.rb-submit{font:inherit;padding:.35rem .9rem;border:0;border-radius:6px;background:#3a7;color:#fff;cursor:pointer}
+.rb-status{color:#6b6256}
+.rb-dispo{margin-top:.6rem;padding-top:.5rem;border-top:1px solid #e6e0d6;display:flex;flex-wrap:wrap;align-items:center;gap:.4rem}
+.rb-dispo-label{color:#6b6256}.rb-dispo-label em{opacity:.7;font-style:normal}
+.rb-d{font:inherit;padding:.25rem .7rem;border:1px solid #b9b1a6;border-radius:6px;background:#fff;cursor:pointer}
+.rb-d-public{border-color:#3a7;color:#2c7}.rb-d-login{border-color:#c89a2a;color:#a9801a}.rb-d-admin{border-color:#c0392b;color:#c0392b}.rb-d-review{border-color:#b9b1a6;color:#6b6256}
+.rb-d:hover{filter:brightness(.97)}
+.rb-dispo-note{flex-basis:100%;font-size:.78rem;color:#9a9182}
+</style>
+
+<script>
+(function(){
+  var form = document.querySelector('.rb-form');
+  if(!form) return;
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var ta = form.querySelector('.rb-text'), status = form.querySelector('.rb-status');
+    var comment = (ta.value||'').trim(); if(!comment) return;
+    status.textContent = 'saving…';
+    fetch('/wiki/__review', {method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({url: form.dataset.url, title: form.dataset.title, comment: comment})})
+      .then(function(r){ if(!r.ok) throw 0; return r.json(); })
+      .then(function(){ status.textContent='saved ✓ — Claude will process review-questions.md'; ta.value=''; })
+      .catch(function(){ status.textContent='save failed — needs the local preview server (npm run preview)'; });
+  });
+  // disposition buttons (admin build only): set visibility + clear needs_review in one click
+  var dbtns = form.querySelectorAll('.rb-d');
+  Array.prototype.forEach.call(dbtns, function(btn){
+    btn.addEventListener('click', function(){
+      var ta = form.querySelector('.rb-text'), status = form.querySelector('.rb-status');
+      var vis = btn.dataset.vis;
+      status.textContent = 'setting ' + vis + '…';
+      fetch('/wiki/__disposition', {method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({input: form.dataset.input, url: form.dataset.url, title: form.dataset.title, visibility: vis, comment: (ta.value||'').trim()})})
+        .then(function(r){ if(!r.ok) throw 0; return r.json(); })
+        .then(function(){ status.textContent = (vis==='review' ? '✓ left flagged for review' : '✓ set to ' + vis) + ' — next…'; ta.value='';
+          var next = form.dataset.next;
+          if (next) { setTimeout(function(){ window.location.href = next; }, 450); } })
+        .catch(function(){ status.textContent = 'failed — needs the admin server (npm run review)'; });
+    });
+  });
+})();
+</script>
 
     </main>
 
