@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex, nofollow">
+    <title>WikiFred · WikiFred</title>
+    <link rel="stylesheet" href="/wiki/css/style.css">
+    <link rel="stylesheet" href="/wiki/pagefind/pagefind-ui.css">
+  </head>
+  <body data-rotate="0">
+    <header class="site-head">
+      <a class="brand" href="/wiki/" id="brand-random">WikiFred</a>
+      <nav class="top-links">
+        <a href="/wiki/browse/">Index</a>
+        <a href="/wiki/guides/">Sources &amp; Methods</a>
+        <a href="/wiki/recent/">New</a>
+        <a href="/wiki/search/">🔍 Search</a>
+        <a href="/wiki/" id="header-random" title="random article">🎲 Random</a>
+        
+      </nav>
+    </header>
+
+    <main>
+      <article class="guide">
+  <header class="guide-head">
+    <p class="kicker">Sources &amp; Methods</p>
+    <h1>WikiFred</h1>
+    <p class="lede">How the wiki is built and maintained.</p>
+  </header>
+
+  <nav class="guide-nav">
+    <a href="/wiki/guides/">← All Guides</a>
+  </nav>
+
+  <div class="guide-body">
+    <h1>WikiFred — Presentation Layer</h1>
+<h2>How to turn a processed life-archive into a browsable, threaded website</h2>
+<p><strong>Owner:</strong> Fred Heald
+<strong>Updated:</strong> 2026-06-04
+<strong>Status:</strong> Active development. ~561 pages, 10+ threads, live at <strong>obtainium.org/wiki/</strong> (early-review period, <code>noindex</code>).
+<strong>Project:</strong> <code>projects/private/wikifred/</code></p>
+<p>This is the <strong>presentation</strong> end of the archive pipeline. The
+<a href="sources-and-methods.md">sources-and-methods</a> doc covers raw source → processed
+text → synthesis. This doc covers the last step: synthesis → a thing people can
+<em>read and wander through</em>. Output is a public, hyperlinked static site on obtainium.org.</p>
+<blockquote>
+<p><em>If the <a href="sources-and-methods.md">sources-and-methods</a> work is the</em> <strong>mise en place</strong> <em>— a life’s worth of raw material washed, sorted, and laid out in its station — this doc is where it goes on the heat and gets plated. The archive is the stocked pantry; the articles are the dishes; the site is the dining room.</em></p>
+</blockquote>
+<blockquote>
+<p>Working name: <strong>WikiFred</strong>. Generic candidates for the reusable version:
+<strong>WikiArchive</strong>, <strong>WikiPerson</strong>. The method generalizes to anyone with a
+processed personal/family archive.</p>
+</blockquote>
+<hr>
+<h2>The core idea</h2>
+<p>Everything is <strong>articles</strong> and <strong>threads</strong>.</p>
+<ul>
+<li>An <strong>article</strong> is one short page — one story, one event, one observation. A page at most; shorter is fine. Quality <em>and</em> quantity.</li>
+<li>A <strong>thread</strong> is an ordered set of articles — the only structural primitive. A person is a thread. A place is a thread. A vehicle is a thread. A curated arc is a thread.</li>
+</ul>
+<p>Two ways an article joins a thread:</p>
+<table>
+<thead>
+<tr>
+<th>Kind</th>
+<th>How</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Curated</strong></td>
+<td>declared in <code>threads:</code> frontmatter</td>
+<td><code>dylan-stories</code>, <code>burning-man</code></td>
+</tr>
+<tr>
+<td><strong>Entity</strong></td>
+<td>auto-generated from <code>people/pets/places/vehicles:</code> tags</td>
+<td>every article tagged <code>dora</code> <em>is</em> the Dora thread</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2>Article pipeline</h2>
+<pre><code>Raw source (journal, Facebook post, blog, Yelp review, photo story)
+    ↓  Select       identify good standalone stories
+    ↓  Extract      get Fred's actual words from the raw source
+    ↓  Scrub        remove private/NSFW content → visibility: public
+    ↓  Tag          frontmatter: threads + entity tags + source thread
+    ↓  Photos       check photo-reviews.jsonl for matching photos (by people/place/date/topic)
+                    — copy matches to src/img/, add to article frontmatter
+                    — photo-matches.md has pre-analyzed candidates
+    ↓  Build        eleventy → static HTML; pagefind → search index   (cook)
+    ↓  Deploy       rsync _site/ → obtainium.org/wiki/                 (plate &amp; serve)
+</code></pre>
+<p><strong>Critical rule:</strong> Always use Fred’s actual words from the raw source. Never paraphrase.</p>
+<hr>
+<h2>The tagging system</h2>
+<p>Every article carries two kinds of tags in its frontmatter:</p>
+<p><strong>1. Curated thread membership</strong> (<code>threads:</code> array)
+Explicit membership in named threads. An article can belong to multiple:</p>
+<ul>
+<li>Content threads: <code>stories</code>, <code>burning-man</code>, <code>travel</code>, <code>food</code>, <code>el-centro</code>, <code>tech</code>, <code>vehicles</code>, <code>portraits</code>, <code>fragments</code>, <code>doofs</code>, <code>webb</code></li>
+<li>Source threads: <code>src-journal</code>, <code>src-facebook</code>, <code>src-blog</code>, <code>src-yelp</code>, <code>src-autobiography</code>, <code>src-photo-stories</code>, <code>src-journal-summary</code> (needs raw replacement)</li>
+</ul>
+<p><strong>2. Entity tags</strong> (auto-generate entity threads)
+Tags in <code>people:</code>, <code>pets:</code>, <code>places:</code>, <code>vehicles:</code> arrays. Every article tagged with a slug automatically joins that entity’s thread — no declaration needed. E.g. every article with <code>people: [&quot;kip&quot;]</code> becomes part of Kip’s thread.</p>
+<p><strong>Thread kinds</strong> (controlled in <code>lib/registry.mjs</code>):
+<code>curated</code> · <code>person</code> · <code>pet</code> · <code>toy</code> · <code>place</code> · <code>vehicle</code> · <code>source</code> · <code>topic</code></p>
+<p><code>topic</code> = fallback for unregistered slugs. These work for article nav but are hidden from the browse index. To promote a slug from <code>topic</code> to a proper kind, add it to the registry.</p>
+<p><strong>Browse index visibility:</strong> Currently suppressed from the index: <code>topic</code> (unregistered overflow), <code>vehicle</code> (covered by curated Vehicles thread), <code>toy</code> (Stick Fluffy only). Hardcoded in <code>src/browse.njk</code>. Future: make a registry <code>hideFromBrowse</code> flag.</p>
+<p><strong>Validation:</strong> <code>npm run validate</code> checks all articles for malformed frontmatter — trailing slashes in thread slugs, invalid visibility values, missing required fields.</p>
+<hr>
+<h2>Source threads</h2>
+<p>Every article is tagged with a <code>src-*</code> thread identifying its provenance. This lets you browse by source at <code>/thread/src-journal/</code> etc., and tracks what’s been mined.</p>
+<table>
+<thead>
+<tr>
+<th>Thread</th>
+<th>Label</th>
+<th>Raw source</th>
+<th>Selection aid</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>src-journal</code></td>
+<td>Journal</td>
+<td><code>self-analysis/source/journal-notes-*.md</code> (Apple Notes exports)</td>
+<td>The notes files are the raw material</td>
+</tr>
+<tr>
+<td><code>src-facebook</code></td>
+<td>Facebook</td>
+<td><code>facebook/posts.md</code>, <code>facebook/posts 2.md</code></td>
+<td><code>self-analysis/source/facebook-notes-*.md</code> identify good posts; get actual text from posts.md</td>
+</tr>
+<tr>
+<td><code>src-blog</code></td>
+<td>Blog</td>
+<td><code>blogs/source/*.md</code> — one file per post</td>
+<td>Read directly</td>
+</tr>
+<tr>
+<td><code>src-yelp</code></td>
+<td>Yelp review</td>
+<td><code>yelp/reviews/all-reviews.md</code></td>
+<td>Read directly</td>
+</tr>
+<tr>
+<td><code>src-autobiography</code></td>
+<td>Autobiography draft</td>
+<td><code>autobiography/drafts/*.md</code></td>
+<td>Read directly; already in Fred’s voice</td>
+</tr>
+<tr>
+<td><code>src-photo-stories</code></td>
+<td>Photo story</td>
+<td><code>journals/originals/2026/*/photo-stories.md</code></td>
+<td>Read directly</td>
+</tr>
+<tr>
+<td><code>src-quora</code></td>
+<td>Quora</td>
+<td><code>self-analysis/source/obtainium-notes.md</code> (Quora section)</td>
+<td>Read directly</td>
+</tr>
+</tbody>
+</table>
+<p>Mining status tracked in <code>wikifred/SOURCES.md</code>.</p>
+<hr>
+<h2>Voice rules</h2>
+<ul>
+<li><strong>Dylan Stories</strong> — third-person warm voice (“Dylan was nine years old and it was a mountain creek”)</li>
+<li><strong>All other articles</strong> — Fred’s actual words from raw source. Quote or minimally expand. Never paraphrase into a neutral voice.</li>
+<li><strong>Editorial notes</strong> — a <em>soupçon</em> of italics at the bottom of the article body: only when context is genuinely needed, never enough to taste on its own</li>
+</ul>
+<hr>
+<h2>Scrubbing rules (public site)</h2>
+<p><strong>Omit:</strong> romantic/sexual relationships, marriage/separation/divorce, therapy/counseling, substance self-monitoring, gender expression outings, other people’s private medical/financial/relationship info.</p>
+<p><strong>Safe:</strong> travel, adventure, vehicles, places, food, Burning Man (public aspects), work (general), tech observations, family history (deceased relatives fine), funny incidents, friends in public/fun contexts.</p>
+<p><strong>Visibility / access model</strong> — an <em>audience</em> axis (who may see it) plus <em>admin-only flags</em>. Single source of truth: <code>lib/visibility.mjs</code>. Three roles: anyone / logged-in / admin (Fred).</p>
+<table>
+<thead>
+<tr>
+<th><code>visibility</code></th>
+<th>Who may see it</th>
+<th>Deploy build (<code>_site</code>)</th>
+<th>Admin build (<code>npm run review</code>)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>public</code></td>
+<td>anyone</td>
+<td>yes</td>
+<td>yes</td>
+</tr>
+<tr>
+<td><code>login</code></td>
+<td>logged-in users</td>
+<td>no¹</td>
+<td>yes</td>
+</tr>
+<tr>
+<td><code>admin</code></td>
+<td>admin (Fred) only</td>
+<td>no</td>
+<td>yes</td>
+</tr>
+<tr>
+<td><code>draft</code></td>
+<td>admin only — review state</td>
+<td>no</td>
+<td>yes</td>
+</tr>
+</tbody>
+</table>
+<p>¹ <code>login</code> needs real logins; pre-login it simply isn’t deployed. Legacy aliases: <code>private</code>→<code>login</code>, <code>personal</code>/<code>hidden</code>→<code>admin</code>.</p>
+<p><strong>Admin-only flags</strong> (force admin-only regardless of <code>visibility</code>; both keep an article out of deploy until resolved):</p>
+<ul>
+<li><strong><code>needs_review: true</code></strong> — pending review. <strong>Approve-forward</strong>: a <code>public</code> article with this flag is held back from deploy until cleared. Also what puts an article on <code>/review/</code>; every draft is initialized with it.</li>
+<li><strong><code>nsfw: true</code></strong> — not-safe-for-public. Admin sees it; deploy never does.</li>
+</ul>
+<p><strong>Build rule (in code):</strong> deploy = <code>public AND not needs_review AND not nsfw</code>; the admin build shows everything. The “logged-in” middle role (public + login) isn’t separately buildable until logins land.</p>
+<p><strong>Editor-comment processing</strong> (review-questions.md): apply the note, then set state and <strong>clear <code>needs_review</code></strong>. A bare <strong>“OK” / “ok to publish” = reviewed &amp; approved → <code>visibility: public</code>.</strong> Dispositions Fred uses: “keep private” → <code>login</code>; “hide this” / admin-only → <code>admin</code>; “split into two” → public part + admin/login part.</p>
+<hr>
+<h2>Craft rules — lessons learned</h2>
+<p>Hard rules from review passes. Running log of specifics: <code>wikifred/review-feedback.md</code>.</p>
+<p><strong>Conventions (2026-06, established across the relative-profile batch; per-rule enforcer “cleanup runs” tracked in <code>wikifred/TODO.md</code>):</strong></p>
+<ul>
+<li><strong>tag ≠ link.</strong> A <code>people:</code>/<code>threads:</code> <em>tag</em> means the article is <em>about</em> that entity (puts it in the entity’s hub) — tag deliberately, only the subject(s). A <code>[[link]]</code> is just a mention — link freely. Profiles link direct family in prose; don’t over-tag. Scrub over-tagged articles.</li>
+<li><strong>No relative dates</strong> in our editorial prose (“a year ago” → “2025”). Fred’s verbatim journal quotes keep their original phrasing.</li>
+<li><strong>No rimshots — front <em>or</em> back.</strong> Cut trite scene-setting openers (“He started a long way from the desert”) as well as theme-stating closers. Lead with the concrete.</li>
+<li><strong>Sensitive info → a “Personal / do-not-publish” section</strong> in the source/data record, never the published article (cause of death, private family matters).</li>
+<li><strong>Photo curation:</strong> young + old + action per person; avoid group shots. Default search = processed <code>photo-reviews.jsonl</code>; the Lightroom catalog is the expensive, face-tag-dependent tier (see <code>sources-and-methods.md</code> § Photo search).</li>
+<li><strong>Web-search augment</strong> for <em>notable</em> ancestors (a line or two + a source link).</li>
+<li>People pipeline + data-record format: <code>people/people-workflow.md</code>.</li>
+</ul>
+<p><strong>Use Fred’s actual words; add nothing.</strong> A source link is necessary but <em>not sufficient</em>. For every article:</p>
+<ol>
+<li>Read the actual <code>_source/&lt;source&gt;/</code> entry — never a summary, rehash, or analysis doc.</li>
+<li>Record the resolvable source path in frontmatter.</li>
+<li>Use Fred’s own words; quote or lightly edit — never paraphrase into a neutral voice.</li>
+<li><strong>Add no inference, dates, places, or “what happened” narration</strong> that isn’t in the source. (Canonical failure: <code>gila-bend-postcard</code> invented a wrong birthday and a “that’s the thing about photos” closer on top of good source.)</li>
+</ol>
+<p><strong>Editorial notes — the keep/cut test.</strong> A trailing italic note is allowed only if it adds <strong>external verifiable fact the source itself can’t supply</strong>: identity (“X was Fred’s grandfather”), aftermath (“X passed away in 2000”), archival significance (“the last journal entry that mentions him alive”). <strong>Cut it</strong> if it restates the article, infers/embellishes, or lands an aphorism. <em>Keep</em> example: the Gramp-death note on <code>daltons-rash-decisions</code>. <em>Cut</em> example: gila-bend.</p>
+<p><strong>No rimshots.</strong> Don’t end on a tidy thematic closer that states the theme out loud. Cut unless it’s Fred’s own line.</p>
+<p><strong>Avoid chops (journal duplication).</strong> A journal entry with several dated sub-entries (<code>YYMMDD.HHMM</code>) must not be split so one article keeps the <em>whole</em> entry (duplicated tail), and adjacent articles must not overlap. Detect by shared timestamps and shared verbatim sentences. (See the journals extraction doc.)</p>
+<p><strong>Scrub at the line, not the article.</strong> Cut the offending sentence and keep the article when the rest is safe — e.g. gender-expression asides (bra shopping, “wear a dress”) get <em>surgically removed</em>, and a revealing slug gets renamed (<code>sachs-madass-and-bras</code> → <code>sachs-madass</code>). Draft the whole article only when its <em>premise</em> is the private content.</p>
+<p><strong>Verify photo captions.</strong> Never trust an inherited caption — confirm who/what/when from the image plus sources (the “Amy” who was actually Britt). Check <code>photo-reviews.jsonl</code> / <code>photo-matches.md</code>.</p>
+<p><strong>One canonical slug per entity.</strong> No alias slugs (<code>kip</code> vs <code>nicholas-corwin</code>); the display label carries the nickname via <code>[[nicholas-corwin|Kip]]</code>.</p>
+<hr>
+<h2>Frontmatter format</h2>
+<pre><code class="language-yaml">---
+title: &quot;Title&quot;
+date: YYYY-MM-DD
+threads: [&quot;content-thread&quot;, &quot;src-source-thread&quot;]
+people: [&quot;slug&quot;]
+places: [&quot;slug&quot;]
+vehicles: [&quot;slug&quot;]
+pets: [&quot;slug&quot;]
+visibility: public          # public | hidden | draft
+needs_review: true          # optional; author flag only, no visual effect until Phase 2
+photos:
+  - src: /img/filename.jpg
+    caption: &quot;Caption&quot;
+source:
+  label: &quot;Journal&quot;        # or: Facebook | Blog | Yelp review | Autobiography draft | Photo story
+  url: &quot;https://...&quot;      # optional, for external links
+---
+</code></pre>
+<hr>
+<h2>Entity registry</h2>
+<p>All entity slugs and thread metadata live in <code>lib/registry.mjs</code>. Key fields:</p>
+<ul>
+<li><code>name</code> — display name</li>
+<li><code>kind</code> — <code>curated | person | pet | toy | place | vehicle | source | topic</code></li>
+<li><code>blurb</code> — shown on thread hub page</li>
+</ul>
+<p>Unknown slugs auto-titleize from the slug (no registry entry needed for one-offs).</p>
+<hr>
+<h2>Technology</h2>
+<table>
+<thead>
+<tr>
+<th>Concern</th>
+<th>Choice</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Generator</td>
+<td>Eleventy (11ty)</td>
+<td>Markdown-native, plain JS, static HTML</td>
+</tr>
+<tr>
+<td>Search</td>
+<td>Pagefind</td>
+<td>Zero-backend full-text; indexes built HTML</td>
+</tr>
+<tr>
+<td>Hosting</td>
+<td>static files on obtainium.org</td>
+<td>No server, no DB, no login</td>
+</tr>
+<tr>
+<td>Linking</td>
+<td>custom <code>[[wiki-link]]</code> markdown-it plugin</td>
+<td>First-mention treatment at build time</td>
+</tr>
+<tr>
+<td>Client nav</td>
+<td>tiny JS over <code>/threads.json</code></td>
+<td>In-place next/random; degrades gracefully</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Build note:</strong> <code>npx eleventy</code> hangs on Node v24. Use <code>node node_modules/@11ty/eleventy/cmd.cjs</code> directly. This is wired into <code>package.json</code> scripts.</p>
+<hr>
+<h2>Dylan Stories: generated vs. hand-authored</h2>
+<p>Dylan Stories are the only generated thread. <code>scripts/build-content.mjs</code>:</p>
+<ul>
+<li>Reads source files from <code>../journals/dylan-stories/</code> — <strong>never modified</strong></li>
+<li>Injects frontmatter (tags, date, people/places/pets) from a per-file META map</li>
+<li>Injects <code>[[wiki-links]]</code> on first entity mention</li>
+<li>Writes derived articles to <code>src/articles/dylan-stories/</code> — <strong>always overwritten</strong></li>
+</ul>
+<p>All other articles are hand-authored <code>.md</code> files placed directly in <code>src/articles/&lt;thread&gt;/</code>.</p>
+<hr>
+<h2>Current threads (2026-06-03)</h2>
+<p><strong>Content:</strong> Dylan Stories, Stories, Burning Man, Travel, Food, El Centro, Tech, Vehicles, Portraits, Fragments</p>
+<p><strong>Source:</strong> src-journal, src-facebook, src-blog, src-yelp, src-autobiography, src-photo-stories, src-quora</p>
+<p><strong>Entity (people):</strong> Fred Heald, Becke Shulman, Amy Heald, Phillip Heald, Nicholas Corwin “Kip”, Pamarie, Dylan Heald, and others</p>
+<p><strong>Entity (pets/toys):</strong> Dora, Pasquale, Sabio, The Puppies, Stick Fluffy, Tikka, Masala</p>
+<p><strong>Entity (places):</strong> El Centro, Mission Bay, Colorado, Telluride, Ouray, Claremont, San Felipe, and others</p>
+<p><strong>Entity (vehicles):</strong> Pinzgauer, and individual vehicle articles via the Vehicles thread</p>
+<hr>
+<h2>Generalizability</h2>
+<p>This pattern works for any processed personal or family archive: write short articles, tag entities, let entity threads auto-generate, publish static. The reusable version (WikiArchive) is the same code with Fred-specific registry and source-derive script swapped out. Candidate for the <em>Personal Archive Handbook</em> publication.</p>
+<hr>
+<p><em>Chef’s note: the kitchen metaphor running through this doc — mise en place, soupçon, cook, plate — is a deliberate seasoning, not an accident. Keep the pinch light if you add to it.</em></p>
+
+  </div>
+</article>
+
+    </main>
+
+    <footer class="site-foot">
+      <span>A life, threaded.</span>
+      <span class="foot-comment">
+        <a id="comment-link" href="mailto:justfred@obtainium.org">Comment</a>
+        <span class="foot-email"> · justfred@obtainium.org</span>
+      </span>
+    </footer>
+
+    <script>window.WF_BASE = "/wiki/";</script>
+    <script src="/wiki/pagefind/pagefind-ui.js"></script>
+    <script>if (document.getElementById("search")) new PagefindUI({ element: "#search", bundlePath: "/wiki/pagefind/", showImages: false });</script>
+    <script src="/wiki/js/wikifred.js" type="module"></script>
+    <script data-goatcounter="https://obtainium.goatcounter.com/count" async="" src="//gc.zgo.at/count.js"></script>
+  </body>
+</html>

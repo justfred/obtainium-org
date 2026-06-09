@@ -1,0 +1,1314 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Sources &amp; Methods Field Guide · WikiFred</title>
+    <link rel="stylesheet" href="/wiki/css/style.css">
+    <link rel="stylesheet" href="/wiki/pagefind/pagefind-ui.css">
+  </head>
+  <body data-rotate="0">
+    <header class="site-head">
+      <a class="brand" href="/wiki/" id="brand-random">WikiFred</a>
+      <nav class="top-links">
+        <a href="/wiki/browse/">Index</a>
+        <a href="/wiki/guides/">Sources &amp; Methods</a>
+        <a href="/wiki/recent/">New</a>
+        <a href="/wiki/search/">🔍 Search</a>
+        <a href="/wiki/" id="header-random" title="random article">🎲 Random</a>
+        
+      </nav>
+    </header>
+
+    <main>
+      <article class="guide">
+  <header class="guide-head">
+    <p class="kicker">Sources &amp; Methods</p>
+    <h1>Sources &amp; Methods Field Guide</h1>
+    <p class="lede">Tools and techniques for each source type.</p>
+  </header>
+
+  <nav class="guide-nav">
+    <a href="/wiki/guides/">← All Guides</a>
+  </nav>
+
+  <div class="guide-body">
+    <h1>Sources and Methods</h1>
+<h2>How to Reconstruct a Life History from Digital Archives</h2>
+<p><em>“Digital archives” means the working state of the material, not its original form. Letters, journals, Super 8 film, DV tape, and photographs all begin as physical or analog objects — but every source passes through digitization before it can be processed. Scanning, OCR, telecine, video capture: whatever the method, the paper or tape becomes a file. This guide covers that whole arc, from original medium to processed text to synthesized narrative.</em></p>
+<p><strong>Owner:</strong> Fred Heald
+<strong>Created:</strong> 2026-05-27
+<strong>Purpose:</strong> High-level map of all source material and processing methods for the autobiography/archive project.</p>
+<p><strong>Secondary purpose — recipe book:</strong> This document is intended to be generalizable. The specific sources are Fred’s, but the methods and pipeline should be usable by anyone undertaking a similar digital-plus-physical life archive project. Where possible, methods are written to transfer. Fred’s project may be unusually large in volume, but the structure — raw source → processed file → synthesis → autobiography — applies broadly.</p>
+<p><strong>Editorial note:</strong> This document is currently written at Fred’s level — it describes what was done, with project-specific paths and context. A publication pass should lower it one level: add example prompts a reader could use to adapt each method to their own data (e.g. <em>“Create a script similar to extract-mbox.py to handle my AOL email export”</em>). Each method section should end with at least one copy-paste-ready prompt.</p>
+<p><strong>On AI session boundaries and overnight jobs:</strong> Claude works interactively within a session but doesn’t persist between them. The practical pattern for long-running work: design scripts to be resumable (skip already-processed files), start them in a terminal, let them run overnight, pick up the results in the next session. The transcript pipeline (<code>transcribe_lr.sh</code>, <code>cleanup.sh</code>, <code>process_transcripts.sh</code>) follows this pattern deliberately. Claude designs the scripts and interprets the results; the machine does the compute. This division generalizes: anything that takes more than 20 minutes of wall-clock time should be a resumable script, not an interactive session.</p>
+<p><strong>Publication intent:</strong> This document (and the methods it describes) is a candidate for publication as a standalone guide — potentially on GitHub — for anyone wanting to undertake a similar life-archive project with AI assistance. Examples drawn from Fred’s work would be anonymized or chosen for safety/cleanliness. The guide would cover: digital archaeology of old formats, photo archive triage, email and social media triage, video transcription, and AI-assisted synthesis into autobiography. Working title: <em>The Personal Archive Handbook</em> or similar. Not started — capture methods fully first.</p>
+<hr>
+<h2>Scope</h2>
+<p>This project draws on ~60 years of primary source material: Fred’s own writing across multiple platforms, family documents, personal correspondence, and physical archives. The goal is an autobiography (possibly multi-volume) plus a family history component, with subsidiary products: portrait documents, self-analysis docs, journal entries.</p>
+<hr>
+<h2>Source Corpus</h2>
+<blockquote>
+<p><strong>Journals vs. notes — the basic division of a personal archive.</strong> Two kinds of self-authored material, distinguished by <em>what they are</em>, not where they’re stored:</p>
+<ul>
+<li><strong>Journals</strong> — diaries, life-experience observations, reflections, dreams, travelogue. First-person and experiential; the record of a life as lived and felt. Processed <strong>chronologically</strong>, mined for narrative and voice; the unit is the <em>entry</em>.</li>
+<li><strong>Notes</strong> — all the other documents one gathers: reference material, lists, specs, collection logs, how-tos, work scratch, logistics. Useful but not reflective. Processed <strong>by subject/extraction</strong>; the unit is the <em>topic</em>.</li>
+</ul>
+<p>A single <strong>medium</strong> can hold both (Apple Notes carried a 260-entry journal corpus <em>and</em> ~1,283 reference notes; hand-scanned pages will split the same way). Sort by this type to route into the right project bucket — journals → <code>journals/</code>, notes → <code>notes/</code> — and keep the medium name as the <code>_work/source/&lt;medium&gt;/</code> subfolder so provenance survives the split. See the playbook’s cross-cutting disciplines for the processing side of this rule.</p>
+</blockquote>
+<h3>Cross-cutting workflows</h3>
+<table>
+<thead>
+<tr>
+<th>Workflow</th>
+<th>What it covers</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="workflows/provenance-pipeline.md"><code>workflows/provenance-pipeline.md</code></a></td>
+<td><strong>Source provenance chain</strong> — how source/processed/target layers relate, source.file convention, retroactive linking, feedback loop for missing source records. Start here if an article has no source.</td>
+</tr>
+<tr>
+<td><a href="playbook.md"><code>playbook.md</code></a></td>
+<td>End-to-end sequence — inventory → triage → pipeline → synthesis. Provenance theory in Phase 3.</td>
+</tr>
+<tr>
+<td><a href="wikifred.md"><code>wikifred.md</code></a></td>
+<td>Wiki presentation layer — article format, voice rules, tagging, scrub rules.</td>
+</tr>
+</tbody>
+</table>
+<h3>Per-source workflows</h3>
+<p>Each source has a detailed <strong>workflow doc</strong> in its own dir — acquire/capture → extract → synthesize → articleize, with the source-specific rules that bite. The type-based subsections below describe <em>what</em> each source is; the workflow docs describe <em>how</em> to work it. Shared article-creation rules live in <a href="wikifred.md"><code>wikifred.md</code></a>.</p>
+<table>
+<thead>
+<tr>
+<th>Source</th>
+<th>Workflow doc</th>
+<th>Wikifred <code>src-</code> thread</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Journals</td>
+<td><a href="../journals/journals-workflow.md"><code>../journals/journals-workflow.md</code></a></td>
+<td><code>src-journal</code></td>
+</tr>
+<tr>
+<td>Yelp</td>
+<td><a href="../yelp/yelp-workflow.md"><code>../yelp/yelp-workflow.md</code></a></td>
+<td><code>src-yelp</code></td>
+</tr>
+<tr>
+<td>Quora</td>
+<td><a href="../quora/quora-workflow.md"><code>../quora/quora-workflow.md</code></a></td>
+<td><code>src-quora</code></td>
+</tr>
+<tr>
+<td>Photos</td>
+<td><a href="../photos/photos-workflow.md"><code>../photos/photos-workflow.md</code></a></td>
+<td>(assets — attach to articles)</td>
+</tr>
+<tr>
+<td>Facebook</td>
+<td><a href="../facebook/facebook-workflow.md"><code>../facebook/facebook-workflow.md</code></a></td>
+<td><code>src-facebook</code></td>
+</tr>
+<tr>
+<td>Blog</td>
+<td><a href="../blogs/blogs-workflow.md"><code>../blogs/blogs-workflow.md</code></a></td>
+<td><code>src-blog</code></td>
+</tr>
+<tr>
+<td>Autobiography drafts</td>
+<td><a href="../autobiography/autobiography-workflow.md"><code>../autobiography/autobiography-workflow.md</code></a></td>
+<td><code>src-autobiography</code></td>
+</tr>
+</tbody>
+</table>
+<h3>Personal Journals</h3>
+<table>
+<thead>
+<tr>
+<th>Source</th>
+<th>Coverage</th>
+<th>Format</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Apple Notes journals</td>
+<td>2013–2026, 264 entries</td>
+<td>Digital text</td>
+<td>Read; synthesized into self-analysis docs</td>
+</tr>
+<tr>
+<td>Archive journals (year files)</td>
+<td>1999–2012, ~12 files, ~8,933 lines</td>
+<td>Markdown</td>
+<td>Extracted to <code>journals-archive/</code>; partial analysis</td>
+</tr>
+<tr>
+<td>Physical journals</td>
+<td>1991–1996 (28 volumes), then 1996–1999 (1 volume)</td>
+<td>Paper, in storage</td>
+<td>Not digitized; requires hand-scanning each page/fold. <strong>Critical gap</strong> — 1992–1996 digital originals are largely unrecoverable (TEXTMSWD), so physical journals are the only first-person voice for that period.</td>
+</tr>
+</tbody>
+</table>
+<h3>Personal Correspondence</h3>
+<table>
+<thead>
+<tr>
+<th>Source</th>
+<th>Coverage</th>
+<th>Format</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Scanned letter PDFs</td>
+<td>1965–2000s, ~228 PDFs</td>
+<td>PDF (vision OCR)</td>
+<td>Active — see <code>letters/INDEX.md</code></td>
+</tr>
+<tr>
+<td>Recovered digital originals</td>
+<td>1985–1998, ~120+ files</td>
+<td>Old Mac word processor → text</td>
+<td>Partially extracted; see <code>letters/sources/text/</code></td>
+</tr>
+<tr>
+<td>Gmail export</td>
+<td>2001–2026, 36,566 messages</td>
+<td>MBOX</td>
+<td>Extracted to <code>mbox-archive/</code>; not yet triaged</td>
+</tr>
+<tr>
+<td>Local mbox archive</td>
+<td>2001–2009, 9,772 messages</td>
+<td>MBOX</td>
+<td>Extracted to <code>mbox-archive/</code>; not yet triaged</td>
+</tr>
+<tr>
+<td>Instant messages (AIM, iChat, etc.)</td>
+<td>~1995–2010s</td>
+<td>Varies</td>
+<td>Not yet located or extracted</td>
+</tr>
+<tr>
+<td>SMS/iMessage</td>
+<td>Ongoing</td>
+<td>Apple Messages DB</td>
+<td>Not yet extracted</td>
+</tr>
+</tbody>
+</table>
+<h3>Social Media &amp; Public Writing</h3>
+<table>
+<thead>
+<tr>
+<th>Source</th>
+<th>Coverage</th>
+<th>Format</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Facebook archive (JSON)</td>
+<td>2007–2026, 13,348 posts, 10,899 comments, 1,396 message threads</td>
+<td>JSON</td>
+<td>Extracted 2026-05-26; posts split into year + topic files. <strong>Posts synthesized 2026-05-27</strong> → <code>self-analysis/facebook-notes-YYYY.md</code> (2007–2026); comments + messages not yet triaged</td>
+</tr>
+<tr>
+<td>Quora (fheald account)</td>
+<td>~1,862 entries</td>
+<td>Exported HTML</td>
+<td>Fully mined 2026-06-02; <code>quora/_processed/mining-notes.md</code>; autobiography drafts + self-analysis written</td>
+</tr>
+<tr>
+<td>Quora (yudro account)</td>
+<td>2017–2026</td>
+<td>Exported</td>
+<td>See <code>reference/yudro.md</code></td>
+</tr>
+<tr>
+<td>Obtainium blog</td>
+<td>2002–2006, 207 posts</td>
+<td>SQL dump</td>
+<td>Extracted to <code>obtainium-archive/blog/</code></td>
+</tr>
+</tbody>
+</table>
+<h3>Books, Movies &amp; Media</h3>
+<table>
+<thead>
+<tr>
+<th>Source</th>
+<th>Coverage</th>
+<th>Format</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Goodreads export</td>
+<td>Reading history</td>
+<td>CSV/analysis</td>
+<td><code>books-movies/</code> — analyzed; see <code>goodreads_analysis.md</code></td>
+</tr>
+<tr>
+<td>Music analysis</td>
+<td>Listening history / preferences</td>
+<td>Analysis</td>
+<td><code>books-movies/music_analysis.md</code></td>
+</tr>
+<tr>
+<td>Media recommendations</td>
+<td>—</td>
+<td>Analysis</td>
+<td><code>books-movies/media_recommendations.md</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Note:</strong> <code>books-movies/</code> (formerly <code>personal-media-analysis/</code>) contains Fred’s aesthetic record — reading history, music taste, media preferences. Useful for autobiography chapters on cultural identity and taste formation. Not a pipeline project; contents are analysis outputs, not raw source material.</p>
+<h3>Family Archives</h3>
+<table>
+<thead>
+<tr>
+<th>Source</th>
+<th>Coverage</th>
+<th>Format</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Phil’s Mac backup (SSD)</td>
+<td>~2000–2025, ~50K files</td>
+<td>Mac backup</td>
+<td>Actively researched; see <code>projects/pheald/</code></td>
+</tr>
+<tr>
+<td>Fred’s 4TB Archive drive</td>
+<td>1985–2012+</td>
+<td>Mixed</td>
+<td>Partially read; year archives copied to <code>letters/sources/text/</code></td>
+</tr>
+<tr>
+<td>Gramp’s computer backup</td>
+<td>2002, pre-death</td>
+<td>Mac backup</td>
+<td>Partially read; research papers + Villa Rose journals</td>
+</tr>
+<tr>
+<td>GEDCOM files</td>
+<td>Heald.ged, Clark.ged</td>
+<td>Genealogy</td>
+<td>Read; see <code>reference/family-history-sources.md</code></td>
+</tr>
+<tr>
+<td>Gram’s travel journals</td>
+<td>1960s</td>
+<td>Physical</td>
+<td>Held by Fred (Russia) and Kathie (world trip 1962)</td>
+</tr>
+<tr>
+<td>AncestryDNA raw data</td>
+<td>2016</td>
+<td>SNP text</td>
+<td>Not yet analyzed</td>
+</tr>
+<tr>
+<td>IHCO photo archive</td>
+<td>1908–2008</td>
+<td>TIFF scans</td>
+<td>Inventoried; not yet described</td>
+</tr>
+</tbody>
+</table>
+<h3>Photo Archives</h3>
+<table>
+<thead>
+<tr>
+<th>Source</th>
+<th>Coverage</th>
+<th>Format</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Lightroom catalog</strong> (Extreme SSD 2TB)</td>
+<td>1922–2026, ~99,894 photos</td>
+<td>SQLite catalog + JPEG/RAW</td>
+<td><strong>Primary repository.</strong> Queryable — keywords, collections, dates, face data. See below.</td>
+</tr>
+<tr>
+<td>Desktop Pictures 4+ export</td>
+<td>1983–2000 (mostly), 1,538 images</td>
+<td>JPEG</td>
+<td><strong>Derived subset</strong> — 4+ star photos exported from LR, not a separate collection. Active review project enriching LR photos with stories and identification; 190/1,538 done — <code>photos/</code>.</td>
+</tr>
+<tr>
+<td>Facebook media</td>
+<td>2007–2026, ~300+ images</td>
+<td>JPEG</td>
+<td>In Facebook export; linked via <code>![photo]()</code> in posts.md</td>
+</tr>
+<tr>
+<td>Phil’s Australia slides (1966)</td>
+<td>1966</td>
+<td>Scanned</td>
+<td>Held by Fred</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Lightroom catalog as a primary historical source</strong> <em>(expanded 2026-05-30)</em></p>
+<p>Location: <code>/Volumes/Extreme SSD 2TB/Pictures/Fred Photos/Lightroom Catalog-2-2-v13-3-2.lrcat</code><br>
+Format: SQLite database — query directly with <code>sqlite3 &quot;file:[path]?mode=ro&quot; &quot;SELECT ...&quot;</code><br>
+Scale: ~99,894 photos, 1922–2026. Well-organized with named collections, people tags, and some captions.</p>
+<p><strong>What the catalog contains:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Data type</th>
+<th>Table(s)</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Collections</strong></td>
+<td><code>AgLibraryCollection</code>, <code>AgLibraryCollectionImage</code></td>
+<td>Named events with date-prefix names (e.g., <code>1993-07-04 Boston</code>, <code>000903_BMK2K</code>). The single best gap-year chronology source.</td>
+</tr>
+<tr>
+<td><strong>People tags</strong></td>
+<td><code>AgLibraryKeyword</code> (keywordType=‘person’), <code>AgLibraryKeywordImage</code></td>
+<td>Named individuals with first/last photo dates and photo counts. Confirms when people entered and exited documented periods.</td>
+</tr>
+<tr>
+<td><strong>Capture dates</strong></td>
+<td><code>Adobe_images.captureTime</code></td>
+<td>ISO timestamps on all photos; queryable by year/month/day.</td>
+</tr>
+<tr>
+<td><strong>Captions</strong></td>
+<td><code>AgLibraryIPTC.caption</code></td>
+<td>Manually entered on some photos; sparse but substantive where present.</td>
+</tr>
+<tr>
+<td><strong>Camera models</strong></td>
+<td><code>AgHarvestedExifMetadata</code>, <code>AgInternedExifCameraModel</code></td>
+<td>Equipment succession over time; useful for dating undated photos by camera era.</td>
+</tr>
+<tr>
+<td><strong>Other-photographer photos</strong></td>
+<td>Collections named <code>_otherpeoples</code>, <code>_mariepierre</code>, etc.; keyword <code>Other People's</code></td>
+<td>Fred imported other people’s photos; these are tagged by source, not subject.</td>
+</tr>
+<tr>
+<td><strong>Face detection</strong></td>
+<td><code>AgLibraryFace</code>, <code>AgLibraryKeywordFace</code></td>
+<td>LR face detection applied to the full library; “Unnamed Face” = 9,551 entries. Useful for cross-reference but not reliable on its own — LR misidentifies.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Use cases discovered 2026-05-30:</strong></p>
+<ol>
+<li>
+<p><strong>Gap-year chronology</strong> — Collection names are the most complete record of what Fred was doing in 2000–2004. Before this discovery, those years were largely undocumented. Collection names confirmed: Boston Dooffest (July 4, 1993), BM years 1998–2004, Maui (June 2002), Florida (Feb 1997), and dozens of other events with no other source.</p>
+</li>
+<li>
+<p><strong>People timeline</strong> — Query first/last photo date per person to see when they entered Fred’s documented world. Confirmed: Becke first appears September 2001 (BM 2001); Pamarie first appears April 2004; Sally Thornhill from September 2001.</p>
+</li>
+<li>
+<p><strong>Resolving photo dates</strong> — Cross-reference an undated scan against LR collections by matching visual content, people, and era. See <code>photos/date-questions.md</code> for open cases and <code>reference/lr-journal-crossref.md</code> for established links.</p>
+</li>
+<li>
+<p><strong>Face reference set</strong> — When a Desktop Photos review photo has an uncertain ID, query LR for confirmed photos of the suspected person from the same period. Example: 12 Pamarie-tagged photos from BM 2006 serve as a face-reference set.</p>
+</li>
+<li>
+<p><strong>Camera dating</strong> — Camera model in EXIF data helps date undated scanned photos by exclusion. E950 era = 2000–2001; E4500 era = 2002–2004; D70 era = 2005+.</p>
+</li>
+</ol>
+<p><strong>Cross-reference approach (Desktop Photos vs. LR digital):</strong> No filename overlap — Desktop Pictures were scanned 2025 with sequential scanner names. Match by: identifying the event in a review session (“this looks like BM 2003”) → query LR collection → use resulting photos as reference.</p>
+<h3>Audio Recordings</h3>
+<table>
+<thead>
+<tr>
+<th>Source</th>
+<th>Coverage</th>
+<th>Format</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Voicemails (saved)</td>
+<td>Ongoing</td>
+<td>Audio files (m4a, mp3, wav)</td>
+<td>Not yet collected or transcribed</td>
+</tr>
+<tr>
+<td>Recorded conversations</td>
+<td>Ongoing</td>
+<td>Audio files</td>
+<td>Not yet collected or transcribed</td>
+</tr>
+<tr>
+<td>Phone/video call recordings</td>
+<td>Ongoing</td>
+<td>Audio files</td>
+<td>Not yet collected or transcribed</td>
+</tr>
+</tbody>
+</table>
+<p>These are high-value biographical sources — a saved voicemail from a parent, a recorded conversation with a family member, captures voice and speech patterns that no written source preserves. Entirely Whisper-compatible: extract audio, run transcription, result is a timestamped text primary source.</p>
+<p><strong>For a generic user:</strong> saved voicemails on a phone can be exported via apps like Google Voice export, Visual Voicemail backup tools, or direct file access on some Android devices. iOS voicemails can be shared from the Phone app. Once as an audio file, the pipeline is identical to video transcription.</p>
+<p><strong>Next step for this project:</strong> collect any saved voicemails or call recordings into <code>audio/</code> (a directory not yet created); transcribe with the same whisper-cli pipeline.</p>
+<h3>Video Archives</h3>
+<table>
+<thead>
+<tr>
+<th>Source</th>
+<th>Coverage</th>
+<th>Format</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Videos Archive</strong> (4TB Archive drive)</td>
+<td>1994–2025, 1,856 files</td>
+<td>MOV/MP4/AVI/DV/MTS</td>
+<td>Indexed 2026-06-01 → <code>videos/videos-index.jsonl</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Folder breakdown:</strong> Dylan Phone Movies (679), _Dylan (492), _pets (197), Quadcopter Movies (150), Burning Man Movies (142), _misc (82), Jack Hyatt (39), Hanen Videos 2015 (19), _diaries (19), _unsorted (11), Chloe’s Wedding (9), Heald Movies (8), 2008 Movies (6), Diane’s Tattoo (2), 940630 Mister H’s.mpg (root — San Pedro dinner party, June 30, 1994).</p>
+<p><strong>What the index contains:</strong> path, filename, folder, date (metadata or filename-derived), duration, size, codec, resolution, inferred who/where/description, bio_flag. The <code>notes</code> and <code>when</code> fields are blank — available for manual annotation as files are reviewed.</p>
+<p><strong>Content gap:</strong> The index is metadata-only. Video <em>content</em> — what was said, who appears on screen, what happened — is not yet described. This is the largest gap between this source type and others. See Methods below.</p>
+<p><strong>What we can do now:</strong></p>
+<ul>
+<li><strong>Metadata extraction</strong> — date, duration, codec, resolution via <code>mdls</code>/<code>ffprobe</code>. Reliable and fast (done).</li>
+<li><strong>Frame extraction</strong> — <code>ffmpeg -ss [time] -vframes 1</code> pulls a still from any point. Useful for identifying content, confirming faces, or picking representative images.</li>
+<li><strong>Filename/folder inference</strong> — who, where, and occasion inferred from path. Accuracy is high for named folders (_Dylan, _pets) and low for generic camera-roll names (IMG_XXXX).</li>
+<li><strong>Audio transcription</strong> — Whisper (OpenAI, open-source, runs locally) can transcribe speech from any video file. This works now. Accuracy is good for clear speech; lower for ambient noise, overlapping voices, or non-English.</li>
+<li><strong>Format assessment and conversion</strong> — <code>ffmpeg</code> batch-converts at-risk codecs to H.264. Runnable as a one-time cleanup job.</li>
+</ul>
+<p><strong>What’s coming (near-future, possibly already available):</strong></p>
+<ul>
+<li><strong>Transcript extraction at scale</strong> — Whisper or equivalent over the full 1,856-file corpus. Would create a searchable text layer for every video that has speech. For the Hanen therapy sessions, Dylan diaries, and video journals, this would be transformative — the content would become as searchable as journal text.</li>
+<li><strong>Frame-by-frame description</strong> — Vision models can describe video frames in sequence. A scene-change-detected frame grid per video gives a rough visual summary without playing the file. Already possible with ffmpeg (scene detection) + Claude vision.</li>
+<li><strong>Person identification in frames</strong> — Cross-reference extracted frames against LR face set. Not reliable autonomously, but AI can narrow candidates for human confirmation.</li>
+<li><strong>Content summarization</strong> — Once transcripts exist, summarize what was said in a 30-minute home video in 3 sentences. This is a standard LLM task once the transcript is available.</li>
+<li><strong>Search across the corpus</strong> — With transcripts + descriptions, “find all videos where Dylan mentions Stick Fluffy” becomes a grep. Without them, that information is locked in the files.</li>
+</ul>
+<p><strong>Recommended next steps (priority order):</strong></p>
+<ol>
+<li><s>Run Whisper over <code>Hanen Videos 2015</code></s> — <strong>Done 2026-06-01.</strong> 19 files transcribed to <code>videos/hanen-transcripts/</code>. Content: Becke + therapist Masala working with Dylan age ~1. Ball rolling, Little Blue Truck book, shape sorting, letter recognition, songs. Directly biographical — documents Dylan’s developmental baseline.</li>
+<li><s>Run Whisper over <code>_diaries</code></s> — <strong>Done 2026-06-01.</strong> 18/19 transcribed (1 corrupt file). Fred’s own Sanyo camera video diaries (~2009–2014); largest files 39 and 41 minutes. Output: <code>videos/diaries-transcripts/</code>.</li>
+<li>Frame-extract key files in <code>_pets</code> for Dora, Pasquale biography</li>
+<li>Batch-convert the 37 at-risk codec files (see Format Risk below)</li>
+<li>Review <code>Jack Hyatt</code> folder (39 files, unknown content)</li>
+</ol>
+<hr>
+<h3>Lessons Learned: Bulk Video Transcription (2026-06-01)</h3>
+<p>Transcribing video at scale is possible and the pipeline works well — but a phone camera roll is not a diary. Running Whisper over everything produces a lot of noise. <strong>Target specific videos rather than bulk-transcribing a whole library.</strong></p>
+<p><strong>What you’ll find in a camera roll:</strong></p>
+<ul>
+<li><strong>Live Photos</strong> — Every iPhone photo since ~2015 also generates a 2–3 second MOV file. These are the dominant file type in most libraries (78% of LightroomMasters was ≤3s). No useful audio. Filter by duration before transcribing.</li>
+<li><strong>TV/YouTube audio</strong> — Phone left on while something plays on TV, or Dylan recording YouTube. Transcribes as convincing but completely irrelevant text (The Voice, game commentary, etc.). Hard to auto-detect; catch during reading pass.</li>
+<li><strong>Game audio</strong> — Same problem; often produces coherent-sounding but context-free dialog.</li>
+<li><strong>Drone footage</strong> — DJI files (prefix <code>DJI_</code>): even when audio is present, it’s propeller noise. Skip entirely.</li>
+<li><strong>Hallucination loops</strong> — When Whisper encounters silence or unclear audio, it sometimes latches onto one phrase and repeats it dozens of times. Detectable: many lines, ≤3 unique.</li>
+<li><strong>Blank audio / annotations only</strong> — <code>[BLANK_AUDIO]</code>, <code>(upbeat music)</code>, etc. Auto-deletable.</li>
+</ul>
+<p><strong>What survives and is worth it:</strong></p>
+<ul>
+<li>Intentionally filmed conversations, family moments, birthday parties</li>
+<li>Events (weddings, celebrations) — the Kip/Anette wedding ceremony, 2018, was captured in full</li>
+<li>Video diary entries — Fred’s Sanyo camera diaries (2008–2010) are the richest source in the collection</li>
+<li>Anything where someone is clearly speaking to the camera or to another named person</li>
+</ul>
+<p><strong>Practical filters (in order):</strong></p>
+<ol>
+<li><strong>Duration &gt; 3s</strong> — eliminates Live Photos</li>
+<li><strong>Skip DJI_ prefix</strong> — eliminates drone/Osmo footage</li>
+<li><strong>Post-transcription cleanup:</strong> delete single-line results, annotation-only files, and hallucination loops (&gt;5 lines, ≤3 unique)</li>
+<li><strong>Reading pass:</strong> discard TV/game audio manually</li>
+</ol>
+<p><strong>Signal-to-noise in practice:</strong> In LightroomMasters (6,319 files), roughly 20% survived duration filtering, and of those transcripts, roughly 30–40% contained genuinely useful biographical content. The effort is worth it for the gems — but go in knowing that most of what you get back is the ambient noise of a life, not the signal.</p>
+<p><strong>Source link convention:</strong> Each transcript should have a <code># source: /path/to/original.MOV</code> header line so the video is recoverable. Add <code># people: Name, Name</code> when you know who’s on screen. These are point-in-time path references — valid at time of transcription, may not survive file moves.</p>
+<p><strong>Scripts:</strong> <code>videos/_work2/index_lr.sh</code>, <code>transcribe_lr.sh</code>, <code>cleanup.sh</code>, <code>process_transcripts.sh</code></p>
+<p><strong>Format risk:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Codec / Format</th>
+<th>Count</th>
+<th>Risk</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>H.264 (MOV/MP4)</td>
+<td>1,686</td>
+<td>None</td>
+<td>Safe for decades</td>
+</tr>
+<tr>
+<td>MPEG-1 Video</td>
+<td>20</td>
+<td>Low</td>
+<td>Readable everywhere; convert eventually</td>
+</tr>
+<tr>
+<td>MPEG-2 Video</td>
+<td>8</td>
+<td>Low</td>
+<td>DVD-era; readable</td>
+</tr>
+<tr>
+<td>DV (<code>.dv</code> files)</td>
+<td>35</td>
+<td><strong>Medium</strong></td>
+<td>Camcorder format, increasingly orphaned; batch-convert to H.264</td>
+</tr>
+<tr>
+<td>H.263</td>
+<td>1</td>
+<td><strong>High</strong></td>
+<td>1990s video conferencing codec; convert now</td>
+</tr>
+<tr>
+<td>Apple Intermediate Codec</td>
+<td>1</td>
+<td><strong>Medium</strong></td>
+<td>Apple-proprietary edit codec; convert now</td>
+</tr>
+</tbody>
+</table>
+<p><em>Full format analysis: <code>videos/videos-index.md</code></em></p>
+<p>The broader format-obsolescence note in the Challenges section below applies here: DV in particular is following the same trajectory as WDBNMSWD word processor files — currently readable, but the window is not infinite. The DV batch conversion is a one-afternoon <code>ffmpeg</code> job.</p>
+<p><strong>Generalizability to other photo libraries:</strong></p>
+<p>This approach works with any photo management application that uses a SQLite catalog:</p>
+<ul>
+<li><strong>Apple Photos</strong> (iPhoto/Photos.app): <code>~/Pictures/Photos Library.photoslibrary/database/Photos.sqlite</code> — contains similar tables for albums (≈ collections), people (face clusters), keywords, and EXIF data. Schema differs but same SQLite approach applies.</li>
+<li><strong>Google Photos</strong> (via Takeout): No local SQLite, but the metadata JSON files exported with each photo contain album membership, timestamps, and description fields — queryable with a simple script.</li>
+<li><strong>digiKam</strong>: Uses SQLite (digikam4.db) with similar collection/tag/face structure.</li>
+<li><strong>Capture One</strong>: Catalog is SQLite-based.</li>
+</ul>
+<p>The general principle: any photo library software that organizes photos into named albums/collections with dates is a chronological event log, not just a photo viewer. The organization the user did at import time is historical data. Query it as such.</p>
+<hr>
+<h2>Methods</h2>
+<h3>PDF Vision OCR (scanned letters)</h3>
+<p><strong>Tool:</strong> Claude Sonnet (vision API) via subagent<br>
+<strong>Process:</strong> Agent reads each PDF image, transcribes verbatim, writes structured markdown to <code>letters/_transcripts/</code>. Physical description noted, uncertain readings marked <code>[word?]</code>.<br>
+<strong>Quality:</strong> Sonnet used (not Haiku) for handwritten/typewritten letter accuracy.<br>
+<strong>Output format:</strong> See <code>letters/conventions.md</code></p>
+<h3>Old Mac Word Processor Recovery</h3>
+<p><strong>Tool:</strong> <code>strings</code> (resource fork), <code>textutil -convert txt</code>, LibreOffice<br>
+<strong>Recoverable:</strong> CDFV2, RTF, plain text, resource-fork ASCII<br>
+<strong>Unrecoverable (without Classic Mac emulator):</strong> WDBNMSWD, TEXTMSWD, TEXTMWII, TEXTMACA<br>
+<strong>Notes:</strong> Most 1992–1997 files are in unrecoverable formats. 1985–1991 largely recoverable.</p>
+<h3>Archive Extraction Scripts</h3>
+<p><strong>Generic scripts</strong> (any user of that platform would need these) live in <code>sources-and-methods/workflows/scripts/</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Script</th>
+<th>Purpose</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>extract-facebook.py</code></td>
+<td>Facebook JSON archive → year files + topic files</td>
+<td>✅</td>
+</tr>
+<tr>
+<td><code>extract-obtainium-sql.py</code></td>
+<td>SQL blog dump → post files</td>
+<td>✅</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Type-specific scripts</strong> live in each data type’s <code>_work/workflows/scripts/</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Script</th>
+<th>Home</th>
+<th>Purpose</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>extract-mbox.py</code></td>
+<td><code>email/workflows/scripts/</code></td>
+<td>MBOX → monthly text files</td>
+<td>✅</td>
+</tr>
+<tr>
+<td><code>extract-archive-journals.sh</code></td>
+<td><code>journals/workflows/scripts/</code></td>
+<td>Year archives → <code>_work/archive/</code></td>
+<td>✅</td>
+</tr>
+<tr>
+<td><code>organize-letters.py</code></td>
+<td><code>letters/workflows/scripts/</code></td>
+<td>Letter file organization</td>
+<td>✅</td>
+</tr>
+</tbody>
+</table>
+<h3>AI Model Selection — Use Minimal Viable Model</h3>
+<p>A general principle for this project and any similar life-archive project:</p>
+<p><strong>Use the smallest model that can do the job.</strong> Heavy batch processing should run as subagents using the cheapest capable model — typically Haiku. Reserve larger models (Sonnet, Opus) for synthesis, judgment calls, and work that requires nuance.</p>
+<table>
+<thead>
+<tr>
+<th>Task type</th>
+<th>Model</th>
+<th>Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Batch journal analysis (extract facts by category)</td>
+<td><strong>Haiku</strong></td>
+<td>Text-only, repetitive structure, high volume</td>
+</tr>
+<tr>
+<td>Letter transcription (handwritten/typewritten OCR)</td>
+<td><strong>Sonnet</strong></td>
+<td>Vision required; accuracy matters; handwriting is hard</td>
+</tr>
+<tr>
+<td>Photo description (faces, context, content)</td>
+<td><strong>Sonnet</strong></td>
+<td>Vision required; identification needs reliability</td>
+</tr>
+<tr>
+<td>Video transcription</td>
+<td><strong>whisper-cli</strong> (local, not Claude)</td>
+<td>Not an LLM task — dedicated ASR tool is faster and cheaper</td>
+</tr>
+<tr>
+<td>Synthesis (autobiography drafting, portrait writing)</td>
+<td><strong>Sonnet or Opus</strong></td>
+<td>Judgment, voice, nuance — worth the cost</td>
+</tr>
+<tr>
+<td>Quick lookups, file operations, shell scripts</td>
+<td><strong>Haiku</strong></td>
+<td>No reasoning required</td>
+</tr>
+<tr>
+<td>Triage passes (email, social media, large corpora)</td>
+<td><strong>Haiku</strong></td>
+<td>Pattern recognition at scale; human reviews output</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Subagent pattern:</strong> Spawn a Haiku subagent with a batch of files and a structured output format. Collect results. Review in the main context. This keeps the main conversation context clean and makes large-scale processing practical.</p>
+<p><strong>Example prompt for a Haiku subagent:</strong></p>
+<blockquote>
+<p><em>“Read these 10 journal files. For each, extract: dates mentioned, people named, places, key events, emotional tone (one word). Output as JSON, one object per file.”</em></p>
+</blockquote>
+<p>For a generic user: the same principle applies regardless of archive size. Even a small personal archive benefits from separating cheap batch extraction from expensive synthesis — the extraction creates the raw material; the synthesis is where the meaning gets made.</p>
+<h3>Discovery: AI Journal Analysis (Haiku subagents)</h3>
+<p><strong>Tool:</strong> Claude Haiku (cost-efficient, text-only)<br>
+<strong>Process:</strong> Agent reads year journal files, extracts biographical facts by category (geography, work, relationships, vehicles, key events), writes to <code>self-analysis/journal-notes-YYYY.md</code><br>
+<strong>Completed:</strong> 1999, 2002, 2004<br>
+<strong>Pending:</strong> 2000, 2001, 2003, 2005, 2006, 2007+</p>
+<h3>Photo search for a person — two tiers</h3>
+<p><strong>Default (cheap):</strong> search the <em>processed</em> photo records first, every time — <code>photos/photo-reviews.jsonl</code> (reviewed favorites, with <code>who</code>/<code>description</code>/<code>lr_people</code>/<code>lr_tags</code>). Covers the curated set.</p>
+<p><strong>Expensive option:</strong> query the <strong>full Lightroom catalog</strong> (<code>…/Lightroom Catalog-*.lrcat</code> — a SQLite DB on the archive SSD) only when the processed records come up empty for someone and you specifically need their images. <strong>This relies on the photos having been face-/keyword-tagged in Lightroom</strong> — untagged photos won’t surface no matter how many exist.</p>
+<ul>
+<li>Find the keyword: <code>SELECT id_local,name FROM AgLibraryKeyword WHERE name LIKE '%Name%';</code></li>
+<li>Gauge volume (some people have dozens — “you’ll get too many”): filter keepers by rating, <code>… AND ai.rating=4</code>.</li>
+<li>Resolve full paths: <code>AgLibraryKeywordImage</code> → <code>Adobe_images</code> → <code>AgLibraryFile</code> → <code>AgLibraryFolder</code> → <code>AgLibraryRootFolder</code> (<code>absolutePath || pathFromRoot || idx_filename</code>).</li>
+<li>Copy candidates locally and <em>view</em> them to choose (capture dates are often the <strong>scan</strong> date, not the photo date).</li>
+<li>Apply the young/old/action selection; skip group shots.</li>
+<li>Cost: the SSD must be mounted; read-only queries; dozens of images + visual review per person — deliberate, not default.</li>
+</ul>
+<h3>The Pipeline</h3>
+<pre><code>Source material (physical or digital)
+    ↓  Triage        sort, prioritize, decide what to process and when
+    ↓  Discovery     identify, annotate, surface facts — &quot;what is this?&quot;
+    ↓  Self-analysis aggregate discoveries into structured thematic docs
+    ↓  Narrative     autobiography chapters, portrait docs
+</code></pre>
+<p><strong>Triage</strong> — decide what to work on. Sort sources by value and effort. Some things (email corpora, large photo sets) need triage before any other step. Output: a prioritized queue and rough notes on what’s there.</p>
+<p><strong>Discovery</strong> — look at a source and find things. Transcribe letters, identify photos, watch video clips, read journal passages. Output: transcriptions, annotations, <code>photo-reviews.jsonl</code> entries, session notes. <em>Discovery yields facts — preserve them immediately in <code>people.md</code> and <code>personal-history.md</code> rather than letting them strand in session notes. This is the key discipline: discovery should almost eliminate the need for a separate analysis pass.</em></p>
+<p><strong>Self-analysis</strong> — aggregate what discovery found into thematic structured docs. <code>self-analysis/relationships.md</code>, <code>self-analysis/burning-man.md</code>, <code>_reference/personal-history.md</code>, <code>people/source/people.md</code>. Output: organized factual record ready to inform narrative.</p>
+<p><strong>Narrative</strong> — write the autobiography. Draw from self-analysis docs, not raw sources. Portrait docs, chapter drafts. Output: <code>autobiography/</code> and <code>people/source/portraits/</code>.</p>
+<p><strong>Key principle:</strong> Each layer cites the layer below it, not the raw source. An autobiography chapter cites a processed file (e.g., <code>britt-letters-1991.md</code>), not the raw PDF scan. This keeps citations navigable.</p>
+<p><strong>For a generic user:</strong> the pipeline is the same regardless of archive size. Even a small personal project benefits from separating these steps. The temptation is to jump from discovery straight to narrative — but the self-analysis layer is what makes the narrative coherent across a life’s worth of material.</p>
+<h3>The Feedback Loop (source → article → back to source)</h3>
+<p>The pipeline is linear on paper; in practice it’s a <strong>loop</strong>. Per item (a person, a photo, a recipe):</p>
+<pre><code>_source/   RAW          the raw material — GEDCOM, scans, photo files, journals…
+                        — plus intermediate cleanup that's still &quot;getting raw into
+                        usable shape&quot; (scan → OCR; GEDCOM extraction). Many raws can
+                        feed one item (gedcom + photos + letters + journals → a person).
+   ↓ process
+_target/   DATA RECORD  ONE cleaned, linked record per item. Knows about its sources —
+                        cites/links back to them. Ugly is fine; it's working data.
+   ↓ extract
+article    OUTPUT       the wiki article, generated from the data record. Does NOT care
+                        about sources — it works from prepared data.
+   ↓ review
+comment    FEEDBACK     the user reads the article and comments/corrects in the
+                        per-article review box (→ review-questions.md).
+   ↺ flows back to the top
+                        Substantive corrections go to the data record (or to _source
+                        if it's a raw-data fix) — NOT just the article. The article is
+                        then re-derived. The loop closes; the record gets smarter each pass.
+</code></pre>
+<p><strong>Feed corrections to the top, not the story.</strong> The article is a derivative; editing it directly desyncs it from its source and the fix is lost on the next regeneration. A <em>fact</em> correction (e.g. “a tractor accident killed him; the fistula was the hospital finishing it, not the cause”) belongs in the data record — which regenerates the article, so every future use draws the corrected fact. <em>Prose</em> polish (a trite opener, a clumsy sentence) can be fixed in the article itself; substance flows up.</p>
+<p><strong>Derivative vs. source.</strong> A per-person <em>photo list</em> (crosslinked from the photos source) is a <strong>derivative</strong> — regenerable, sits beside the data record, never hand-edited. The <em>data record</em> is the curated source-of-truth the article reads from. Keep the two distinct.</p>
+<p><strong>Naming standard:</strong> <code>source/</code> = raw + intermediate · <code>_target/</code> = the cleaned/linked data record · the article (in wikifred) is the output. <em>(Older docs below still say <code>_work/source/</code>; <code>_source</code>/<code>_target</code> is the going-forward standard.)</em></p>
+<h3>Project Directory Structure Convention</h3>
+<p>Each source type (photos, videos, letters, etc.) has its own top-level directory. Within each:</p>
+<pre><code>[type]/
+  _work/
+    _source/      raw files, or symlinks to large files on external drives
+    _scripts/     processing tools (Perl, Python, shell)
+    _sessions/    review session logs
+    _transcripts/ derived text output (whisper, OCR) — organized by source folder
+  [type]-index.jsonl   master index
+  handoff.md
+  README.md
+</code></pre>
+<p><strong>Copy vs. link:</strong> What goes in <code>_work/source/</code> depends on size:</p>
+<ul>
+<li><strong>Small sources</strong> (letters, documents): copy the file — project is self-contained, readable offline</li>
+<li><strong>Large sources</strong> (videos, photos): symlink to the external drive path — project holds the derived work product (transcripts, annotations, JSONL) while source stays on the archive drive</li>
+</ul>
+<p>The symlink approach means <code>source/</code> always shows what was processed and where to find it, without duplicating hundreds of gigabytes. The project remains useful even when the drive is unmounted — transcripts and indexes are always available.</p>
+<p><strong>What lives at the root</strong> (not in <code>_work/</code>): stable outputs — the master index JSONL, README, conventions, handoff, TODO. These are the things you navigate to directly; <code>_work/</code> is the machinery behind them.</p>
+<h3>Video Transcription (Speech-to-Text)</h3>
+<p><strong>Tool:</strong> <code>whisper-cli</code> from <code>whisper-cpp</code> (Homebrew) — open-source, runs fully locally, no data leaves the machine.<br>
+<strong>Model:</strong> <code>~/whisper-models/ggml-base.en.bin</code> (142MB, English-optimized). Larger model <code>large-v3</code> (~3GB) available for higher accuracy if needed.<br>
+<strong>Pipeline:</strong></p>
+<pre><code>video file (.MP4 / .MOV / .MTS / .AVI)
+    ↓  ffmpeg -ar 16000 -ac 1 -c:a pcm_s16le
+16kHz mono WAV
+    ↓  whisper-cli -m ggml-base.en.bin
+timestamped transcript (.txt)
+</code></pre>
+<p><strong>Speed:</strong> ~5–6× realtime on M2. A 40-minute video takes ~8 minutes.<br>
+<strong>Quality:</strong> Good for clear speech; mishears on toddler speech, overlapping voices, strong ambient noise. Common pattern: “duck” → “fuck” when said by a toddler. Context resolves most errors.<br>
+<strong>Output format:</strong> One <code>.txt</code> per video, lines like <code>[00:01:23.000 --&gt; 00:01:25.000]   text here</code>. Functions as both transcript and time index.</p>
+<p><strong>Cross-source recovery:</strong> Video transcripts regularly surface biographical details that didn’t make it into written records — names, events, context mentioned in passing on camera that were never written down, or that appear in journals not yet analyzed. When a transcript yields a new fact, update <code>people.md</code> or <code>personal-history.md</code> immediately. Don’t wait for a full journal analysis pass that may never come.</p>
+<p><strong>What transcription unlocks:</strong></p>
+<ul>
+<li><strong>Video diary entries</strong> become journal-equivalent primary sources — searchable, citable, usable in autobiography chapters exactly like written journals</li>
+<li><strong>Therapy recordings</strong> document developmental baseline and progress — Hanen sessions (2015) show Dylan age ~1 working on language, motor, book engagement</li>
+<li><strong>Family home videos</strong> yield biographical facts: who’s present, what’s said, what’s happening — equivalent to a journal entry for events that weren’t otherwise recorded</li>
+<li><strong>Phil’s DV tapes</strong> (once digitized) would add his voice narrating real estate and family events — potentially significant for family history</li>
+</ul>
+<p><strong>Completed:</strong></p>
+<ul>
+<li><code>Hanen Videos 2015/</code> — 19 files → <code>videos/hanen-transcripts/</code></li>
+<li><code>_diaries/</code> — in progress (2026-06-01) → <code>videos/diaries-transcripts/</code></li>
+</ul>
+<p><strong>Reuse script:</strong> <code>/tmp/diaries_transcribe.sh</code> — change <code>SOURCE_DIR</code> and <code>OUT_DIR</code> to process any folder. Skips files already transcribed.</p>
+<p><strong>Generalizability:</strong> This pipeline works for any spoken-word video archive. The only requirements are <code>ffmpeg</code> and <code>whisper-cpp</code> (both via Homebrew). The <code>base.en</code> model is sufficient for most archival speech; <code>large-v3</code> for difficult audio.</p>
+<h3>Provenance and Citations</h3>
+<p>All processed files, synthesis documents, and autobiography chapters should cite their sources using the conventions in <code>self-analysis/citation-conventions.md</code>.</p>
+<p><strong>Summary:</strong></p>
+<ul>
+<li>Autobiography chapters: formal footnotes → <code>[^slug]: processed-file.md — date/item</code></li>
+<li>Analysis/ files and portraits: inline source tags → <code>*(src: filename.md · date)*</code></li>
+<li>Portrait “Sources” lines: retained as high-level summary even when inline tags are present</li>
+</ul>
+<p><strong>Challenge:</strong> Retroactive citation is labor-intensive. The convention was established 2026-05-28; documents created before that date have Sources lines but not inline tags. Backfill during normal work — add tags when reading or updating a document, not as a dedicated pass.</p>
+<p><strong>Challenge:</strong> For large processed files (journal-archives, Facebook posts.md), locating a specific passage requires a stable identifier other than line numbers (which rot on edit). Convention: use date headers or short quoted search strings as locators. See <code>self-analysis/citation-conventions.md</code> for full guidance.</p>
+<hr>
+<h2>Coverage State (as of 2026-05-27)</h2>
+<h3>Letters (scanned PDFs): ~40% transcribed</h3>
+<ul>
+<li><strong>Done:</strong> 1965–1980 (partial), 1981–1984 Webb era, 1984–1988 Pomona era (partial), 1990 (~80%), 1991 (~60%)</li>
+<li><strong>In progress:</strong> 1992 not yet started</li>
+<li><strong>Not started:</strong> 1993–2026 (except scattered high-value items)</li>
+</ul>
+<h3>Recovered digital originals: ~60% read</h3>
+<ul>
+<li><strong>Done:</strong> 1985–1991 most files</li>
+<li><strong>Partial:</strong> 1992, 1994, 1995, 1998</li>
+<li><strong>Blocked:</strong> 1996–1997 (TEXTMSWD/WDBNMSWD unrecoverable)</li>
+</ul>
+<h3>Journal analysis: ~15% processed</h3>
+<ul>
+<li><strong>Done:</strong> 1999, 2002, 2004 notes files</li>
+<li><strong>Pending:</strong> 2000, 2001, 2003, 2005–2012 (all readable, not analyzed)</li>
+<li><strong>Not started:</strong> 2013–2026 (Apple Notes corpus — read but not formally analyzed)</li>
+</ul>
+<h3>Email archives: 0% — pipeline (not yet executed)</h3>
+<ol>
+<li>Triage by sender — identify high-value correspondents (family, significant relationships, major life events)</li>
+<li>For each high-value thread: read, extract biographical facts → <code>personal-history.md</code>, relationship data → <code>relationships.md</code></li>
+<li>Mine for stories → <code>autobiography/drafts/</code>; update <code>people.md</code> with new entries</li>
+<li>Low-value bulk (newsletters, work, spam): skip or summarize year-level only</li>
+<li>Source: <code>email/source/</code> (organized by month); use <code>grep</code> or <code>mbox</code> reader to search by sender/date</li>
+</ol>
+<h3>Facebook comments + messages: 0% — pipeline (not yet executed)</h3>
+<ol>
+<li>Comments: sample cross-section by year; note recurring themes, voice, relationships; add insights to <code>self-analysis/</code> files</li>
+<li>Messages: prioritize long threads with significant people; extract relationship data → <code>relationships.md</code>; look for stories not captured elsewhere</li>
+<li>Source: <code>facebook/source/messages/</code>; already extracted</li>
+</ol>
+<h3>Yelp: 0% — pipeline (script not yet written)</h3>
+<ol>
+<li>Write extraction script: parse <code>yelp/source/Yelp/html/user_review.html</code> → structured markdown (date, business, rating, review text)</li>
+<li>Organize by year → <code>yelp/reviews/YYYY.md</code></li>
+<li>Mine for autobiography material: places Fred lived, aesthetic sensibility, recurring themes → <code>yelp/analysis/yelp-notes.md</code></li>
+<li>Cross-reference with personal-history.md (confirm locations, timeline)</li>
+</ol>
+<h3>Apple Notes: partially analyzed — pipeline</h3>
+<ol>
+<li>Source: <code>notes/notes-index.jsonl</code> (indexed); raw notes in Apple Notes / iCloud</li>
+<li>For each note: classify (journal/fragment, reference, todo, other)</li>
+<li>Journal-class notes → <code>journals/originals/YYYY/MM/</code> appropriate file</li>
+<li>Reference notes → check if already in <code>_reference/</code> docs; merge if not</li>
+<li>High-value fragments → <code>fragments.md</code></li>
+</ol>
+<h3>Physical journals (1991–1994+): not started — pipeline</h3>
+<ol>
+<li>Scan each volume — one-pass flatbed scan per page</li>
+<li>OCR with standard tool (tesseract or similar); create raw text file per volume</li>
+<li>Run journal analysis pipeline (same as archive journals): extract biographical facts by category</li>
+<li>Add to <code>journals/_by-year/</code> structure; update <code>personal-history.md</code></li>
+<li><strong>Bottleneck:</strong> physical access required; in storage</li>
+</ol>
+<h3>GEDCOM genealogy: not started — pipeline</h3>
+<ol>
+<li>Parse <code>Heald.ged</code> and <code>Clark.ged</code> with <code>python-gedcom</code> or similar</li>
+<li>Extract: names, dates, relationships → structured format</li>
+<li>Add key ancestors to <code>people/source/people.md</code> (flag: genealogy source)</li>
+<li>Cross-reference with existing <code>personal-history.md</code> family entries; fill gaps</li>
+<li><strong>Bottleneck:</strong> 4TB Archive drive required</li>
+</ol>
+<h3>Facebook posts: Fully synthesized (2007–2026) — see <code>self-analysis/facebook-notes-YYYY.md</code></h3>
+<h3>Quora: Fully mined 2026-06-02 — see <code>quora/_processed/mining-notes.md</code></h3>
+<p><strong>Quora mining pipeline (repeatable):</strong></p>
+<ol>
+<li>Read all topic files (<code>autobiography.md</code>, <code>wit.md</code>, <code>vehicles.md</code>, <code>burning-man.md</code>, <code>aviation.md</code>, <code>food.md</code>, <code>technology.md</code>, <code>philosophy.md</code>, <code>politics.md</code>)</li>
+<li>Create <code>quora/_processed/mining-notes.md</code> — categorize gems: autobiography stories, biographical facts, self-analysis material, wit/fragments</li>
+<li>Process each category to destination:
+<ul>
+<li>Stories → <code>autobiography/drafts/[story-name].md</code></li>
+<li>Facts → <code>_reference/personal-history.md</code> (BM, aviation, vehicles sections)</li>
+<li>Self-analysis → appropriate <code>self-analysis/</code> file with source citation</li>
+<li>Wit/fragments → <code>journals/originals/YYYY/MM/fragments.md</code></li>
+<li>People → <code>people/source/people.md</code></li>
+</ul>
+</li>
+<li>Mark each item ✓/→ in mining-notes; update project-status.md</li>
+</ol>
+<h3>Facebook comments + messages / Obtainium: Extracted, not systematically mined</h3>
+<hr>
+<h2>Ongoing Updates — Living Archives</h2>
+<p>For a living person, the archive is never finished. Journals, photos, videos, letters, and social media all accumulate continuously. Good indexing serves two purposes: it documents what’s there <em>now</em>, and it makes it easy to spot what’s <em>new</em>.</p>
+<p><strong>The update cycle:</strong></p>
+<pre><code>Index built → new material arrives → diff against index → process new items
+</code></pre>
+<p>For each source type, “processing” means running the full pipeline: Triage → Discovery → Self-analysis → Narrative updates as warranted.</p>
+<p><strong>Practical triggers:</strong></p>
+<ul>
+<li><strong>Journals:</strong> monthly — when a month is complete, check Apple Notes export against <code>source/</code>, import anything new, run discovery pass, update <code>people.md</code> and <code>personal-history.md</code> with new facts</li>
+<li><strong>Photos:</strong> batch — when a shoot or event is complete, run against LR catalog, add to review queue</li>
+<li><strong>Videos:</strong> as shot — import to archive, add to <code>videos-index.jsonl</code>, transcribe if speech-rich</li>
+<li><strong>Email:</strong> quarterly or after significant periods — triage new months from the mbox</li>
+<li><strong>Social media:</strong> annually — re-export and diff against prior export</li>
+</ul>
+<p><strong>Why indexing matters for updates:</strong> A file-level index (like <code>videos-index.jsonl</code>) with dates makes it trivial to find what’s been added since the last processing pass — query for records after the last-processed date. Without an index, every update requires re-scanning the whole archive.</p>
+<p><strong>“Process” as a term:</strong> Fred uses <em>process</em> to mean the full pipeline from raw input through triage, discovery, and self-analysis for a given batch of material. It’s not a single step — it’s the whole arc applied to a new batch.</p>
+<hr>
+<h2>Generalizable Reference Patterns</h2>
+<p>Two documents in this project are directly transferable to any life-archive project:</p>
+<p><strong><code>people/source/people.md</code> — People Index</strong>
+A running who’s-who built from all sources as they’re read. One entry per person; sources cited inline (L=letters, J=journals, etc.). Grows organically — add an entry when a name first appears, flesh it out as more sources are read. Convention: when a blog, website, or social media profile is found for someone, add it to their entry.</p>
+<p>For a generic user: start with the people who appear most often in your earliest sources and work outward. Don’t try to be comprehensive upfront — let it build from reading.</p>
+<p><strong><code>_reference/personal-history.md</code> — Personal History</strong>
+A structured timeline of the subject’s own life: geography, career, relationships, vehicles, recurring themes. Distinct from the autobiography itself — this is the raw chronological record, not the narrative. Updated as new facts emerge from sources; the autobiography draws from it rather than replacing it.</p>
+<p>For a generic user: organize by life domain (geography, work, relationships) rather than strictly chronologically — easier to update incrementally, and the patterns across domains become visible.</p>
+<p><strong><code>_reference/fred-context.md</code> — the lean context layer (two-tier architecture)</strong> <em>(added 2026-06-03)</em>
+people.md and personal-history.md grow into deep, narrative references — exhaustive and right for a human reading them, but too long and signal-diluted to feed an automated process that just needs to resolve “who is Tory?” or “what vehicle is in this 2008 photo?” The fix is a <strong>two-tier</strong> split:</p>
+<ul>
+<li><strong>Tier 1 — deep references</strong> (<code>people.md</code>, <code>personal-history.md</code>, <code>portraits/</code>): authoritative, exhaustive, grow freely. <strong>Update these when new facts emerge.</strong></li>
+<li><strong>Tier 2 — <code>fred-context.md</code></strong>: a single lean file that combines <em>the best of</em> the Tier-1 files — compressed indexes (people one-liners, vehicles→years, places→when, master timeline, relationships) — for fast who/what/when/where lookups.</li>
+</ul>
+<p><strong>The rule for all data-source workflows</strong> (photos, videos, letters, journals, email, Facebook, Quora, etc.): <strong>do the context pass via <code>fred-context.md</code> first.</strong> It self-documents its own escalation (“if it’s not here, see people.md / personal-history.md / portraits”), so source docs only need to point at <code>fred-context.md</code> — don’t repeat the escalation chain in every workflow file.</p>
+<p><strong>Build mode: generated</strong> (preferred over hand-curation — eliminates drift). Because the deep files are prose, compression needs an <em>LLM</em> pass, not a script (“regenerate fred-context.md from people.md + the personal-history tables”). Optional tiny hand-pinned top section, preserved across regenerations. Regenerate whenever the deep files change materially.</p>
+<p>For a generic user: once your people index and personal history get past a few pages, add this lean generated layer so downstream tools read one small file instead of everything.</p>
+<hr>
+<h2>Directory Convention</h2>
+<p>Every source type (people, photos, letters, email, journals, etc.) follows the same structure:</p>
+<pre><code>&lt;type&gt;/
+  README.md              ← orientation: what this type is, what lives here
+  workflows/
+    workflows.md         ← process documentation for this type
+    scripts/             ← automation scripts that execute the workflows
+  source/                ← raw/canonical data; never delete, only add
+  target/                ← synthesized documents, generated on demand
+  archive/               ← superseded material worth keeping
+</code></pre>
+<p><strong>Key rules:</strong></p>
+<ul>
+<li><code>source/</code> is the ground truth. Raw inputs, data records, fetched references. Edits flow here first; everything downstream is generated from it.</li>
+<li><code>target/</code> is lazy — create documents there only when something needs them (a WikiFred article, a research pass, a visit). Don’t pre-generate speculatively.</li>
+<li><code>archive/</code> is anything superseded but not deletable. Old processing runs, prior versions, reference material that’s been incorporated elsewhere.</li>
+<li><code>workflows/workflows.md</code> is the primary process doc. If there are multiple distinct workflows, add them as additional files in <code>workflows/</code>.</li>
+<li><code>scripts/</code> inside <code>workflows/</code> — automation lives with the process documentation that defines it.</li>
+<li><code>README.md</code> at the type root is the entry point: what belongs here, what doesn’t, where to start.</li>
+</ul>
+<p><strong>Feedback loop:</strong> Edits and corrections in downstream products (WikiFred articles, synthesized docs) feed back into <code>source/</code> as the authoritative correction. The pipeline is: source → synthesized (target) → presentation (WikiFred); corrections flow upstream.</p>
+<p><strong>On <code>archive/</code>:</strong> No strong rules on what goes in — anything you don’t want to delete but don’t want in the active directories. Superseded processing runs, old versions of canonical files, material that’s been incorporated elsewhere. The point is it’s still findable.</p>
+<p>For a generic user: this structure applies to any archival type. Start with <code>source/</code> and <code>workflows/</code> — the others appear when you need them.</p>
+<hr>
+<h2>Key Reference Files</h2>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>letters/INDEX.md</code></td>
+<td>Master PDF tracking: source → transcription</td>
+</tr>
+<tr>
+<td><code>letters/conventions.md</code></td>
+<td>Format guide for letter transcription sessions</td>
+</tr>
+<tr>
+<td><code>reference/family-history-sources.md</code></td>
+<td>Deep inventory of family/genealogy sources</td>
+</tr>
+<tr>
+<td><code>reference/4tb-archive-index.md</code></td>
+<td>Full index of 4TB Archive drive</td>
+</tr>
+<tr>
+<td><code>self-analysis/relationships.md</code></td>
+<td>All people: who they are, connection to Fred</td>
+</tr>
+<tr>
+<td><strong><code>reference/fred-context.md</code></strong></td>
+<td><strong>Lean context layer — start here for who/what/when/where (generated; points to the deep files)</strong></td>
+</tr>
+<tr>
+<td><code>reference/personal-history.md</code></td>
+<td>Deep ref: Fred’s biography — timeline, places, events</td>
+</tr>
+<tr>
+<td><code>reference/people.md</code></td>
+<td>Deep ref: full people index (~280 entries)</td>
+</tr>
+<tr>
+<td><code>reference/portraits/</code></td>
+<td>Deepest dives — portrait docs</td>
+</tr>
+<tr>
+<td><code>reference/chapter-concepts.md</code></td>
+<td>Emerging autobiography chapter hooks</td>
+</tr>
+<tr>
+<td><code>self-analysis/citation-conventions.md</code></td>
+<td>How to cite sources; footnote format for autobiography chapters</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2>Physical Journal Inventory (1991–1999)</h2>
+<p>Journals are in a box in storage. Hand-scanning required (every page or fold). Dates and cover descriptions as inventoried by Fred 2026-05-27.</p>
+<table>
+<thead>
+<tr>
+<th>Dates</th>
+<th>Location</th>
+<th>Cover</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>910101–910228</td>
+<td>Aurora CO</td>
+<td>(First Journal)</td>
+</tr>
+<tr>
+<td>910301–910414</td>
+<td>Aurora CO</td>
+<td>—</td>
+</tr>
+<tr>
+<td>910430–910504</td>
+<td>Portugal Trip</td>
+<td>folding Japanese</td>
+</tr>
+<tr>
+<td>910522–911010</td>
+<td>Aurora CO</td>
+<td>—</td>
+</tr>
+<tr>
+<td>911011–920109</td>
+<td>San Francisco</td>
+<td>—</td>
+</tr>
+<tr>
+<td>911031–911101/911227/920109–920331</td>
+<td>San Francisco</td>
+<td>—</td>
+</tr>
+<tr>
+<td>911111–</td>
+<td>San Francisco</td>
+<td>Clippings</td>
+</tr>
+<tr>
+<td>920331–920506</td>
+<td>Campbell CA</td>
+<td>orang</td>
+</tr>
+<tr>
+<td>920507–920603</td>
+<td>Campbell CA</td>
+<td>rhino</td>
+</tr>
+<tr>
+<td>920603–920627</td>
+<td>Campbell CA</td>
+<td>sharks</td>
+</tr>
+<tr>
+<td>920628–920814</td>
+<td>Campbell CA</td>
+<td>parrots</td>
+</tr>
+<tr>
+<td>920814–921111</td>
+<td>Los Angeles</td>
+<td>leaves</td>
+</tr>
+<tr>
+<td>921111–930213</td>
+<td>Los Angeles</td>
+<td>stripes</td>
+</tr>
+<tr>
+<td>930213–930601</td>
+<td>South Pasadena</td>
+<td>branches</td>
+</tr>
+<tr>
+<td>930603–931116</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>931116–940130</td>
+<td>South Pasadena</td>
+<td>—</td>
+</tr>
+<tr>
+<td>940130–940612</td>
+<td>South Pasadena</td>
+<td>—</td>
+</tr>
+<tr>
+<td>940612–941017</td>
+<td>South Pasadena</td>
+<td>—</td>
+</tr>
+<tr>
+<td>941017–941024/941027–941231</td>
+<td>South Pasadena/Vista</td>
+<td>african print</td>
+</tr>
+<tr>
+<td>950101–950218</td>
+<td>Vista</td>
+<td>escher</td>
+</tr>
+<tr>
+<td>950219–950508</td>
+<td>Vista</td>
+<td>dk green</td>
+</tr>
+<tr>
+<td>950508–950706/950807–950821</td>
+<td>—</td>
+<td>homme du monde (dk green)</td>
+</tr>
+<tr>
+<td>9507</td>
+<td>Monterey (with Tory)</td>
+<td>—</td>
+</tr>
+<tr>
+<td>960129–991124</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>99</td>
+<td>—</td>
+<td>Newton/misc computer?</td>
+</tr>
+<tr>
+<td>00</td>
+<td>—</td>
+<td>Misc computer</td>
+</tr>
+<tr>
+<td>01</td>
+<td>—</td>
+<td>Misc computer</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Geographic corrections implied by journal dates</strong> (updates prior assumptions):</p>
+<ul>
+<li>Fred left Aurora CO: ~May 22, 1991 (after Portugal trip)</li>
+<li>San Francisco: Oct 1991 – Mar 1992</li>
+<li><strong>Campbell CA</strong>: Mar–Aug 1992 (Santa Clara County / Silicon Valley — not previously known)</li>
+<li>Los Angeles: Aug–Nov 1992</li>
+<li>South Pasadena: Nov 1992 onwards (consistent with Dec 1992 change-of-address card)</li>
+<li>Vista CA: late 1994 – mid 1995</li>
+<li>“Tory” = Victoria Paul: Monterey trip companion, July 1995</li>
+</ul>
+<hr>
+<h2>The Archaeology of Communication <em>(added 2026-05-31)</em></h2>
+<p>This project spans roughly 60 years of Fred’s life across four or five distinct communication regimes. Each regime has a different preservation rate, a different social function, and requires different analytical methods. Understanding these differences is essential to interpreting the sources correctly.</p>
+<h3>The regimes</h3>
+<p><strong>1. Telephone and paper letters (~1965–1995)</strong></p>
+<p>The dominant medium for personal communication. Letters were written with care, often revised, and preserved selectively — the recipient decided what to keep. Telephone calls left no record at all.</p>
+<p><em>What survives:</em> A biased sample. Letters that were saved were saved for a reason — importance, sentiment, or accident. The archive is richest where someone (Fred, Phil, Elise, Gramp) was a habitual keeper. What’s absent: every casual conversation, every phone call. The texture of daily life is almost entirely missing; what survives is the considered version.</p>
+<p><em>Methods implication:</em> Read letters for what was worth writing down, not for comprehensive coverage. The gaps are as significant as the text. A two-month silence in the correspondence may mean nothing (phone calls) or everything (estrangement).</p>
+<p><strong>2. Email (~1995–2010)</strong></p>
+<p>Shifted personal correspondence to near-real-time written exchange. Email was more casual than letters but still <em>addressed to a specific person</em> — it retained the intimacy and context of correspondence while lowering the threshold for sending. The volume exploded. Fred’s archive contains ~46,000 messages spanning 2001–2026, with the highest density in 2001–2007.</p>
+<p><em>What survives:</em> Nearly everything sent and received, if exported. No caller ID problem, no memory problem. But the inverse bias of letters applies: because everything was preserved, the signal-to-noise ratio is low. Commercial email, mailing lists, and logistics traffic overwhelm personal content.</p>
+<p><em>The golden window:</em> 2001–2007 is the richest autobiographical period in the email archive. After ~2007, personal communication progressively migrated to Facebook and later to other platforms, leaving email for logistics and professional correspondence. The archive thins not because life got quieter but because the venue changed.</p>
+<p><em>Methods implication:</em> Subject-line triage is essential. Within any month, maybe 15–20% of emails are autobiographically significant. The rest is noise. A second pass after the first triage reliably finds things the first pass missed. See <code>gmail/handoff.md</code> for the working methodology.</p>
+<p><strong>3. Social media (~2007–present)</strong></p>
+<p>Facebook became Fred’s primary personal broadcast medium from roughly 2007 onward. It serves a different social function than either letters or email: <em>it addresses everyone simultaneously</em>, with no specific recipient. The communication is curated for a mixed audience (close friends, acquaintances, family, colleagues) rather than tailored to one person.</p>
+<p><em>What this means for interpretation:</em></p>
+<ul>
+<li>A post is a public performance as much as a communication</li>
+<li>The emotional register is different — more guarded, more wit, less vulnerability</li>
+<li>A one-line quote may be the only written evidence of a whole interior period</li>
+<li>Absence from posting is not absence from living</li>
+<li>What’s <em>not</em> posted is often as significant as what is</li>
+</ul>
+<p><em>The newspaper test:</em> Social media posts are closer to newspaper columns than to letters. They’re not lies, but they’re edited. The journals and emails from the same period are the unedited version.</p>
+<p><em>What survives:</em> Fred’s Facebook archive contains 13,348 posts and 10,899 comments (2007–2026), all synthesized into <code>self-analysis/facebook-notes-YYYY.md</code>. Unlike email, the archive is nearly complete — Facebook preserves everything. The challenge is interpretation, not recovery.</p>
+<p><strong>4. AI-mediated communication (~2025–?)</strong></p>
+<p>Fred now communicates significantly <em>through</em> and <em>with</em> AI assistants — drafting, analyzing, and in these sessions, narrating his own life to a system that retains context across conversations. This is a new thing. It isn’t broadcast (like social media) or private correspondence (like letters or email); it’s more like thinking out loud to an unusually attentive interlocutor.</p>
+<p>For this project specifically: the Claude conversations are themselves a primary source. Observations Fred makes in passing during archive triage (“sorry, late-stage bitterness creeping in”; “I try to keep that in perspective”) are candid in a way that neither social media nor formal correspondence tends to be. They’re worth capturing.</p>
+<p>What comes next is genuinely unclear. AI agents communicating with other AI agents on behalf of users is already technically feasible — scheduling, negotiation, information exchange between autonomous systems. Whether this constitutes “communication” in the human sense (and whether it leaves any record worth reading) is an open question. If it does leave records, they will look nothing like letters or emails or Facebook posts. They will be transactional logs — and the autobiography of that period will require yet another analytical method.</p>
+<p><em>For now:</em> The project’s primary sources for post-2007 life are: Facebook posts, journals (Apple Notes from 2013), and email (logistics/professional). The inner life of 2007–2013 is substantially less documented than the 2001–2006 period. This is a genuine archival gap, not a method failure.</p>
+<hr>
+<h3>Summary: What each medium preserves</h3>
+<table>
+<thead>
+<tr>
+<th>Medium</th>
+<th>What it preserves</th>
+<th>What it loses</th>
+<th>Bias</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Phone calls</td>
+<td>Nothing</td>
+<td>Everything</td>
+<td>Total loss</td>
+</tr>
+<tr>
+<td>Paper letters</td>
+<td>Considered thought; selected correspondence</td>
+<td>Casual conversation; unsaved letters</td>
+<td>Saved = significant</td>
+</tr>
+<tr>
+<td>Email</td>
+<td>Near-complete record of written exchange</td>
+<td>Phone calls; in-person conversation</td>
+<td>Noise overwhelms signal</td>
+</tr>
+<tr>
+<td>Social media</td>
+<td>Public persona; broadcast content; timing</td>
+<td>Interior life; private exchanges</td>
+<td>Performance bias</td>
+</tr>
+<tr>
+<td>AI conversation</td>
+<td>Candid thinking-out-loud</td>
+<td>Depends on what’s logged/exported</td>
+<td>Potentially the most honest register</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<p>The following are challenges that anyone doing a similar project should anticipate:</p>
+<p><strong>Format obsolescence.</strong> Digital files from the 1980s–1990s are often in unrecoverable formats (Word for Mac WDBNMSWD, etc.). The window for recovering them with classic Mac emulators (Basilisk II, etc.) is closing as the software and hardware become harder to run. Prioritize these early.</p>
+<p><strong>Platform fragmentation.</strong> Journals across 30 years span Newton exports, Word for Mac, Apple Notes, and probably other platforms. Each requires different extraction methods. Build a comprehensive inventory before assuming you know what you have.</p>
+<p><strong>Photo identification.</strong> AI can read image content but cannot reliably identify people by face. Any photo archive requires human annotation. Plan for iterative review sessions rather than batch processing.</p>
+<p><strong>Public/private split.</strong> Social media (Facebook, Twitter) captures the public persona, not the inner life. The contrast between what’s posted and what’s journaled is analytically valuable — but you have to hold both simultaneously. Neither source alone is complete.</p>
+<p><strong>Citation provenance.</strong> Claiming something happened is easy; citing exactly where you found it becomes crucial in autobiography. Establish a citation convention early — it is much harder to retrofit. See <code>self-analysis/citation-conventions.md</code> for this project’s convention.</p>
+<p><strong>Oral history window.</strong> Living family members and friends have knowledge that exists nowhere in the written record. This window closes. Fred’s project has Elise, Amy, Kathie, and various friends who haven’t been formally interviewed. Prioritize oral history before the record closes.</p>
+<hr>
+<h2>Known Gaps and Limitations</h2>
+<ul>
+<li><strong>1992–1998 digital originals</strong>: Most unrecoverable without Classic Mac emulation</li>
+<li><strong>Physical journals 1991–1994</strong>: In storage, not digitized</li>
+<li><strong>Email corpus</strong>: 46,000+ messages extracted, zero processed</li>
+<li><strong>Photos</strong>: No systematic approach yet; requires Fred’s annotation for people identification</li>
+<li><strong>Oral history</strong>: Living family members (Kathie, Amy, Elise) not yet formally interviewed</li>
+<li><strong>Gram’s world-trip journal (1962)</strong>: Kathie has it; not yet accessed</li>
+<li><strong>Gramp’s unread papers</strong>: Canis Dirus series, Condensed Smilodon, others on SSD</li>
+</ul>
+<hr>
+<p><em>For methods specific to family history/genealogy research, see <code>reference/family-history-sources.md</code>.</em><br>
+<em>For autobiography structure, see <code>reference/chapter-concepts.md</code>.</em></p>
+
+  </div>
+</article>
+
+    </main>
+
+    <footer class="site-foot">
+      <span>A life, threaded.</span>
+      <span class="foot-comment">
+        <a id="comment-link" href="mailto:justfred@obtainium.org">Comment</a>
+        <span class="foot-email"> · justfred@obtainium.org</span>
+      </span>
+    </footer>
+
+    <script>window.WF_BASE = "/wiki/";</script>
+    <script src="/wiki/pagefind/pagefind-ui.js"></script>
+    <script>if (document.getElementById("search")) new PagefindUI({ element: "#search", bundlePath: "/wiki/pagefind/", showImages: false });</script>
+    <script src="/wiki/js/wikifred.js" type="module"></script>
+    <script data-goatcounter="https://obtainium.goatcounter.com/count" async="" src="//gc.zgo.at/count.js"></script>
+  </body>
+</html>

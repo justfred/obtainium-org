@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex, nofollow">
+    <title>The Archive Playbook · WikiFred</title>
+    <link rel="stylesheet" href="/wiki/css/style.css">
+    <link rel="stylesheet" href="/wiki/pagefind/pagefind-ui.css">
+  </head>
+  <body data-rotate="0">
+    <header class="site-head">
+      <a class="brand" href="/wiki/" id="brand-random">WikiFred</a>
+      <nav class="top-links">
+        <a href="/wiki/browse/">Index</a>
+        <a href="/wiki/guides/">Sources &amp; Methods</a>
+        <a href="/wiki/recent/">New</a>
+        <a href="/wiki/search/">🔍 Search</a>
+        <a href="/wiki/" id="header-random" title="random article">🎲 Random</a>
+        
+      </nav>
+    </header>
+
+    <main>
+      <article class="guide">
+  <header class="guide-head">
+    <p class="kicker">Sources &amp; Methods</p>
+    <h1>The Archive Playbook</h1>
+    <p class="lede">How to process a person&#39;s life archive, start to finish.</p>
+  </header>
+
+  <nav class="guide-nav">
+    <a href="/wiki/guides/">← All Guides</a>
+  </nav>
+
+  <div class="guide-body">
+    <h1>The Archive Playbook</h1>
+<h2>How to process a person’s life archive, start to finish</h2>
+<p><em>Created 2026-06-02, distilled from Fred’s project (letters, journals, email, Facebook, Quora, Yelp, photos, videos). This is the <strong>sequence</strong> — what to do, in what order, and why. For the how-to of each method (OCR, Whisper, mbox extraction, LR catalog queries, model selection), see <a href="sources-and-methods.md"><code>sources-and-methods.md</code></a>, the field guide this playbook points into.</em></p>
+<p><strong>The core lesson from doing it the unsystematic way:</strong> the disciplines below all emerged mid-stream, after the cost of not having them was already paid. Format blockers surfaced one source at a time. <code>people.md</code> got re-reconciled across letters → Facebook → photos because there was no registry first. The pipeline layers were named only after narrative work stalled for lack of a self-analysis layer. <strong>Next person, front-load all of it.</strong> That’s the whole point of this document.</p>
+<hr>
+<h2>The order of operations</h2>
+<p>Do these phases roughly in order. Phases 0–2 are cheap, fast, and save weeks — <strong>never skip them to “get to the good part.”</strong> The temptation is always to jump straight to reading the interesting letters; resist it until the map exists.</p>
+<h3>Phase 0 — Inventory &amp; triage map <em>(before touching any content)</em></h3>
+<p>Build the status table <strong>first</strong>, as the starting artifact — not derived at the end. (This project built it at rev 5, after most of the work. Backwards.)</p>
+<ol>
+<li>List every source: physical and digital, located and rumored. Walk the drives, the cloud, the closets.</li>
+<li>For each: size/count, date span, format, where it physically lives, and access cost (iCloud now / SSD at home / physical retrieval / conversion service).</li>
+<li>Assign each a pipeline stage (○ not started … ✓ synthesized) and a rough value/effort estimate.</li>
+<li>Output = the status table (see <a href="project-status.md"><code>project-status.md</code></a>, regenerable via the <code>project-status</code> skill). This is your map for the whole project.</li>
+</ol>
+<blockquote>
+<p><strong>Discipline: inventory before you dig.</strong> A comprehensive inventory before assuming you know what you have. Platform fragmentation is the rule, not the exception — journals alone spanned Newton, Word for Mac, and Apple Notes.</p>
+</blockquote>
+<h3>Phase 1 — Format triage <em>(decide the blockers early)</em></h3>
+<p>Before processing, answer one question for every source: <strong>what format is this, and what converts it?</strong> Do this as one front-loaded pass, not one stall at a time.</p>
+<ul>
+<li>Sort each source into: <strong>readable now</strong> / <strong>convertible</strong> (tool known) / <strong>at-risk</strong> (readable but format dying) / <strong>blocked</strong> (needs emulator/service).</li>
+<li><strong>Prioritize at-risk formats first</strong> — the recovery window closes. DV tape, old word-processor files (WDBNMSWD/TEXTMWII), firewire camera tapes, DAT all follow the same obsolescence curve. A one-afternoon <code>ffmpeg</code> batch now beats an unrecoverable file later.
+<ul>
+<li><strong>WDBNMSWD (MacWrite) → <code>mwaw2text</code></strong>: <code>brew install libmwaw</code>, then <code>mwaw2text &quot;filename&quot; &gt; out.txt</code>. Text extraction only — formatting ignorable. Supports MacWrite 4.5/II/Pro; handles endianness. Fred’s pre-1996 archive (1987–1990) is this format but <strong>unrecoverable</strong> — backup captured resource fork only, not data fork. Text is gone.</li>
+</ul>
+</li>
+<li>Flag conversion-service items (DAT tapes, firewire capture) early so they can run in parallel with everything else — they have long lead times and cost money.</li>
+</ul>
+<h3>Phase 2 — Scaffolding <em>(set up once, reuse everywhere)</em></h3>
+<p>Stand these up before processing the first source:</p>
+<ul>
+<li><strong>Directory convention</strong> — one top-level dir per source type, each with <code>_work/{_source,_scripts,_sessions,_transcripts}</code> and root-level <code>INDEX</code>/<code>README</code>/<code>handoff</code>. Copy small sources in; symlink large ones. (Full spec in the field guide.)</li>
+<li><strong>People registry</strong> — <code>people/source/people.md</code>, one entry per person, sources tagged inline. <strong>Start it on day one.</strong> It gets mined from every source type repeatedly; building it late means re-reconciling the same names across letters, email, FB, and photos. Add an entry the moment a name first appears; flesh it out as you read.</li>
+<li><strong>Personal-history timeline</strong> — <code>_reference/personal-history.md</code>, organized by life domain (geography, work, relationships, vehicles), not strict chronology — easier to update incrementally.</li>
+<li><strong>Citation convention</strong> — establish it now. Retrofitting citations is labor-intensive and this project is still backfilling tags created before the convention existed. (See <code>self-analysis/citation-conventions.md</code>.)</li>
+</ul>
+<h3>Phase 3 — Process each source through the pipeline</h3>
+<p>For each source, run the four-layer pipeline. <strong>Each layer cites the layer below it, never the raw source.</strong> Full provenance model: <a href="workflows/provenance-pipeline.md"><code>workflows/provenance-pipeline.md</code></a>.</p>
+<p><strong>The source layer is the durable asset.</strong> Targets (wiki, book, EPUB) are renderings of the source layer — ephemeral and regenerable. Build the source records right; the target follows from them. You can wipe any target and regenerate from source, or produce an entirely different target, because the materials are preserved in <code>source/</code> and <code>processed/</code>.</p>
+<p><strong>Directory convention within each source type:</strong></p>
+<ul>
+<li><code>source/</code> — raw originals, never modified</li>
+<li><code>processed/</code> — normalized/extracted working layer; points back to source</li>
+<li><code>target/</code> — output (wiki articles, etc.); points back to processed via <code>source.file</code></li>
+<li><code>archive/</code> — dead ends, superseded files, unreadable formats; investigated and done</li>
+</ul>
+<p><strong>If no source exists, create it.</strong> An article without a source record is a prompt to create one — from memory, research, GEDCOM, photo metadata, whatever is known. Memory-sourced portraits → <code>people/source/portraits/</code>. Photo stubs → <code>photo-reviews.jsonl</code>. The article and source record are co-authored; neither should exist without the other.</p>
+<p><strong>Swim upstream, spawn downstream.</strong> Start at source when generating content. Enumerate source entries → check which are claimed → create articles for unclaimed ones. Never start from articles and try to find their sources retroactively (one-time fix only).</p>
+<pre><code>Triage      sort, prioritize, decide what to process and when
+   ↓
+Discovery   transcribe / identify / read — &quot;what is this?&quot; → facts
+   ↓
+Self-analysis  aggregate facts into thematic structured docs
+   ↓
+Narrative   autobiography chapters, portraits — drawn from self-analysis
+</code></pre>
+<ul>
+<li><strong>Capture facts immediately.</strong> When discovery surfaces a name, date, or event, write it to <code>people.md</code> / <code>personal-history.md</code> <em>in that session</em> — don’t strand it in session notes waiting for an analysis pass that may never come. Good discovery nearly eliminates the need for a separate analysis pass.</li>
+<li><strong>Don’t skip self-analysis.</strong> The pull from discovery straight to narrative is strong; the self-analysis layer is what makes a 60-year narrative coherent.</li>
+<li><strong>Use the minimal viable model.</strong> Haiku subagents for batch extraction/triage; Sonnet for vision (OCR, photo ID); Whisper (local) for audio/video; Sonnet/Opus only for synthesis. (Model-selection table in the field guide.)</li>
+<li><strong>Resumable scripts for anything &gt;20 min.</strong> Design batch jobs to skip already-processed files, start them, let them run overnight, collect results next session. AI sessions don’t persist; scripts do.</li>
+</ul>
+<h3>Phase 4 — Synthesis &amp; narrative</h3>
+<p>Draw from the self-analysis docs to write autobiography chapters and portraits. This is where judgment and voice live — worth the expensive model and the human pass.</p>
+<hr>
+<h2>Cross-cutting disciplines</h2>
+<p>These apply at every phase. They are Fred’s logged corrections — bake them into the method, don’t rediscover them per batch.</p>
+<ul>
+<li>
+<p><strong>Second pass by default.</strong> After completing any triage batch, do a slightly deeper second pass. It reliably finds what the first missed.</p>
+</li>
+<li>
+<p><strong>Err slightly too deep.</strong> When triaging, missing content is worse than a few extra reads. Depth over shallow.</p>
+</li>
+<li>
+<p><strong>Update the handoff at the <em>start</em> of a task,</strong> not just the end — it marks active work in progress if the session is interrupted.</p>
+</li>
+<li>
+<p><strong>Interpret by medium, not just by content.</strong> Each communication regime (letters / email / social media / AI) preserves a different slice and carries a different bias. A two-month gap in letters may mean phone calls; absence from Facebook is not absence from living. (See “The Archaeology of Communication” in the field guide.)</p>
+</li>
+<li>
+<p><strong>Index for the update cycle.</strong> A living person’s archive is never finished. A dated file-level index makes “what’s new since last pass” a query, not a re-scan.</p>
+</li>
+<li>
+<p><strong>Every source needs a defined extraction routine — not ad-hoc AI generation.</strong> Each data source (journals, letters, photos, Facebook, …) gets a documented, repeatable routine for turning source into articles, living either in the source project or in the presentation layer (e.g. WikiFred). Ad-hoc one-shot AI generation produced this project’s worst defects: the <strong>“Monterey chop”</strong> (a journal entry with multiple dated sub-entries split into two articles, the first keeping the <em>whole</em> entry → a duplicated tail), fabricated detail (invented birthdays, a fictional mechanic), and rimshots. A routine must: <strong>segment cleanly</strong> (one journal sub-entry → one article; split on the dated <code>YYMMDD.HHMM</code> markers, no overlap), <strong>link the source</strong>, and <strong>preserve the source’s own words</strong>. Ad-hoc generation is a one-time bootstrap; the routine is what makes it correct and re-runnable. Three corollaries:</p>
+<ul>
+<li><strong>Surgical corrections are welcome.</strong> Once you learn a fact, edit the published article directly — add a known name + wiki-link, fix the source attribution. (E.g. “my friend Rebecca” → <code>[[rebecca-casey|Rebecca]]</code> once photos confirmed Rebecca Casey.)</li>
+<li><strong>One source can hold several stories.</strong> It’s fine to chop <em>part</em> of a journal entry into an article — but then (a) don’t duplicate that part into a sibling article (the Monterey tail), and (b) don’t <em>miss</em> another distinct story sitting in the same entry.</li>
+<li><strong>Cross-reference matches both ways.</strong> When a story↔photo (or story↔source) match is found, record it in BOTH places — the article frontmatter <em>and</em> the source/photo database — so the link is durable and queryable (“which photos still have no story?”).</li>
+</ul>
+</li>
+<li>
+<p><strong>Provenance chain: original → processed → derivative.</strong> Keep the <strong>original</strong> — in the archive if it fits, linked externally (drive path / URL) if it’s massive. Every derivative links back to the <strong>original</strong>, not just the processed copy it was made from. The failure mode (hit on the wiki): articles linked to the <em>processed</em> intermediate, so getting back to the source now requires a search instead of a click. A derivative without a resolvable path to its original is an orphan — you can’t re-check it, and garbles can’t be traced. (See the WikiFred Pinzgauer correction: paraphrased prose with a <code>source:</code> <em>label</em> but no source <em>link</em>.)</p>
+</li>
+<li>
+<p><strong>Sensitive content goes in a dedicated section, never inline.</strong> Any processed doc (portrait, analysis, transcript) that contains sensitive material — private relationships, medical, financial, gender expression, others’ private info — keeps that content in a clearly marked <code>## Personal / do-not-publish</code> section at the end, isolated from the publishable narrative. Cut the line from the body; move it there. This makes the “what can ship?” question a section boundary, not a sentence-by-sentence hunt.</p>
+</li>
+<li>
+<p><strong>Context pass before item pass.</strong> Before processing a batch of items (photos, letters, a journal year), do a context pass first: read the background docs, establish who/where/when for the period, note any known events or people active at that time. Then process items. Context-first identification is dramatically more accurate than item-by-item in isolation — one photo identified correctly anchors the rest of the roll.</p>
+</li>
+<li>
+<p><strong>Sort by source-<em>type</em> for processing; label by <em>medium</em> for provenance.</strong> A single medium can hold multiple source-types, and they route to different pipelines. Every personal archive has at least two buckets, processed differently:</p>
+<ul>
+<li><strong>Journals</strong> — dated, first-person, reflective prose → processed <strong>chronologically</strong>, mined for narrative/voice. The unit is the <em>entry</em>.</li>
+<li><strong>Notes</strong> — topical, utilitarian, reference (collections, lists, logistics, specs) → processed <strong>by subject/extraction</strong>, rarely chronological. The unit is the <em>subject</em>.
+One medium (e.g. Apple Notes) commonly carries <strong>both</strong> — split it by type into the right project bucket, and keep the medium name as the <code>_work/source/&lt;medium&gt;/</code> subfolder so provenance survives the split. The same medium-name can legitimately appear under two project buckets. (Hand-scanned pages will split the same way: some journal, some note.)</li>
+</ul>
+</li>
+<li>
+<p><strong>Search the big files; don’t load them into context.</strong> Hints, groupings, registries, and the per-item databases (e.g. <code>people-photo-hints.md</code>, <code>photo-groups.md</code>, <code>photo-reviews.jsonl</code>, <code>reference/*</code>, journal years) grow large. <strong>Grep for the matching entry</strong> rather than reading the whole file — usually you only need those lines. Tell subagents to grep, not read wholesale. Read whole only when genuinely necessary. <em>(2026-06-08)</em></p>
+</li>
+<li>
+<p><strong>Cross-domain lookup — it’s all one life.</strong> When a fact isn’t in the directory you’re in or in <code>reference/</code>, look across <strong>other domains</strong> (people, photos, vehicles, letters, journals). The corpus is deeply interconnected; the right fact often lives in another domain’s files. Don’t give up after the local dir. <em>(2026-06-08)</em></p>
+</li>
+<li>
+<p><strong>Canonical home per fact-kind — usually the richest source’s domain, not a generic <code>reference/</code>.</strong> Each kind of cross-cutting fact gets ONE home, and it belongs with whichever domain produces and resolves it. Photos are the richest source for both, so: <strong>date questions → <code>photos/date-questions.md</code></strong> (every entry comes from photo review, resolved against the LR catalog), <strong>event/trip groupings → <code>photos/photo-groups.md</code></strong>. Don’t default these to <code>reference/</code> just because other domains might read them — put them where they’re produced. One event commonly spans <strong>several camera file-sequences</strong> (iPhone <code>IMG_</code> + Fuji <code>DSCF…</code>, sometimes three) — a group unites them; it is not one contiguous filename run. <em>(2026-06-08; date-questions moved photos-local per Fred.)</em></p>
+</li>
+<li>
+<p><strong>Cross-flow is owned by the TARGET, not the producer.</strong> When material from one artifact should enrich another (photo stories → a person/pet portrait; a letter → a portrait), the <strong>destination pulls</strong> it at build/refresh time (e.g. via <code>enrich-portraits</code>, which scans the photo corpus). Don’t push at production time — collect provisionally (e.g. <code>production-notes.md</code>) and let the target gather its own on a sweep. Keeps producers simple and gives each target one place that owns its completeness. <em>(2026-06-08)</em></p>
+</li>
+</ul>
+<hr>
+<h2>The oral-history exception <em>(time-sensitive — do not defer)</em></h2>
+<p>Everything above is about material that already exists and will keep existing. <strong>Living memory will not.</strong> Family and friends hold knowledge that exists nowhere in the written record, and that window closes permanently. Prioritize interviews <em>ahead of</em> archive processing where there’s any risk — the SSD will still be there next year; the person may not.</p>
+<ul>
+<li>Prep contextual <code>questions-for-NAME.md</code> before a visit; scan all sources first so questions are informed and you’re not carrying the library.</li>
+<li>Verify every factual premise in a question; cut anything the subject can answer trivially or that you could answer yourself.</li>
+</ul>
+<hr>
+<h2>Quick-start checklist (new person, day one)</h2>
+<ul>
+<li>[ ] Walk every drive/cloud/closet → list all sources</li>
+<li>[ ] Build the status table (Phase 0)</li>
+<li>[ ] Format-triage every source; flag at-risk + conversion-service items (Phase 1)</li>
+<li>[ ] Stand up directory convention, <code>people.md</code>, <code>personal-history.md</code>, citation convention (Phase 2)</li>
+<li>[ ] Identify living people to interview → schedule before processing (oral-history window)</li>
+<li>[ ] Pick the first source by value/effort → run the pipeline (Phase 3)</li>
+</ul>
+<hr>
+<p><em>This playbook is the procedure; <a href="sources-and-methods.md"><code>sources-and-methods.md</code></a> is the methods reference; <a href="project-status.md"><code>project-status.md</code></a> is the live state. Expand this as the method matures — it’s a starting point, like everything else here.</em></p>
+
+  </div>
+</article>
+
+    </main>
+
+    <footer class="site-foot">
+      <span>A life, threaded.</span>
+      <span class="foot-comment">
+        <a id="comment-link" href="mailto:justfred@obtainium.org">Comment</a>
+        <span class="foot-email"> · justfred@obtainium.org</span>
+      </span>
+    </footer>
+
+    <script>window.WF_BASE = "/wiki/";</script>
+    <script src="/wiki/pagefind/pagefind-ui.js"></script>
+    <script>if (document.getElementById("search")) new PagefindUI({ element: "#search", bundlePath: "/wiki/pagefind/", showImages: false });</script>
+    <script src="/wiki/js/wikifred.js" type="module"></script>
+    <script data-goatcounter="https://obtainium.goatcounter.com/count" async="" src="//gc.zgo.at/count.js"></script>
+  </body>
+</html>
