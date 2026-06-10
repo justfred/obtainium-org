@@ -105,7 +105,7 @@ Explicit membership in named threads. An article can belong to multiple:</p>
 <li>Source threads: <code>src-journal</code>, <code>src-facebook</code>, <code>src-blog</code>, <code>src-yelp</code>, <code>src-autobiography</code>, <code>src-photo-stories</code>, <code>src-journal-summary</code> (needs raw replacement)</li>
 </ul>
 <p><strong>2. Entity tags</strong> (auto-generate entity threads)
-Tags in <code>people:</code>, <code>pets:</code>, <code>places:</code>, <code>vehicles:</code> arrays. Every article tagged with a slug automatically joins that entity’s thread — no declaration needed. E.g. every article with <code>people: [&quot;kip&quot;]</code> becomes part of Kip’s thread.</p>
+Tags in <code>people:</code>, <code>pets:</code>, <code>places:</code>, <code>vehicles:</code> arrays. Every article tagged with a slug automatically joins that entity’s thread — no declaration needed. E.g. every article with <code>people: [&quot;nicholas-corwin&quot;]</code> becomes part of his thread.</p>
 <p><strong>Thread kinds</strong> (controlled in <code>lib/registry.mjs</code>):
 <code>curated</code> · <code>person</code> · <code>pet</code> · <code>toy</code> · <code>place</code> · <code>vehicle</code> · <code>source</code> · <code>topic</code></p>
 <p><code>topic</code> = fallback for unregistered slugs. These work for article nav but are hidden from the browse index. To promote a slug from <code>topic</code> to a proper kind, add it to the registry.</p>
@@ -176,6 +176,12 @@ Tags in <code>people:</code>, <code>pets:</code>, <code>places:</code>, <code>ve
 <li><strong>All other articles</strong> — Fred’s actual words from raw source. Quote or minimally expand. Never paraphrase into a neutral voice.</li>
 <li><strong>Editorial notes</strong> — a <em>soupçon</em> of italics at the bottom of the article body: only when context is genuinely needed, never enough to taste on its own</li>
 </ul>
+<hr>
+<h2>Names &amp; deadnames</h2>
+<p>Display a person’s <strong>current/chosen name</strong> everywhere it is <em>presented</em>: article titles, headings, the registry display name (which drives thread headings and link labels), and slugs.</p>
+<p>In historical article <strong>body text</strong>, the default is to keep the name as it was actually used at the time — the prose stays true to the lived moment. <em>John and I were the ones who did the thing,</em> even if the title now reads <em>“Jane and Fred Did the Thing.”</em> This default yields to the subject’s own preference: if they want the former name fully replaced in the prose too, do that.</p>
+<p><strong>Always keep the original</strong> in source-provenance fields (<code>source.file</code>, <code>entry:</code>) — these must match the source filename/heading, not the display name.</p>
+<p>Worked example: Nicholas Corwin went by “Kip” for decades. Titles, slugs, and his thread/registry name are all <strong>Nicholas Corwin</strong>; the old article bodies still say “Kip” where that’s how it happened.</p>
 <hr>
 <h2>Scrubbing rules (public site)</h2>
 <p><strong>Omit:</strong> romantic/sexual relationships, marriage/separation/divorce, therapy/counseling, substance self-monitoring, gender expression outings, other people’s private medical/financial/relationship info.</p>
