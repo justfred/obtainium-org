@@ -90,10 +90,25 @@ processed personal/family archive.</p>
     ↓  Photos       check photo-reviews.jsonl for matching photos (by people/place/date/topic)
                     — copy matches to src/img/, add to article frontmatter
                     — photo-matches.md has pre-analyzed candidates
+                    — record ALL candidates found (selected + not selected) in the source
+                      file for the subject (memory-notes, portrait source, or equivalent)
+                      NOT in the wiki article itself — wiki articles are output targets
     ↓  Build        eleventy → static HTML; pagefind → search index   (cook)
     ↓  Deploy       rsync _site/ → obtainium.org/wiki/                 (plate &amp; serve)
 </code></pre>
 <p><strong>Critical rule:</strong> Always use Fred’s actual words from the raw source. Never paraphrase.</p>
+<hr>
+<h2>The feedback loop</h2>
+<p>The pipeline above looks one-way but isn’t. Building a wiki article is also a <strong>research pass</strong> — and discoveries made during that pass feed back into the source files.</p>
+<p><strong>The loop:</strong></p>
+<ul>
+<li>Finding photos for an article → record ALL candidates (selected + not) in the source/notes file</li>
+<li>Discovering a new fact while writing → add it to the portrait source or memory-notes</li>
+<li>Fred adds content during review (new quotes, corrections, stories) → goes back into the source, not just the article</li>
+<li>Wiki articles are <strong>output</strong> — they receive content, they don’t store it</li>
+</ul>
+<p><strong>Why this matters:</strong> if photo candidates or new facts only exist in the wiki article, they’re lost the next time the article is regenerated or the session compacts. The source files are the memory; the wiki is the display.</p>
+<p><strong>In practice:</strong> any time you find, select, or decide against a photo — note it in the subject’s source file (memory-notes, portrait source, or equivalent). Same for facts Fred adds during conversation. The article is the last stop, not the only stop.</p>
 <hr>
 <h2>The tagging system</h2>
 <p>Every article carries two kinds of tags in its frontmatter:</p>
