@@ -143,6 +143,7 @@ main {
 .photos figure { margin: 0 0 1.5rem; }
 .photos img { width: 100%; height: auto; border-radius: 0.4rem; }
 .photos figcaption { font-family: var(--font-ui); font-size: 0.8rem; color: var(--ink-soft); margin-top: 0.4rem; }
+.photos .photo-filename { font-family: monospace; font-size: 0.72rem; opacity: 0.6; }
 
 /* --- thread hub / timeline ----------------------------------------------*/
 .kicker, .thread-hub .kicker {
