@@ -244,7 +244,18 @@ Tags in <code>people:</code>, <code>pets:</code>, <code>places:</code>, <code>ve
 <li><strong><code>nsfw: true</code></strong> — not-safe-for-public. Admin sees it; deploy never does.</li>
 </ul>
 <p><strong>Build rule (in code):</strong> deploy = <code>public AND not needs_review AND not nsfw</code>; the admin build shows everything. The “logged-in” middle role (public + login) isn’t separately buildable until logins land.</p>
+<p><strong>NSFW photo filtering from LR export:</strong> When exporting photos from the LR catalog for published stubs, exclude photos tagged with the <strong>NSFW keyword subtree</strong> (LR keyword id=67335 in this catalog). Descendants include: NSFW, Medical, Private, Dresses, Mushrooms. Do NOT use the broader NoPublish tree (id=1628171) — it includes organizational categories (Collections, Events, Burning Man, etc.) that are safe to publish and would produce hundreds of false exclusions. Use album-scoped queries when checking for NSFW tags — basename-only lookup produces false positives from duplicate filenames across different LR folders.</p>
 <p><strong>Editor-comment processing</strong> (review-questions.md): apply the note, then set state and <strong>clear <code>needs_review</code></strong>. A bare <strong>“OK” / “ok to publish” = reviewed &amp; approved → <code>visibility: public</code>.</strong> Dispositions Fred uses: “keep private” → <code>login</code>; “hide this” / admin-only → <code>admin</code>; “split into two” → public part + admin/login part.</p>
+<hr>
+<h2>Travel stubs</h2>
+<p><strong>Naming convention:</strong> <code>YYYY-MM Destination Subject</code> (e.g., <code>2007-07 Santa Fe Blake and Joley's Wedding</code>). Slug follows: <code>2007-07-santa-fe-blake-joley-wedding</code>.</p>
+<p><strong><code>trips</code> thread:</strong> One entry per trip. The trip-overview article gets <code>trips</code> in threads. Day articles within a multi-day trip (e.g., <code>oregon-trip-2024-day-1</code>) get the <strong>trip slug</strong> as their thread but <strong>not</strong> <code>trips</code> — day articles should not clutter the trips timeline. Solo-day trips that have no overview article also get <code>trips</code>.</p>
+<p><strong>Slug rename cascade:</strong> If the trip slug doubles as a thread name referenced by other articles (e.g., day articles), renaming it requires updating all those articles’ <code>threads</code> lists and the registry entry simultaneously. Script it — don’t do it by hand.</p>
+<p><strong>LR collection query types:</strong></p>
+<ul>
+<li><em>Direct collection</em>: <code>c.creationId = 'com.adobe.ag.library.collection'</code> — query <code>AgLibraryCollectionImage</code> directly.</li>
+<li><em>Collection set (older organization)</em>: join parent set → child named <code>'Project Photos'</code> → <code>AgLibraryCollectionImage</code>. Many pre-2010 albums use this structure.</li>
+</ul>
 <hr>
 <h2>Craft rules — lessons learned</h2>
 <p>Hard rules from review passes. Running log of specifics: <code>wikifred/review-feedback.md</code>.</p>

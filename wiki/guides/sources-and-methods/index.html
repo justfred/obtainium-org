@@ -438,6 +438,41 @@ Scale: ~99,894 photos, 1922–2026. Well-organized with named collections, peopl
 </li>
 </ol>
 <p><strong>Cross-reference approach (Desktop Photos vs. LR digital):</strong> No filename overlap — Desktop Pictures were scanned 2025 with sequential scanner names. Match by: identifying the event in a review session (“this looks like BM 2003”) → query LR collection → use resulting photos as reference.</p>
+<p><strong>Photo export from catalog — orientation correction <em>(2026-06-20)</em>:</strong><br>
+<code>sips</code> does not apply LR catalog rotation. After exporting, read <code>Adobe_images.orientation</code> and apply correction:</p>
+<table>
+<thead>
+<tr>
+<th>LR value</th>
+<th>Meaning</th>
+<th><code>sips --rotate</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>AB</code></td>
+<td>normal</td>
+<td>none</td>
+</tr>
+<tr>
+<td><code>BC</code></td>
+<td>90° CW</td>
+<td><code>90</code></td>
+</tr>
+<tr>
+<td><code>CD</code></td>
+<td>180°</td>
+<td><code>180</code></td>
+</tr>
+<tr>
+<td><code>DA</code></td>
+<td>90° CCW</td>
+<td><code>270</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Exception — JPEG source files:</strong> <code>sips</code> <em>does</em> apply the camera’s EXIF orientation when re-encoding JPEG→JPEG (it rotates pixels and clears the EXIF tag). LR’s catalog orientation often mirrors the original EXIF, so applying it again produces a double-rotation. Symptom: portrait shots exported correctly by sips end up sideways after the correction script. Fix: apply catalog rotation only for RAW source files (CR2, NEF, ARW, DNG, etc.), not for JPEG originals from cameras where sips handles it automatically.</p>
+<p><strong>Evenly-spaced photo selection:</strong> when a collection has more 4★ photos than the max (10), pick evenly spaced: <code>step = (len-1)/(n-1)</code>, use <code>{round(i*step) for i in range(n)}</code> as indices. Produces representative coverage without clustering at start/end.</p>
 <h3>Audio Recordings</h3>
 <table>
 <thead>
