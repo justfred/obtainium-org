@@ -981,14 +981,14 @@ A running who’s-who built from all sources as they’re read. One entry per pe
 <p><strong><code>_reference/personal-history.md</code> — Personal History</strong>
 A structured timeline of the subject’s own life: geography, career, relationships, vehicles, recurring themes. Distinct from the autobiography itself — this is the raw chronological record, not the narrative. Updated as new facts emerge from sources; the autobiography draws from it rather than replacing it.</p>
 <p>For a generic user: organize by life domain (geography, work, relationships) rather than strictly chronologically — easier to update incrementally, and the patterns across domains become visible.</p>
-<p><strong><code>_reference/fred-context.md</code> — the lean context layer (two-tier architecture)</strong> <em>(added 2026-06-03)</em>
+<p><strong><code>_reference/context.md</code> — the lean context layer (two-tier architecture)</strong> <em>(added 2026-06-03)</em>
 people.md and personal-history.md grow into deep, narrative references — exhaustive and right for a human reading them, but too long and signal-diluted to feed an automated process that just needs to resolve “who is Tory?” or “what vehicle is in this 2008 photo?” The fix is a <strong>two-tier</strong> split:</p>
 <ul>
 <li><strong>Tier 1 — deep references</strong> (<code>people.md</code>, <code>personal-history.md</code>, <code>portraits/</code>): authoritative, exhaustive, grow freely. <strong>Update these when new facts emerge.</strong></li>
-<li><strong>Tier 2 — <code>fred-context.md</code></strong>: a single lean file that combines <em>the best of</em> the Tier-1 files — compressed indexes (people one-liners, vehicles→years, places→when, master timeline, relationships) — for fast who/what/when/where lookups.</li>
+<li><strong>Tier 2 — <code>context.md</code></strong>: a single lean file that combines <em>the best of</em> the Tier-1 files — compressed indexes (people one-liners, vehicles→years, places→when, master timeline, relationships) — for fast who/what/when/where lookups.</li>
 </ul>
-<p><strong>The rule for all data-source workflows</strong> (photos, videos, letters, journals, email, Facebook, Quora, etc.): <strong>do the context pass via <code>fred-context.md</code> first.</strong> It self-documents its own escalation (“if it’s not here, see people.md / personal-history.md / portraits”), so source docs only need to point at <code>fred-context.md</code> — don’t repeat the escalation chain in every workflow file.</p>
-<p><strong>Build mode: generated</strong> (preferred over hand-curation — eliminates drift). Because the deep files are prose, compression needs an <em>LLM</em> pass, not a script (“regenerate fred-context.md from people.md + the personal-history tables”). Optional tiny hand-pinned top section, preserved across regenerations. Regenerate whenever the deep files change materially.</p>
+<p><strong>The rule for all data-source workflows</strong> (photos, videos, letters, journals, email, Facebook, Quora, etc.): <strong>do the context pass via <code>context.md</code> first.</strong> It self-documents its own escalation (“if it’s not here, see people.md / personal-history.md / portraits”), so source docs only need to point at <code>context.md</code> — don’t repeat the escalation chain in every workflow file.</p>
+<p><strong>Build mode: generated</strong> (preferred over hand-curation — eliminates drift). Because the deep files are prose, compression needs an <em>LLM</em> pass, not a script (“regenerate context.md from people.md + the personal-history tables”). Optional tiny hand-pinned top section, preserved across regenerations. Regenerate whenever the deep files change materially.</p>
 <p>For a generic user: once your people index and personal history get past a few pages, add this lean generated layer so downstream tools read one small file instead of everything.</p>
 <hr>
 <h2>Directory Convention</h2>
@@ -1045,7 +1045,7 @@ people.md and personal-history.md grow into deep, narrative references — exhau
 <td>All people: who they are, connection to Fred</td>
 </tr>
 <tr>
-<td><strong><code>reference/fred-context.md</code></strong></td>
+<td><strong><code>reference/context.md</code></strong></td>
 <td><strong>Lean context layer — start here for who/what/when/where (generated; points to the deep files)</strong></td>
 </tr>
 <tr>
