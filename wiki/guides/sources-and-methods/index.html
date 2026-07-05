@@ -47,6 +47,24 @@
 <h2>Scope</h2>
 <p>This project draws on ~60 years of primary source material: Fred’s own writing across multiple platforms, family documents, personal correspondence, and physical archives. The goal is an autobiography (possibly multi-volume) plus a family history component, with subsidiary products: portrait documents, self-analysis docs, journal entries.</p>
 <hr>
+<h2>Directory Structure</h2>
+<p>Every source directory follows a consistent three-part layout:</p>
+<pre><code>&lt;source&gt;/
+  README.md, CONVENTIONS.md, handoff.md   ← navigation layer
+  source/        ← files as arrived (exports, JSONLs, PDFs, transcripts.jsonl)
+    &lt;subdir&gt;/    ← categorized as needed
+  processed/     ← human-navigable output (digests, transcripts, per-day chunks)
+    &lt;subdir&gt;/    ← categorized as needed
+  workflows/     ← process docs, scripts, how-tos
+</code></pre>
+<p>Large originals (exports, binary files) live on the 4TB Archive at
+<code>/Volumes/4tb Archive/bups/platform-exports/&lt;source&gt;/</code>; the repo’s <code>source/</code> is
+either a lightweight staging area or a README pointing there.</p>
+<p>Cross-domain analysis lives in <code>self-analysis/</code> — not per-source <code>analysis/</code> dirs.</p>
+<p>Subdirectories within <code>source/</code> and <code>processed/</code> are used as needed — e.g.
+<code>videos/source/transcripts/</code> (raw whisper output) and
+<code>videos/processed/transcripts/</code> (cleaned) + <code>videos/processed/summaries/</code>.</p>
+<hr>
 <h2>Source Corpus</h2>
 <blockquote>
 <p><strong>Journals vs. notes — the basic division of a personal archive.</strong> Two kinds of self-authored material, distinguished by <em>what they are</em>, not where they’re stored:</p>
@@ -648,7 +666,7 @@ Scale: ~99,894 photos, 1922–2026. Well-organized with named collections, peopl
 <p><strong>Tool:</strong> Claude Sonnet (vision API) via subagent<br>
 <strong>Process:</strong> Agent reads each PDF image, transcribes verbatim, writes structured markdown to <code>letters/_transcripts/</code>. Physical description noted, uncertain readings marked <code>[word?]</code>.<br>
 <strong>Quality:</strong> Sonnet used (not Haiku) for handwritten/typewritten letter accuracy.<br>
-<strong>Output format:</strong> See <code>letters/conventions.md</code></p>
+<strong>Output format:</strong> See <code>letters/CONVENTIONS.md</code></p>
 <h3>Old Mac Word Processor Recovery</h3>
 <p><strong>Tool:</strong> <code>strings</code> (resource fork), <code>textutil -convert txt</code>, LibreOffice<br>
 <strong>Recoverable:</strong> CDFV2, RTF, plain text, resource-fork ASCII<br>
@@ -708,6 +726,75 @@ Scale: ~99,894 photos, 1922–2026. Well-organized with named collections, peopl
 </tr>
 </tbody>
 </table>
+<h3>iPhone Backup Extraction — voicemails, texts &amp; attachments <em>(added 2026-06-27)</em></h3>
+<p>iPhone backups are a goldmine almost everyone already has and overlooks. A local Finder/iTunes backup
+(<code>~/Library/Application Support/MobileSync/Backup/&lt;UDID&gt;/</code>) contains the device’s <strong>visual voicemail</strong>
+(<code>Library/Voicemail/voicemail.db</code> + <code>.amr</code> recordings) and <strong>all SMS/iMessage</strong> (<code>Library/SMS/sms.db</code></p>
+<ul>
+<li>attachments), fully extractable <strong>offline</strong> — no third-party app, nothing leaves the machine.</li>
+</ul>
+<p><strong>How the backup is laid out.</strong> Files aren’t stored by name; <code>Manifest.db</code> (a SQLite index) maps each
+original path to a hashed <code>fileID</code>, and the actual file lives at <code>backup/&lt;fileID[:2]&gt;/&lt;fileID&gt;</code>. So the
+recipe is always: read <code>Manifest.db</code> → find the path you want → copy the hashed file out.</p>
+<p><strong>Voicemails.</strong> In <code>voicemail.db</code>, the <code>voicemail</code> table has <code>ROWID, sender, date (unixtime), duration, trashed_date</code>; each recording is <code>Library/Voicemail/&lt;ROWID&gt;.amr</code>. Rename to
+<code>Voicemail from &lt;sender&gt; on &lt;date&gt;.amr</code> and transcribe (see <em>Audio Recordings</em> — use <strong>mlx-whisper</strong>,
+~1.4s/file on Apple Silicon, ~12× faster than reloading whisper.cpp per file).</p>
+<p><strong>Texts.</strong> In <code>sms.db</code>: <code>message</code> (text, <code>handle_id</code>, <code>date</code> in <strong>nanoseconds</strong> since 2001-01-01,
+<code>is_from_me</code>, <code>service</code>, <code>cache_roomnames</code> for groups), joined to <code>handle</code> (the phone/email) and to
+<code>attachment</code> via <code>message_attachment_join</code>. Newer rows store text in <code>attributedBody</code> (a streamtyped
+blob) when <code>text</code> is NULL — decode best-effort, and preserve the raw blob (base64) for anything that
+fails so nothing is lost. Attachments are <code>MediaDomain</code> files under <code>Library/SMS/Attachments/...</code>.</p>
+<p><strong>Caller/contact names</strong> come from the Mac’s own <strong>Apple Contacts</strong> — the per-source AddressBook DBs
+<code>~/Library/Application Support/AddressBook/Sources/*/AddressBook-v22.abcddb</code> (join <code>ZABCDPHONENUMBER</code>→
+<code>ZABCDRECORD</code>; the top-level db is empty — names live in the iCloud <em>source</em> dbs). Normalize numbers
+to 10 digits.</p>
+<p><strong>Encrypted backups.</strong> If MDM/work management (or the user) forces “Encrypt local backup,” the manifest
+is locked behind the backup password. Decrypt <strong>offline</strong> with the <code>iOSbackup</code> Python package + the
+password. Encryption changes nothing else about the method.</p>
+<p><strong>Two caveats that shape what you get:</strong></p>
+<ul>
+<li><strong>Visual voicemail only retains undeleted messages</strong>, so each backup is a <em>trailing window</em>, not a
+full timeline. Extract every backup you can find (old devices, Time Machine, external drives) and
+merge — each may cover a different span.</li>
+<li><strong>“Messages in iCloud,” when on, moves the text store to the cloud</strong> and out of local backups (a
+backup will then show only a handful of messages). Older backups predating that setting hold the full
+local history — they’re the goldmine. iCloud-resident messages can’t be read off-disk; recovering
+them means restoring to a device or a forensic downloader.</li>
+</ul>
+<p><strong>Worked result (Fred’s archive):</strong> one unencrypted iPhone 6s Plus backup yielded <strong>44,993 messages
+(2008–2020), 968 contacts, 2,307 attached media</strong> and <strong>118 voicemails (2019–2020)</strong> — including 7 more
+recordings of his late father’s voice that existed nowhere else.</p>
+<p><strong>Storage convention (where the artifacts go):</strong> by-year <em>working originals</em> (<code>.amr</code>, <code>messages-&lt;YYYY&gt;.jsonl</code>,
+attachments) → <code>Documents Archive/&lt;YYYY&gt;_archive/{voicemails,texts}/</code>. The cross-year <em>source-of-source</em>
+artifacts — the <strong>raw device backup itself</strong> (the true original) plus the extracted master DBs
+(<code>sms.db</code>, <code>voicemail.db</code>) — → <code>bups/device-backups/&lt;device&gt;/</code> (one folder per device; the raw backup
+is otherwise single-copy on the Mac’s internal drive). Scripts: <code>extract-texts.py</code>, <code>transcribe-mlx.py</code>
+(resumable). See <code>biography/voicemails/README.md</code>.</p>
+<blockquote>
+<p><strong>⚠️ Lesson (learned the hard way, 2026-06-27): back up before you wipe — or give away — any
+device.</strong> Fred recovered a decade of his own voicemails and 100k+ texts from old iPhone backups. But
+his late father Phil’s old phone was wiped and handed down (no backup) and the backup computer was
+wiped — real losses. The single rule that would have saved those: <strong>make a local backup of any
+phone/computer before erasing, selling, gifting, or letting an account lapse.</strong> <em>But the story turned
+hopeful:</em> Phil’s <strong>new</strong> iPhone, backed up and decrypted, carried a synced <strong>catalog of 12,639 photos
+back to 2001</strong> — proof his iCloud (an ancient <code>@me.com</code> / MobileMe-era account, alive since ~2008) was
+<strong>still live</strong>. ~2,500 full-res photos came straight out of the backup (3.3 GB); the other ~10,000 sit
+in iCloud, retrievable by toggling “Download and Keep Originals” — <em>without signing out.</em> Lessons within
+the lesson: <strong>(a) confirm an account’s real status before assuming loss</strong> (Fred had only feared it was
+terminated); <strong>(b) a device signed into a live iCloud is itself a recovery vector — never sign out
+until you’ve pulled the data down.</strong> Corollary for archivists: the people around you hold the other
+half of your history — have family back up <em>their</em> devices now, while they exist. (iOS 26 backups may
+omit <code>Info.plist</code>, which trips <code>iOSbackup</code>; work around it with a symlinked working dir + a stub
+<code>Info.plist</code> — never edit the original backup.)</p>
+</blockquote>
+<blockquote>
+<p><strong>Reusable prompt:</strong> <em>“I have an iPhone backup at <code>~/Library/Application Support/MobileSync/Backup/</code>.
+Write an offline Python script that reads <code>Manifest.db</code>, extracts the voicemails (<code>voicemail.db</code> +
+<code>.amr</code>) and all texts (<code>sms.db</code> + attachments) — resolving sender names from my Apple Contacts
+AddressBook DBs — and writes them out organized by year. If the backup is encrypted, use the
+<code>iOSbackup</code> package with my backup password. Flag whether ‘Messages in iCloud’ looks enabled (very
+few messages in the store).”</em></p>
+</blockquote>
 <h3>AI Model Selection — Use Minimal Viable Model</h3>
 <p>A general principle for this project and any similar life-archive project:</p>
 <p><strong>Use the smallest model that can do the job.</strong> Heavy batch processing should run as subagents using the cheapest capable model — typically Haiku. Reserve larger models (Sonnet, Opus) for synthesis, judgment calls, and work that requires nuance.</p>
@@ -1029,7 +1116,7 @@ people.md and personal-history.md grow into deep, narrative references — exhau
 <td>Master PDF tracking: source → transcription</td>
 </tr>
 <tr>
-<td><code>letters/conventions.md</code></td>
+<td><code>letters/CONVENTIONS.md</code></td>
 <td>Format guide for letter transcription sessions</td>
 </tr>
 <tr>
@@ -1303,6 +1390,22 @@ people.md and personal-history.md grow into deep, narrative references — exhau
 </tr>
 </tbody>
 </table>
+<hr>
+<h3>The observer effect — reading a private archive is not neutral <em>(note, 2026-06-26)</em></h3>
+<p>A phrase worth keeping (heard on NPR, on language): <strong>“Any time we inscript, we encrypt.”</strong> Writing is already encoding — a private journal arrives pre-ciphered in shorthand, initials, omissions, and a register meant for an audience of one. And like Schrödinger’s cat, the sealed entry sits in a kind of superposition until someone opens the box; <em>the act of reading begins its collapse.</em> Observation here is not passive: to read a private journal is to change it — to fix one reading of an ambiguity the writer left open, to pull the private into a context it was encrypted against.</p>
+<p>Three consequences for a project like this:</p>
+<ul>
+<li>
+<p><strong>Opening one box opens others.</strong> Reading your own journal exposes everyone written <em>about</em> in it — without their voice or consent. The author’s encryption layers (an alias like “patient0,” friends-only locks, initials instead of names, a deliberately semi-private “blog” kept off the indexed web) were the writer <em>pre-managing</em> this collapse. The archivist is the one breaking that seal, decades later, deciding which of those people now gets a visibility flag. Build the <code>public/login/admin</code> model knowing it’s <em>your</em> seal replacing <em>theirs</em>.</p>
+</li>
+<li>
+<p><strong>Reading the dead is a kind of finishing.</strong> The effect is sharpest with a deceased person’s private papers (e.g. letters marked “don’t show to X”). There’s no setting the lid back down; reading is also, quietly, an ending. Let the discomfort be information, not something to suppress.</p>
+</li>
+<li>
+<p><strong>Sealed is not preserved — so the real choice is <em>which</em> destruction.</strong> The counterweight, and the reason to open the boxes anyway: the <em>unopened</em> archive doesn’t stay pristine. It rots — into dead formats (MacWrite II, WDBNMSWD), into 404’d cloud stubs, into silence. Sealed is just a slower kind of gone. The archivist never actually chooses <em>destroy vs. keep pristine</em>; they choose between the slow destruction (format death) and the fast one (cracking the seal so the words outlive the medium). Opening is a controlled demolition that trades the seal for the content.</p>
+</li>
+</ul>
+<p>For regime 4 (AI-mediated), the observer is <em>inside</em> the experiment: these sessions are themselves primary sources, so analyzing the archive is also adding to it.</p>
 <hr>
 <p>The following are challenges that anyone doing a similar project should anticipate:</p>
 <p><strong>Format obsolescence.</strong> Digital files from the 1980s–1990s are often in unrecoverable formats (Word for Mac WDBNMSWD, etc.). The window for recovering them with classic Mac emulators (Basilisk II, etc.) is closing as the software and hardware become harder to run. Prioritize these early.</p>

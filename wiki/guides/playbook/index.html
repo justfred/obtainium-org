@@ -80,6 +80,18 @@
 <li><code>target/</code> — output (wiki articles, etc.); points back to processed via <code>source.file</code></li>
 <li><code>archive/</code> — dead ends, superseded files, unreadable formats; investigated and done</li>
 </ul>
+<p><strong>Layer organization: provenance in, logical-unit out.</strong> The standardization step (<code>source/</code> → <code>processed/</code>) is where source-location stops driving structure. <em>(Generalized from journals, 2026-06-25.)</em></p>
+<ul>
+<li><strong><code>source/</code> is organized by provenance</strong> — one subfolder per original medium/location (<code>4TB Archive/</code>, <code>Apple Notes/</code>, <code>LiveJournal/</code>, <code>Gmail/</code>). Raw formats differ wildly and provenance governs trust + scrub depth, so keep staging grouped by <em>where it came from</em>. (This is the “medium as <code>source/&lt;medium&gt;/</code> subfolder” rule above.)</li>
+<li><strong><code>processed/</code> and <code>target/</code> are organized by the source’s natural logical unit — <em>not</em> by provenance.</strong> The unit differs by source-type: journals/letters/email → by <strong>date</strong>; notes/photos/recipes → by <strong>subject or event</strong>. Once a thing is standardized, every consumer (chunking, wiki, analysis) cares about <em>when / what</em>, not <em>where-from</em>. Provenance is <strong>demoted to frontmatter metadata — never lost.</strong> The payoff is a single unified timeline/subject-space across all media.</li>
+<li><strong>Standard frontmatter</strong> on every standardized <code>.md</code> (the metadata that carries provenance forward once it leaves its <code>source/&lt;medium&gt;/</code> folder):<pre><code class="language-yaml">date: 2011-03-04          # sort key for dated sources (or `subject:` for note/topical sources)
+source: apple-notes       # provenance tag — &lt;medium&gt; or &lt;medium&gt;/&lt;era&gt;
+source_path: &quot;…&quot;          # resolvable path/URL to the original (anchors the provenance chain)
+visibility: admin         # public | login | admin — default admin until scrubbed
+</code></pre>
+<code>source_path</code> is the provenance-chain anchor from the discipline below: a derivative without it is an orphan. <code>visibility</code> uses the wikifred model (<code>lib/visibility.mjs</code>).</li>
+<li><strong>Multi-source collisions</strong> — when one date/subject carries entries from two media (a journal day <em>and</em> a LiveJournal post; a letter <em>and</em> an email): keep them as <strong>separate files tagged by <code>source</code></strong>, merge only at <code>target/</code> time. Pre-merging loses the provenance distinction and invites chops.</li>
+</ul>
 <p><strong>If no source exists, create it.</strong> An article without a source record is a prompt to create one — from memory, research, GEDCOM, photo metadata, whatever is known. Memory-sourced portraits → <code>people/source/portraits/</code>. Photo stubs → <code>photo-reviews.jsonl</code>. The article and source record are co-authored; neither should exist without the other.</p>
 <p><strong>Swim upstream, spawn downstream.</strong> Start at source when generating content. Enumerate source entries → check which are claimed → create articles for unclaimed ones. Never start from articles and try to find their sources retroactively (one-time fix only).</p>
 <pre><code>Triage      sort, prioritize, decide what to process and when
