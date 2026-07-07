@@ -68,7 +68,7 @@ manifestPromise.then((manifest) => {
     const render = () => {
       const pick = pickRandom(manifest.all, null);
       featured.innerHTML = pick
-        ? `<a class="feature-card" href="${pick.url}"><span class="feature-go">Read →</span><span class="feature-title">${pick.title}</span></a>`
+        ? `<a class="feature-card" href="${pick.url}"><span class="feature-go">Read →</span><span class="feature-title">${pick.title}</span>${pick.source ? `<span class="feature-source">${pick.source}</span>` : ""}</a>`
         : `<p>No articles yet.</p>`;
     };
     render();

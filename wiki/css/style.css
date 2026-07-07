@@ -211,6 +211,7 @@ main {
 .feature-card:hover { border-color: var(--accent-soft); }
 .feature-go { font-family: var(--font-ui); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-soft); }
 .feature-title { font-size: 1.5rem; color: var(--ink); }
+.feature-source { font-family: var(--font-ui); font-size: 0.68rem; color: var(--ink-soft); font-style: italic; }
 .welcome-actions { display: flex; gap: 0.6rem; justify-content: center; flex-wrap: wrap; }
 
 /* --- search page ---------------------------------------------------------*/
