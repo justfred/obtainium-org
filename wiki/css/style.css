@@ -226,3 +226,43 @@ main {
 }
 
 .article-lifespan{text-align:center;color:#9a9182;font-size:1rem;margin:-.2rem 0 1.2rem;font-variant-numeric:tabular-nums}
+
+/* --- long-form chapter-band layout (opt-in: layout_sections: true) -------*/
+main.main-full { max-width: none; padding: 0; }
+.article.sections .thread-stack { max-width: 56rem; margin: 0 auto 1.5rem; padding: 1.5rem 1.25rem 0; }
+.article.sections .hero { max-width: 56rem; margin: 0 auto; padding: 2rem 1.25rem 2.5rem; text-align: center; }
+.article.sections .hero .article-title { font-size: 2.6rem; }
+
+.progress { height: 3px; background: var(--rule); position: sticky; top: 0; z-index: 15; }
+.progress-fill { height: 100%; background: var(--accent); width: 0%; }
+
+.section-band { position: relative; overflow: hidden; border-top: 1px solid var(--rule); }
+.section-band:nth-of-type(even) { background: var(--paper-2); }
+.section-band:nth-of-type(3n) { background: var(--paper); }
+.chapter-num {
+  position: absolute; top: 2rem; right: 3vw;
+  font-size: min(28vw, 18rem); line-height: 1; font-weight: 400;
+  color: var(--ink); opacity: 0.05; font-family: var(--font-body);
+  pointer-events: none; user-select: none;
+}
+.section-inner { position: relative; z-index: 1; max-width: 62rem; margin: 0 auto; padding: 3.5rem 2.5rem; width: 100%; }
+.section-eyebrow {
+  font-family: var(--font-ui); font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--accent-soft); margin: 0 0 1rem; font-weight: 600;
+}
+.section-band h2 { font-size: clamp(2.2rem, 5vw, 3.4rem); line-height: 1.05; margin: 0 0 1.8rem; color: var(--ink); text-wrap: balance; max-width: 32rem; }
+.section-band p { margin: 0 0 1.15rem; max-width: 42rem; font-size: 1.12rem; }
+.section-band.lede .section-inner { text-align: center; padding-top: 3rem; }
+.section-band.lede p { max-width: 42rem; margin: 0 auto; font-size: 1.4rem; }
+.section-band.lede em { color: var(--ink-soft); }
+
+.section-nav {
+  font-family: var(--font-ui); font-size: 0.85rem; max-width: 62rem; margin: 0 auto;
+  padding: 1.4rem 2.5rem; display: flex; justify-content: space-between; align-items: center;
+  color: var(--ink-soft); gap: 1rem; border-bottom: 1px solid var(--rule);
+}
+.section-nav a { color: var(--link); text-decoration: none; font-weight: 600; }
+.section-nav a:hover { color: var(--accent); }
+.section-nav .pos { font-variant-numeric: tabular-nums; letter-spacing: 0.05em; }
+
+.article.sections .article-source { max-width: 62rem; margin: 2rem auto 0; padding: 0 2.5rem 3rem; }
