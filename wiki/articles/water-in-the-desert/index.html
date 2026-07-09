@@ -20,7 +20,7 @@
       </nav>
     </header>
 
-    <main>
+    <main class="main-full">
       
 
 
@@ -28,7 +28,10 @@
 
 
 
-<article class="article" data-pagefind-body="">
+
+<article class="article sections" data-pagefind-body="">
+  <div class="progress"><div class="progress-fill" data-progress=""></div></div>
+
   
   <div class="thread-stack">
     
@@ -79,36 +82,76 @@
   </div>
 
 
-  <h1 class="article-title">Water in the Desert</h1>
-  <p class="article-date">May 18, 2026</p>
-  
+  <div class="hero">
+    <h1 class="article-title">Water in the Desert</h1>
+    <p class="article-date">May 18, 2026</p>
+    
+  </div>
 
   
-    <div class="photos">
+  <div class="section-band lede" id="s1">
+    
+    <div class="section-inner">
       
+      
+      <p><em>A series of riffs, May 2026.</em></p>
     </div>
+  </div>
+  <div class="section-nav">
+    <span></span>
+    <span class="pos">SECTION 1 OF 4</span>
+    <a href="#s2">Water →</a>
+  </div>
   
-
-  <div class="article-body">
-    <p><em>A series of riffs, May 2026.</em></p>
-<hr>
-<h2>I. The First Riff (May 18)</h2>
-<p>Not a lot of water in the desert, and what there is, is deep underground.</p>
+  <div class="section-band" id="s2">
+    <span class="chapter-num">I</span>
+    <div class="section-inner">
+      <p class="section-eyebrow">Chapter One — May 18</p>
+      <h2>Water</h2>
+      <p>Not a lot of water in the desert, and what there is, is deep underground.</p>
 <p>Desert plants know how to find it.</p>
-<hr>
-<h2>II. Correction (May 20)</h2>
-<p>Most desert plants don’t, actually. They work with what’s shallow and unreliable — the brief pulse after rain, the capillary moisture near the surface. Survival on luck and timing, not depth. And it might not come, and if it does, something else might get there first.</p>
+    </div>
+  </div>
+  <div class="section-nav">
+    <a href="#s1">← Water in the Desert</a>
+    <span class="pos">SECTION 2 OF 4</span>
+    <a href="#s3">Shallow and Deep →</a>
+  </div>
+  
+  <div class="section-band" id="s3">
+    <span class="chapter-num">II</span>
+    <div class="section-inner">
+      <p class="section-eyebrow">Chapter Two — May 20</p>
+      <h2>Shallow and Deep</h2>
+      <p>Most desert plants don’t, actually. They work with what’s shallow and unreliable — the brief pulse after rain, the capillary moisture near the surface. Survival on luck and timing, not depth. And it might not come, and if it does, something else might get there first.</p>
 <p>There’s a whole category of exception: phreatophytes. Desert plants with taproots 20–30 feet long, reaching the actual water table. The champion is the mesquite, whose taproot can go 25 meters down, always reaching permanent water.</p>
 <p>The saguaro goes the opposite direction — roots that spread horizontally as wide as the plant is tall, catching surface rain across as large an area as possible.</p>
 <p>Two strategies. Wide and shallow, or narrow and impossibly deep.</p>
 <p>The plant that reaches the deep water doesn’t look like a survivor. It looks like a tree. It escaped the desert’s terms entirely.</p>
-<hr>
-<h2>III. The Racetrack (May 22)</h2>
-<p>For years no one knew what moved the sailing stones across the Death Valley Racetrack. Long time-lapse cameras finally caught it.</p>
+    </div>
+  </div>
+  <div class="section-nav">
+    <a href="#s2">← Water</a>
+    <span class="pos">SECTION 3 OF 4</span>
+    <a href="#s4">Racetrack →</a>
+  </div>
+  
+  <div class="section-band" id="s4">
+    <span class="chapter-num">III</span>
+    <div class="section-inner">
+      <p class="section-eyebrow">Chapter Three — May 22</p>
+      <h2>Racetrack</h2>
+      <p>For years no one knew what moved the sailing stones across the Death Valley Racetrack. Long time-lapse cameras finally caught it.</p>
 <p>Ice. A thin layer forms around the rocks — possibly melting underneath — and when the wind comes, it blows the ice, which drags the rock across the playa. Then the ice vanishes.</p>
 <p><em>The ice is the part. Not wind, not rock — a temporary ghost of water that moves things and then disappears. What’s left is a furrow across the playa and the question of what caused it. The agent of change that can’t be reconstructed after the fact.</em></p>
-
+    </div>
   </div>
+  <div class="section-nav">
+    <a href="#s3">← Shallow and Deep</a>
+    <span class="pos">SECTION 4 OF 4</span>
+    <span></span>
+  </div>
+  
 
   
   
@@ -121,6 +164,17 @@
   
 
 </article>
+<script>
+(function(){
+  var fill = document.querySelector('[data-progress]');
+  if (!fill) return;
+  window.addEventListener('scroll', function(){
+    var h = document.documentElement.scrollHeight - window.innerHeight;
+    fill.style.width = (h > 0 ? (window.scrollY / h) * 100 : 0) + '%';
+  }, { passive: true });
+})();
+</script>
+
 
 
 
