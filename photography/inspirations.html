@@ -31,15 +31,21 @@
     border-top: 1px solid #e5e7eb;
   }
   .entry:first-of-type { border-top: none; }
+  .entry .photos { display: flex; flex-direction: column; gap: 6px; flex-shrink: 0; }
+  .entry .photos a { display: block; line-height: 0; }
   .entry img {
     width: 200px;
-    height: 200px;
+    height: 130px;
     object-fit: cover;
     border-radius: 2px;
-    flex-shrink: 0;
+    display: block;
   }
+  .entry .photos:has(a:only-child) img { height: 200px; }
   .entry .text { flex: 1; min-width: 0; }
-  .entry h2 { font-size: 1.35rem; font-weight: normal; color: #222; margin-bottom: 0.15rem; }
+  .entry h2 { font-size: 1.35rem; font-weight: normal; color: #222; }
+  .entry .heading-row { display: flex; align-items: center; gap: 10px; margin-bottom: 0.15rem; }
+  .entry .mark { width: 34px; height: 34px; flex-shrink: 0; }
+  .entry h2 { margin-bottom: 0; }
   .entry .era { font-size: 0.85rem; color: #999; margin-bottom: 0.8rem; letter-spacing: 0.02em; }
   .entry .bio { font-size: 0.97rem; color: #444; margin-bottom: 0.8rem; }
   .entry .connection {
@@ -76,7 +82,9 @@
     body { padding: 20px 10px; }
     .container { padding: 30px 24px; }
     .entry { flex-direction: column; gap: 14px; }
-    .entry img { width: 100%; height: auto; max-height: 320px; }
+    .entry a.img-link, .entry .text a { }
+  .entry a:has(img) { display: inline-block; line-height: 0; }
+  .entry img { width: 100%; height: auto; max-height: 320px; }
   }
 </style>
 </head>
@@ -92,9 +100,9 @@
   </p>
 
   <div class="entry">
-    <img src="img/eugene-atget.jpg" alt="Example photo echoing Eugène Atget's style">
+    <div class="photos"><a href="img/Scan-071003-0002_769.jpg" target="_blank" rel="noopener"><img src="img/Scan-071003-0002_769.jpg" alt="Example photo echoing Eugène Atget's style"></a><a href="img/Scan-071003-0007_757.jpg" target="_blank" rel="noopener"><img src="img/Scan-071003-0007_757.jpg" alt="Example photo echoing Eugène Atget's style"></a><a href="img/IMG_5587.jpg" target="_blank" rel="noopener"><img src="img/IMG_5587.jpg" alt="Example photo echoing Eugène Atget's style"></a></div>
     <div class="text">
-      <h2>Eugène Atget</h2>
+      <div class="heading-row"><svg class="mark" viewBox="0 0 64 64"><path d="M8 56 L32 8 L56 56" stroke="#c9a961" stroke-width="2.5" fill="none"/><line x1="32" y1="8" x2="32" y2="56" stroke="#c9a961" stroke-width="1" opacity="0.4"/></svg><h2>Eugène Atget</h2></div>
       <div class="era">active 1890s–1920s</div>
       <p class="bio">Shot deserted Paris streets, shop windows, and stairways with a large-format view camera — mostly as documentation, before "art photography" existed as a category. Man Ray and the Surrealists adopted his work late in his life.</p>
       <div class="connection"><span class="label">The connection</span>Deserted ghost-town streets (Cripple Creek/Victor) — empty-street documentation predates the "ghost sign" genre by a century.</div>
@@ -103,9 +111,9 @@
   </div>
 
   <div class="entry">
-    <img src="img/man-ray.jpg" alt="Example photo echoing Man Ray's style">
+    <div class="photos"><a href="img/DSCF3691.jpg" target="_blank" rel="noopener"><img src="img/DSCF3691.jpg" alt="Example photo echoing Man Ray's style"></a><a href="img/DSC_1314_32386.jpg" target="_blank" rel="noopener"><img src="img/DSC_1314_32386.jpg" alt="Example photo echoing Man Ray's style"></a><a href="img/FredPinz.9901.jpg" target="_blank" rel="noopener"><img src="img/FredPinz.9901.jpg" alt="Example photo echoing Man Ray's style"></a></div>
     <div class="text">
-      <h2>Man Ray</h2>
+      <div class="heading-row"><svg class="mark" viewBox="0 0 64 64"><circle cx="32" cy="32" r="20" fill="#c9a961"/><circle cx="41" cy="25" r="18" fill="#fff"/></svg><h2>Man Ray</h2></div>
       <div class="era">active 1910s–1970s</div>
       <p class="bio">Surrealist photographer — rayographs and solarization, obstruction and distortion as deliberate technique.</p>
       <div class="connection"><span class="label">The connection</span>A frame built around obstruction and surprise, not a clean documentary read — the surrealist instinct rather than the deadpan one.</div>
@@ -114,9 +122,9 @@
   </div>
 
   <div class="entry">
-    <img src="img/norman-rockwell.jpg" alt="Example photo echoing Norman Rockwell's approach">
+    <div class="photos"><a href="img/IMG_5745.jpg" target="_blank" rel="noopener"><img src="img/IMG_5745.jpg" alt="Example photo echoing Norman Rockwell's approach"></a><a href="img/DSCF3858.jpg" target="_blank" rel="noopener"><img src="img/DSCF3858.jpg" alt="Example photo echoing Norman Rockwell's approach"></a><a href="img/DSCF3908.jpg" target="_blank" rel="noopener"><img src="img/DSCF3908.jpg" alt="Example photo echoing Norman Rockwell's approach"></a></div>
     <div class="text">
-      <h2>Norman Rockwell</h2>
+      <div class="heading-row"><svg class="mark" viewBox="0 0 64 64"><rect x="10" y="14" width="44" height="36" rx="6" stroke="#c9a961" stroke-width="2.5" fill="none"/><circle cx="32" cy="32" r="6" fill="#c9a961"/></svg><h2>Norman Rockwell</h2></div>
       <div class="era">active 1910s–1970s</div>
       <p class="bio">Illustrator, not a photographer — included for approach, not technique. Look for the story: a moment, a relationship, an implied narrative, not just a likeness.</p>
       <div class="connection"><span class="label">The connection</span>"It's more of an inspiration for what to do when shooting people — tell a story." A portrait built around a relationship, not just a face.</div>
@@ -125,9 +133,9 @@
   </div>
 
   <div class="entry">
-    <img src="img/weegee.jpg" alt="Example photo echoing Weegee's style">
+    <div class="photos"><a href="img/Scan-070929-0001_310.jpg" target="_blank" rel="noopener"><img src="img/Scan-070929-0001_310.jpg" alt="Example photo echoing Weegee's style"></a><a href="img/DSC_1812_120900.jpg" target="_blank" rel="noopener"><img src="img/DSC_1812_120900.jpg" alt="Example photo echoing Weegee's style"></a><a href="img/DSC_6574.jpg" target="_blank" rel="noopener"><img src="img/DSC_6574.jpg" alt="Example photo echoing Weegee's style"></a></div>
     <div class="text">
-      <h2>Weegee (Arthur Fellig)</h2>
+      <div class="heading-row"><svg class="mark" viewBox="0 0 64 64"><path d="M32 6 L36 26 L56 32 L36 38 L32 58 L28 38 L8 32 L28 26 Z" fill="#c9a961"/></svg><h2>Weegee (Arthur Fellig)</h2></div>
       <div class="era">active 1930s–1940s</div>
       <p class="bio">NYC tabloid crime and nightlife photographer. Speed Graphic and flash, dead-on unflinching shots of crime scenes and street life. Likely-apocryphal source of "f/8 and be there."</p>
       <div class="connection"><span class="label">The connection</span>Unflinching, flash-lit, no attempt to soften or beautify the subject.</div>
@@ -136,9 +144,9 @@
   </div>
 
   <div class="entry">
-    <img src="img/ansel-adams.jpg" alt="Example photo echoing Ansel Adams's style">
+    <div class="photos"><a href="img/DSCF3789.jpg" target="_blank" rel="noopener"><img src="img/DSCF3789.jpg" alt="Example photo echoing Ansel Adams's style"></a><a href="img/DSCF3872.jpg" target="_blank" rel="noopener"><img src="img/DSCF3872.jpg" alt="Example photo echoing Ansel Adams's style"></a><a href="img/IMG_3565.jpg" target="_blank" rel="noopener"><img src="img/IMG_3565.jpg" alt="Example photo echoing Ansel Adams's style"></a></div>
     <div class="text">
-      <h2>Ansel Adams</h2>
+      <div class="heading-row"><svg class="mark" viewBox="0 0 64 64"><path d="M4 46 L20 22 L30 36 L42 14 L60 46 Z" fill="#c9a961"/><rect x="4" y="52" width="8" height="6" fill="#222"/><rect x="14" y="52" width="8" height="6" fill="#666"/><rect x="24" y="52" width="8" height="6" fill="#999"/><rect x="34" y="52" width="8" height="6" fill="#ccc"/><rect x="44" y="52" width="8" height="6" fill="#eee" stroke="#ccc"/></svg><h2>Ansel Adams</h2></div>
       <div class="era">active 1920s–1980s</div>
       <p class="bio">Dramatic tonal range, the Zone System — landscape and sky doing real compositional work rather than sitting as blown-out negative space.</p>
       <div class="connection"><span class="label">The connection</span>Sky and landscape carrying real weight in the frame, not just filling it.</div>
@@ -147,9 +155,9 @@
   </div>
 
   <div class="entry">
-    <img src="img/walker-evans.jpg" alt="Example photo echoing Walker Evans's style">
+    <div class="photos"><a href="img/DSCF3764.jpg" target="_blank" rel="noopener"><img src="img/DSCF3764.jpg" alt="Example photo echoing Walker Evans's style"></a><a href="img/DSCF3772.jpg" target="_blank" rel="noopener"><img src="img/DSCF3772.jpg" alt="Example photo echoing Walker Evans's style"></a><a href="img/DSCF3773.jpg" target="_blank" rel="noopener"><img src="img/DSCF3773.jpg" alt="Example photo echoing Walker Evans's style"></a></div>
     <div class="text">
-      <h2>Walker Evans</h2>
+      <div class="heading-row"><svg class="mark" viewBox="0 0 64 64"><rect x="8" y="18" width="48" height="30" stroke="#c9a961" stroke-width="2.5" fill="none"/><line x1="14" y1="28" x2="50" y2="28" stroke="#c9a961" stroke-width="2.5"/><line x1="14" y1="36" x2="42" y2="36" stroke="#c9a961" stroke-width="2.5"/></svg><h2>Walker Evans</h2></div>
       <div class="era">active 1930s–1970s</div>
       <p class="bio">Dead-on, unglamorized documentary shots of vernacular signage and storefronts (FSA era). The origin point for "signs as subject."</p>
       <div class="connection"><span class="label">The connection</span>Most-cited reference in the whole archive — dead-on documentary shots of flat, vernacular storefront signage, no attempt to glamorize the light or the sign itself.</div>
@@ -158,9 +166,9 @@
   </div>
 
   <div class="entry">
-    <img src="img/henri-cartier-bresson.jpg" alt="Example photo echoing Henri Cartier-Bresson's style">
+    <div class="photos"><a href="img/_MG_3792Gram%26Alan.jpg" target="_blank" rel="noopener"><img src="img/_MG_3792Gram%26Alan.jpg" alt="Example photo echoing Henri Cartier-Bresson's style"></a><a href="img/Scan-070929-0001_292.jpg" target="_blank" rel="noopener"><img src="img/Scan-070929-0001_292.jpg" alt="Example photo echoing Henri Cartier-Bresson's style"></a><a href="img/DSC_3422.JPG.jpg" target="_blank" rel="noopener"><img src="img/DSC_3422.JPG.jpg" alt="Example photo echoing Henri Cartier-Bresson's style"></a></div>
     <div class="text">
-      <h2>Henri Cartier-Bresson</h2>
+      <div class="heading-row"><svg class="mark" viewBox="0 0 64 64"><circle cx="32" cy="32" r="4" fill="#c9a961"/><path d="M32 32 Q 56 32 56 8" stroke="#c9a961" stroke-width="2.5" fill="none"/><path d="M32 32 Q 32 8 8 8" stroke="#c9a961" stroke-width="2.5" fill="none" opacity="0.45"/></svg><h2>Henri Cartier-Bresson</h2></div>
       <div class="era">1908–2004</div>
       <p class="bio">Coined "the decisive moment"; co-founded Magnum. The name people actually mean by default when they say "street photography."</p>
       <div class="connection"><span class="label">The connection</span>One instinctive, well-timed fraction of a second, not a staged or composed setup.</div>
@@ -169,9 +177,9 @@
   </div>
 
   <div class="entry">
-    <img src="img/diane-arbus.jpg" alt="Example photo echoing Diane Arbus's style">
+    <div class="photos"><a href="img/2020-04-19-0077-2.jpg" target="_blank" rel="noopener"><img src="img/2020-04-19-0077-2.jpg" alt="Example photo echoing Diane Arbus's style"></a><a href="img/4381218716_f7db89a2e3_o_194413.jpg" target="_blank" rel="noopener"><img src="img/4381218716_f7db89a2e3_o_194413.jpg" alt="Example photo echoing Diane Arbus's style"></a><a href="img/DSC_1209.jpg" target="_blank" rel="noopener"><img src="img/DSC_1209.jpg" alt="Example photo echoing Diane Arbus's style"></a></div>
     <div class="text">
-      <h2>Diane Arbus</h2>
+      <div class="heading-row"><svg class="mark" viewBox="0 0 64 64"><rect x="10" y="10" width="44" height="44" stroke="#c9a961" stroke-width="2.5" fill="none"/><circle cx="32" cy="27" r="9" fill="#c9a961"/><path d="M18 54 Q 32 40 46 54 Z" fill="#c9a961"/></svg><h2>Diane Arbus</h2></div>
       <div class="era">1923–1971</div>
       <p class="bio">Intimate, sometimes uncomfortably close portraiture — subjects that feel a little too honest.</p>
       <div class="connection"><span class="label">The connection</span>Second-most-cited reference — a portrait that sits closer and more candid than a normal snapshot would.</div>
@@ -180,9 +188,9 @@
   </div>
 
   <div class="entry">
-    <img src="img/robert-frank.jpg" alt="Example photo echoing Robert Frank's style">
+    <div class="photos"><a href="img/DSCF3730.jpg" target="_blank" rel="noopener"><img src="img/DSCF3730.jpg" alt="Example photo echoing Robert Frank's style"></a><a href="img/DSCF3894.jpg" target="_blank" rel="noopener"><img src="img/DSCF3894.jpg" alt="Example photo echoing Robert Frank's style"></a><a href="img/IMG_3609.jpg" target="_blank" rel="noopener"><img src="img/IMG_3609.jpg" alt="Example photo echoing Robert Frank's style"></a></div>
     <div class="text">
-      <h2>Robert Frank</h2>
+      <div class="heading-row"><svg class="mark" viewBox="0 0 64 64"><line x1="4" y1="48" x2="60" y2="48" stroke="#c9a961" stroke-width="2.5"/><path d="M24 48 L32 16 L40 48 Z" fill="none" stroke="#c9a961" stroke-width="2.5"/></svg><h2>Robert Frank</h2></div>
       <div class="era">1924–2019</div>
       <p class="bio">Road-trip documentary photography — <em>The Americans</em>. "The one I saw and loved."</p>
       <div class="connection"><span class="label">The connection</span>Road-trip Americana, shot in passing rather than staged.</div>
@@ -191,9 +199,9 @@
   </div>
 
   <div class="entry">
-    <img src="img/vivian-maier.jpg" alt="Example photo echoing Vivian Maier's style">
+    <div class="photos"><a href="img/2020-04-20-0030-2.jpg" target="_blank" rel="noopener"><img src="img/2020-04-20-0030-2.jpg" alt="Example photo echoing Vivian Maier's style"></a><a href="img/Scan-070929-0001_558.jpg" target="_blank" rel="noopener"><img src="img/Scan-070929-0001_558.jpg" alt="Example photo echoing Vivian Maier's style"></a><a href="img/DSC_3407.JPG.jpg" target="_blank" rel="noopener"><img src="img/DSC_3407.JPG.jpg" alt="Example photo echoing Vivian Maier's style"></a></div>
     <div class="text">
-      <h2>Vivian Maier</h2>
+      <div class="heading-row"><svg class="mark" viewBox="0 0 64 64"><rect x="8" y="8" width="48" height="48" stroke="#c9a961" stroke-width="2.5" fill="none"/><circle cx="26" cy="30" r="9" fill="#c9a961" opacity="0.9"/><circle cx="39" cy="35" r="9" fill="#c9a961" opacity="0.4"/></svg><h2>Vivian Maier</h2></div>
       <div class="era">1926–2009</div>
       <p class="bio">Prolific street and self-portrait photographer who worked in total obscurity, discovered posthumously in 2007. Candid street photography, reflective self-portraits in shop windows and mirrors.</p>
       <div class="connection"><span class="label">The connection</span>A candid street moment or a reflective self-portrait, caught rather than composed.</div>
@@ -202,9 +210,9 @@
   </div>
 
   <div class="entry">
-    <img src="img/garry-winogrand.jpg" alt="Example photo echoing Garry Winogrand's style">
+    <div class="photos"><a href="img/a118_7047.jpg" target="_blank" rel="noopener"><img src="img/a118_7047.jpg" alt="Example photo echoing Garry Winogrand's style"></a><a href="img/Scan-070929-0001_583.jpg" target="_blank" rel="noopener"><img src="img/Scan-070929-0001_583.jpg" alt="Example photo echoing Garry Winogrand's style"></a><a href="img/DSC_0014_42262.jpg" target="_blank" rel="noopener"><img src="img/DSC_0014_42262.jpg" alt="Example photo echoing Garry Winogrand's style"></a></div>
     <div class="text">
-      <h2>Garry Winogrand</h2>
+      <div class="heading-row"><svg class="mark" viewBox="0 0 64 64"><line x1="8" y1="12" x2="30" y2="52" stroke="#c9a961" stroke-width="2.5"/><line x1="20" y1="8" x2="48" y2="48" stroke="#c9a961" stroke-width="2.5"/><line x1="36" y1="10" x2="58" y2="40" stroke="#c9a961" stroke-width="2.5"/></svg><h2>Garry Winogrand</h2></div>
       <div class="era">1928–1984</div>
       <p class="bio">Relentless street photography — chaotic, energetic candid framing of crowds and public life, mid-century NYC. Called "the central photographer of his generation" by MoMA curator John Szarkowski.</p>
       <div class="connection"><span class="label">The connection</span>Candid street-walk material — dive liquor stores, tattoo shops, people caught mid-motion.</div>
@@ -213,9 +221,9 @@
   </div>
 
   <div class="entry">
-    <img src="img/bernd-and-hilla-becher.jpg" alt="Example photo echoing Bernd and Hilla Becher's style">
+    <div class="photos"><a href="img/DSCF1508.jpg" target="_blank" rel="noopener"><img src="img/DSCF1508.jpg" alt="Example photo echoing Bernd and Hilla Becher's style"></a><a href="img/1424090499_ad6348d4d9_o.jpg" target="_blank" rel="noopener"><img src="img/1424090499_ad6348d4d9_o.jpg" alt="Example photo echoing Bernd and Hilla Becher's style"></a><a href="img/2020-04-20-0045-2.jpg" target="_blank" rel="noopener"><img src="img/2020-04-20-0045-2.jpg" alt="Example photo echoing Bernd and Hilla Becher's style"></a></div>
     <div class="text">
-      <h2>Bernd &amp; Hilla Becher</h2>
+      <div class="heading-row"><svg class="mark" viewBox="0 0 64 64"><g fill="#c9a961"><path d="M10 20 L16 8 L22 20 L20 30 L12 30 Z"/><path d="M36 20 L42 8 L48 20 L46 30 L38 30 Z"/><path d="M10 46 L16 34 L22 46 L20 56 L12 56 Z"/><path d="M36 46 L42 34 L48 46 L46 56 L38 56 Z"/></g></svg><h2>Bernd &amp; Hilla Becher</h2></div>
       <div class="era">active 1959–2007</div>
       <p class="bio">German husband-and-wife pair who shot industrial structures — water towers, blast furnaces, mine heads — dead-on, grid-format, zero drama. Their 1975 "New Topographics" inclusion gave "deadpan photography" its name.</p>
       <div class="connection"><span class="label">The connection</span>A structure shot flat-on and unsentimental, letting repetition and form carry the meaning instead of drama.</div>
@@ -224,9 +232,9 @@
   </div>
 
   <div class="entry">
-    <img src="img/robert-adams.jpg" alt="Example photo echoing Robert Adams's style">
+    <div class="photos"><a href="img/DSCF3795.jpg" target="_blank" rel="noopener"><img src="img/DSCF3795.jpg" alt="Example photo echoing Robert Adams's style"></a><a href="img/020602_18.jpg" target="_blank" rel="noopener"><img src="img/020602_18.jpg" alt="Example photo echoing Robert Adams's style"></a><a href="img/2020-04-20-0056-2.jpg" target="_blank" rel="noopener"><img src="img/2020-04-20-0056-2.jpg" alt="Example photo echoing Robert Adams's style"></a></div>
     <div class="text">
-      <h2>Robert Adams</h2>
+      <div class="heading-row"><svg class="mark" viewBox="0 0 64 64"><line x1="4" y1="42" x2="60" y2="42" stroke="#c9a961" stroke-width="2.5"/><path d="M14 42 L18 34 L22 42" stroke="#c9a961" stroke-width="2.5" fill="none"/><path d="M30 42 L34 30 L38 42" stroke="#c9a961" stroke-width="2.5" fill="none"/><path d="M44 42 L48 36 L52 42" stroke="#c9a961" stroke-width="2.5" fill="none"/></svg><h2>Robert Adams</h2></div>
       <div class="era">active 1960s–present</div>
       <p class="bio">Unsentimental American West landscapes and decay/development, matter-of-fact rather than romanticized. No relation to Ansel Adams.</p>
       <div class="connection"><span class="label">The connection</span>A Western landscape shot for what it actually is, not for drama.</div>
@@ -235,9 +243,9 @@
   </div>
 
   <div class="entry">
-    <img src="img/william-eggleston.jpg" alt="Example photo echoing William Eggleston's style">
+    <div class="photos"><a href="img/DSCF4032.jpg" target="_blank" rel="noopener"><img src="img/DSCF4032.jpg" alt="Example photo echoing William Eggleston's style"></a><a href="img/DSC_0069_32363.jpg" target="_blank" rel="noopener"><img src="img/DSC_0069_32363.jpg" alt="Example photo echoing William Eggleston's style"></a><a href="img/DSCF7434.jpg" target="_blank" rel="noopener"><img src="img/DSCF7434.jpg" alt="Example photo echoing William Eggleston's style"></a></div>
     <div class="text">
-      <h2>William Eggleston</h2>
+      <div class="heading-row"><svg class="mark" viewBox="0 0 64 64"><rect x="4" y="4" width="56" height="56" fill="#eee"/><circle cx="32" cy="32" r="12" fill="#c0392b"/></svg><h2>William Eggleston</h2></div>
       <div class="era">active 1960s–present</div>
       <p class="bio">Color-as-subject, banal-as-beautiful — the snapshot aesthetic elevated to fine art. Same lineage as Evans and Shore.</p>
       <div class="connection"><span class="label">The connection</span>An ordinary subject where color itself is doing the work of making it interesting.</div>
@@ -246,9 +254,9 @@
   </div>
 
   <div class="entry">
-    <img src="img/stephen-shore.jpg" alt="Example photo echoing Stephen Shore's style">
+    <div class="photos"><a href="img/DSCF3803.jpg" target="_blank" rel="noopener"><img src="img/DSCF3803.jpg" alt="Example photo echoing Stephen Shore's style"></a><a href="img/DSCF3812.jpg" target="_blank" rel="noopener"><img src="img/DSCF3812.jpg" alt="Example photo echoing Stephen Shore's style"></a><a href="img/DSCF3885.jpg" target="_blank" rel="noopener"><img src="img/DSCF3885.jpg" alt="Example photo echoing Stephen Shore's style"></a></div>
     <div class="text">
-      <h2>Stephen Shore</h2>
+      <div class="heading-row"><svg class="mark" viewBox="0 0 64 64"><line x1="4" y1="32" x2="60" y2="32" stroke="#c9a961" stroke-width="2.5"/><line x1="32" y1="4" x2="32" y2="60" stroke="#c9a961" stroke-width="2.5"/></svg><h2>Stephen Shore</h2></div>
       <div class="era">active 1970s–present</div>
       <p class="bio"><em>Uncommon Places</em> (1982) — color road-trip photography, intersections, parking lots, motels, and diners shot deadpan-beautiful. Direct descendant of Evans, added color.</p>
       <div class="connection"><span class="label">The connection</span>Classic road-trip Americana, color-forward, ordinary and elevated at the same time.</div>
@@ -257,9 +265,9 @@
   </div>
 
   <div class="entry">
-    <img src="img/anne-geddes.jpg" alt="Example photo echoing Anne Geddes's style">
+    <div class="photos"><a href="img/IMG_6046_48322.jpg" target="_blank" rel="noopener"><img src="img/IMG_6046_48322.jpg" alt="Example photo echoing Anne Geddes's style"></a><a href="img/IMG_2190.jpg" target="_blank" rel="noopener"><img src="img/IMG_2190.jpg" alt="Example photo echoing Anne Geddes's style"></a></div>
     <div class="text">
-      <h2>Anne Geddes</h2>
+      <div class="heading-row"><svg class="mark" viewBox="0 0 64 64"><path d="M18 30 Q32 8 46 30 L42 54 L22 54 Z" fill="#c9a961"/></svg><h2>Anne Geddes</h2></div>
       <div class="era">active 1990s–2000s</div>
       <p class="bio">Staged, costumed infant photography — babies in flowerpots and cabbage leaves. Commercial/kitsch-iconic rather than fine-art, but an instantly recognizable visual shorthand.</p>
       <div class="connection"><span class="label">The connection</span>A staged, costumed baby portrait — the shorthand is unmistakable even outside the fine-art world.</div>
