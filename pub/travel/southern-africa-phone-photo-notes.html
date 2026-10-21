@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Southern Africa Phone Photo Notes — Fred Heald</title>
+<meta name="description" content="A dozen iPhone photography ideas for a Southern Africa trip, built around talking to people first and photographing them second.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Karla:wght@400;500;700&display=swap">
+<style>
+:root{
+  --paper:#F4F1E9;
+  --surface:#FBF9F4;
+  --ink:#1A2422;
+  --ink-soft:#5C6663;
+  --rule:#DCD6C8;
+  --teal:#0F6E66;
+  --teal-soft:#E2EDEA;
+  --rust:#B0592A;
+  --shadow:rgba(26,36,34,.07);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#121917;
+    --surface:#1A2220;
+    --ink:#E9E5DB;
+    --ink-soft:#9AA5A1;
+    --rule:#2C3735;
+    --teal:#5FB9AE;
+    --teal-soft:#16302D;
+    --rust:#DB8B55;
+    --shadow:rgba(0,0,0,.4);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#121917;
+  --surface:#1A2220;
+  --ink:#E9E5DB;
+  --ink-soft:#9AA5A1;
+  --rule:#2C3735;
+  --teal:#5FB9AE;
+  --teal-soft:#16302D;
+  --rust:#DB8B55;
+  --shadow:rgba(0,0,0,.4);
+}
+
+*{box-sizing:border-box}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:Karla,"Helvetica Neue",Arial,sans-serif;
+  font-size:17px;
+  line-height:1.62;
+  margin:0;
+  padding:0 20px 72px;
+  -webkit-text-size-adjust:100%;
+}
+.wrap{max-width:41rem;margin:0 auto}
+
+nav.crumbs{padding-top:20px;font-size:14px;color:var(--ink-soft)}
+nav.crumbs a{color:var(--teal);text-decoration:none}
+nav.crumbs a:hover{text-decoration:underline}
+
+header{padding:28px 0 28px;border-bottom:2px solid var(--ink)}
+.eyebrow{
+  font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--teal);margin:0 0 14px;
+}
+h1{
+  font-family:Fraunces,Georgia,serif;
+  font-weight:700;font-size:clamp(2.1rem,7vw,3rem);line-height:1.06;
+  margin:0 0 14px;text-wrap:balance;letter-spacing:-.015em;
+}
+.standfirst{margin:0;color:var(--ink-soft);font-size:1.05rem}
+.standfirst strong{color:var(--ink);font-weight:700}
+
+h2{
+  font-family:Fraunces,Georgia,serif;
+  font-weight:600;font-size:1.32rem;line-height:1.2;
+  margin:0;text-wrap:balance;
+}
+
+/* itinerary */
+.itin{margin:32px 0 8px}
+.itin-head{
+  font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink-soft);margin:0 0 14px;
+}
+.legs{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:0}
+.leg{
+  display:grid;grid-template-columns:5.4rem 1fr;gap:14px;
+  padding:9px 0;border-top:1px solid var(--rule);align-items:baseline;
+}
+.leg:last-child{border-bottom:1px solid var(--rule)}
+.leg .when{
+  font-size:12.5px;font-weight:700;color:var(--teal);
+  font-variant-numeric:tabular-nums;letter-spacing:.02em;
+}
+.leg .place{font-size:15px}
+.leg .place span{color:var(--ink-soft);display:block;font-size:13.5px}
+
+/* ideas */
+.ideas{margin:40px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:34px;counter-reset:idea}
+.idea{counter-increment:idea}
+.idea-head{display:grid;grid-template-columns:2.1rem 1fr;gap:12px;align-items:baseline;margin-bottom:8px}
+.idea-head::before{
+  content:counter(idea,decimal-leading-zero);
+  font-family:Fraunces,Georgia,serif;font-weight:700;font-size:1.05rem;
+  color:var(--rust);font-variant-numeric:tabular-nums;
+}
+.idea p{margin:0 0 10px;padding-left:calc(2.1rem + 12px)}
+.idea p:last-child{margin-bottom:0}
+.tag{
+  display:inline-block;margin-left:calc(2.1rem + 12px);
+  font-size:11.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--teal);background:var(--teal-soft);
+  padding:4px 9px;border-radius:3px;
+}
+
+/* practical box */
+.practical{
+  margin:52px 0 0;background:var(--surface);
+  border:1px solid var(--rule);border-left:4px solid var(--rust);
+  border-radius:4px;padding:24px 22px;box-shadow:0 1px 3px var(--shadow);
+}
+.practical h2{margin-bottom:14px}
+.practical ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:11px}
+.practical li{display:grid;grid-template-columns:auto 1fr;gap:11px;font-size:15.5px;line-height:1.5}
+.practical li::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--rust);margin-top:.55em}
+.practical b{font-weight:700}
+
+/* glossary */
+.glossary{margin:52px 0 0;padding-top:30px;border-top:2px solid var(--ink)}
+.gloss-intro{margin:12px 0 0;color:var(--ink-soft);font-size:15.5px}
+.gloss-head{
+  font-size:11.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--rust);margin:30px 0 10px;
+}
+.terms{margin:0;display:grid;grid-template-columns:1fr;gap:0}
+.terms dt{
+  font-family:Fraunces,Georgia,serif;font-weight:600;font-size:1.02rem;
+  margin:0;padding:12px 0 3px;border-top:1px solid var(--rule);
+}
+.terms dt .where{
+  font-family:Karla,sans-serif;font-size:11px;font-weight:700;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--teal);
+  margin-left:9px;vertical-align:.12em;
+}
+.terms dd{margin:0 0 12px;font-size:15.5px;line-height:1.55;color:var(--ink-soft)}
+.terms dd b{color:var(--ink);font-weight:700}
+.terms.compact dd{font-size:15px}
+.say{
+  display:block;font-size:12.5px;letter-spacing:.03em;color:var(--teal);
+  font-weight:700;margin-bottom:3px;
+}
+
+.coda{
+  margin:44px 0 0;padding-top:24px;border-top:1px solid var(--rule);
+  color:var(--ink-soft);font-size:15.5px;
+}
+.coda strong{color:var(--ink)}
+.sig{margin-top:26px;font-family:Fraunces,Georgia,serif;font-size:14px;color:var(--ink-soft)}
+</style>
+<script data-goatcounter="https://fheald.goatcounter.com/count"
+    async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+
+<div class="wrap">
+
+<nav class="crumbs"><a href="../../index.html">obtainium.org</a> / <a href="../index.html">pub</a></nav>
+
+<header>
+  <p class="eyebrow">Southern Africa · phone photography</p>
+  <h1>Southern Africa Phone Photo Notes</h1>
+  <p class="standfirst">A dozen ideas for the iPhone, built around one habit: <strong>talk to people first and photograph them second.</strong> No settings to learn. Skim it on the plane, ignore whatever doesn't fit.</p>
+</header>
+
+<section class="itin">
+  <p class="itin-head">Sample route — three weeks in September</p>
+  <ul class="legs">
+    <li class="leg"><span class="when">Sep 11–13</span><span class="place">Johannesburg<span>Rosebank — markets, city colour</span></span></li>
+    <li class="leg"><span class="when">Sep 13–17</span><span class="place">Victoria Falls<span>Zimbabwe — low-water season, spray, rainbows</span></span></li>
+    <li class="leg"><span class="when">Sep 17–18</span><span class="place">Windhoek<span>one night, Namibia</span></span></li>
+    <li class="leg"><span class="when">Sep 18–20</span><span class="place">Sossusvlei<span>the red dunes and Deadvlei — the big one</span></span></li>
+    <li class="leg"><span class="when">Sep 20–22</span><span class="place">Swakopmund<span>where the desert runs into the Atlantic</span></span></li>
+    <li class="leg"><span class="when">Sep 22–26</span><span class="place">Cape Town<span>Table Mountain, Bo-Kaap, the Cape</span></span></li>
+    <li class="leg"><span class="when">Sep 26–29</span><span class="place">Kapama, Greater Kruger<span>safari — game drives at dawn and dusk</span></span></li>
+  </ul>
+</section>
+
+<ol class="ideas">
+
+  <li class="idea">
+    <div class="idea-head"><h2>Ask about them first. Photograph second.</h2></div>
+    <p>Ask what someone does, what they're making, how long they've been at it — and only then ask if you can take their picture. The photo comes out different when it follows a conversation instead of replacing one. Get their name and write it in your phone's Notes the same minute, because you will not remember it by Cape Town.</p>
+    <p>Some people will say no, and a few will ask to be paid. Both are reasonable answers — take the no cheerfully and move on, and if you agree a price, pay it without haggling.</p>
+  </li>
+
+  <li class="idea">
+    <div class="idea-head"><h2>Offer to send it, then actually send it.</h2></div>
+    <p>WhatsApp is how nearly everyone in South Africa, Zimbabwe and Namibia communicates — ask for their number, send the photo before you walk away. It takes fifteen seconds and it changes the whole exchange from you taking something to the two of you making something. It's also the single easiest way to be a good guest with a camera.</p>
+  </li>
+
+  <li class="idea">
+    <div class="idea-head"><h2>Get in the frame with them.</h2></div>
+    <p>A picture <em>of</em> someone is a record of them. A picture <em>with</em> them is a record of the meeting — which is what you'll actually want later. Turn the phone around, hold it a little above eye level and tilted slightly down, and get the place in behind you both rather than cropping tight to two faces. Don't worry about how you look; in twenty years that is not the part you'll be looking at.</p>
+    <span class="tag">Everywhere</span>
+  </li>
+
+  <li class="idea">
+    <div class="idea-head"><h2>Take one step back.</h2></div>
+    <p>The most common fix in travel photography is also the simplest: back up far enough to show the person <em>and</em> what they're doing. The guide with the binoculars and the truck. The stall-holder with the whole stall behind them. The chef in their kitchen, not against a wall. A face alone could be anywhere on earth; a face with its context is the story.</p>
+    <span class="tag">Joburg · Cape Town · Kapama</span>
+  </li>
+
+  <li class="idea">
+    <div class="idea-head"><h2>Photograph hands, tools and things.</h2></div>
+    <p>What someone makes, holds or works with is often more evocative than their face — beadwork in progress, a carving knife, a cooking pot, the worn grip of a rifle or a pair of binoculars. It's also the gentlest way in when a portrait would feel intrusive, and it gives you something to shoot while you're still talking. Get close. Fill the frame with the hands.</p>
+  </li>
+
+  <li class="idea">
+    <div class="idea-head"><h2>Photograph your guide teaching.</h2></div>
+    <p>A naturalist explaining something in the field is one of the best portrait subjects there is — the hand out pointing, the plant held up, the half-crouch over something on the ground, the face of somebody mid-sentence about a thing they've loved for decades. Shoot from slightly to the side so you get both them <em>and</em> the circle of people watching. Those are the pictures the whole group will want afterwards.</p>
+    <p>Get a proper posed group shot too, early in the trip, while everyone still looks rested.</p>
+    <span class="tag">All trip</span>
+  </li>
+
+  <li class="idea">
+    <div class="idea-head"><h2>Shoot the small things they point at.</h2></div>
+    <p>Good guides get excited about things the rest of the vehicle drives straight past — and those make far better photographs than a distant antelope. Two to watch for: the <em>welwitschia</em> on the gravel plains out of Swakopmund, a scruffy two-leaved plant that can be well over a thousand years old, and the lichen fields out there too, which guides will sometimes wet to show you them visibly reviving. In Cape Town you're in the Cape Floristic Region, one of the richest plant areas on earth, and late September is early spring — the fynbos on Table Mountain and at Kirstenbosch will be flowering.</p>
+    <p>Get close, fill the frame, and hold the phone steady. Ask what it is and put the name in your Notes with the photo.</p>
+    <span class="tag">Swakopmund · Cape Town</span>
+  </li>
+
+  <li class="idea">
+    <div class="idea-head"><h2>Let the animals go — shoot the safari instead.</h2></div>
+    <p>Someone on the drive with a long lens will come back with better lion photos than your phone can manage, so stop competing. Point the camera the other way: everyone in the vehicle leaning at the same angle, the guide's arm out pointing, dust in the low sun behind the truck, the drinks set out on the bonnet at sundowner, your own face at 5:30am in the cold. Nobody else is taking those, and they're the pictures that will actually bring the trip back.</p>
+    <span class="tag">Safari</span>
+  </li>
+
+  <li class="idea">
+    <div class="idea-head"><h2>Deadvlei at sunrise is the one worth the alarm.</h2></div>
+    <p>Black dead camelthorn trees standing on a white clay pan, with an enormous orange dune behind them — it's the most photographed thing in Namibia for good reason, and a phone handles it perfectly well because the whole picture is shape and colour rather than fine detail. Be there for first light. By mid-morning the sun is overhead, the dune shadow that makes the shot has gone, and it's just a hot white field. This is the one morning to be uncomfortable about.</p>
+    <span class="tag">Sossusvlei</span>
+  </li>
+
+  <li class="idea">
+    <div class="idea-head"><h2>Shoot early and late. Hide at midday.</h2></div>
+    <p>The first hour after sunrise and the last hour before sunset do almost all the work — warm, low, raking light that gives everything shape. Desert light in the middle of the day is flat, harsh and unflattering to faces. That's not wasted time, it's just indoor time: markets, doorways, interiors, shade, and the deep covered veranda at the Victoria Falls Hotel, which is a genuinely lovely place to photograph people sitting still.</p>
+  </li>
+
+  <li class="idea">
+    <div class="idea-head"><h2>At the falls: bag the phone, wipe the lens, wait for the rainbow.</h2></div>
+    <p>September is low-water season, so the Zambezi is thin compared to its April flood — the upside is that you can actually see the gorge and the rock face instead of a wall of white spray. Carry the phone in a zip-lock bag and take it out in bursts. Wipe the lens on something dry before <em>every</em> shot, because one invisible droplet fogs the whole frame. Rainbows in the spray are near-guaranteed in the morning; put a person in the frame with one.</p>
+    <span class="tag">Victoria Falls</span>
+  </li>
+
+  <li class="idea">
+    <div class="idea-head"><h2>In cities, shoot doorways and colour — not streets.</h2></div>
+    <p>Wide shots of a city almost never work; they come home looking like nothing. A single painted door, one shopfront, a stack of fruit, a wall — those work. Bo-Kaap in Cape Town is the obvious one, though do remember those bright houses are people's actual homes and residents are tired of being a backdrop, so ask before you shoot anyone's doorstep. Rosebank's markets in Joburg are the easier, friendlier version of the same thing.</p>
+    <span class="tag">Joburg · Cape Town</span>
+  </li>
+
+  <li class="idea">
+    <div class="idea-head"><h2>Take the same picture every single day.</h2></div>
+    <p>Pick one small repeating thing and shoot it daily without fail — your feet wherever you're standing, the view from that morning's window, what was on the plate, a selfie at the same time each day. It takes five seconds, it costs nothing, and at the end you have a spine running through the whole trip that ties the good photos together. It's the single best trick for making a pile of holiday pictures feel like one story.</p>
+  </li>
+
+</ol>
+
+<section class="practical">
+  <h2>Six things that aren't about photography</h2>
+  <ul>
+    <li><b>Wipe the lens.</b> Namib dust and Victoria Falls spray are relentless, and a smeared lens ruins more travel photos than anything else. Microfibre cloth in the pocket, not your shirt.</li>
+    <li><b>Tap and hold to lock.</b> Press and hold on your subject until it says AE/AF LOCK, then slide your finger up or down to brighten or darken. That's the only camera control worth knowing, and it rescues harsh-sun and backlit shots.</li>
+    <li><b>Hold the shutter for a burst.</b> Slide the shutter button left and keep it held for anything moving — a bird lifting, kids running, a vehicle in dust. Pick the good frame later.</li>
+    <li><b>Back up every night.</b> Hotel wifi over the whole trip is unreliable; do it whenever you get a decent connection rather than assuming tomorrow's will be better.</li>
+    <li><b>Power bank in the day bag.</b> Game drives start before dawn and the cold flattens a battery fast.</li>
+    <li><b>Don't pinch-zoom past 2×.</b> Beyond that the phone is just enlarging and softening pixels. Walk closer, or crop at home where you can see what you're doing.</li>
+  </ul>
+</section>
+
+<section class="glossary">
+  <h2>A few words</h2>
+  <p class="gloss-intro">English works everywhere on this route, so this is courtesy rather than survival — and courtesy is the whole game when you're asking to photograph someone.</p>
+
+  <p class="gloss-head">The one that matters</p>
+  <dl class="terms">
+    <dt lang="af">Mag ek 'n foto neem?</dt>
+    <dd><span class="say">mahg ek uh FOH-too naym</span> May I take a photo? — Afrikaans. Mostly you'll just smile and hold up the phone, and that's fine. Asking in any language lands better than not asking.</dd>
+  </dl>
+
+  <p class="gloss-head">Thank you, by place</p>
+  <dl class="terms">
+    <dt>Afrikaans <span class="where">Cape Town, Namibia</span></dt>
+    <dd><b>Dankie</b> (DUNK-ee) — thank you. <b>Baie dankie</b>, thanks very much. <b>Asseblief</b>, please. <b>Hallo</b>, hello.</dd>
+    <dt>isiXhosa <span class="where">Cape Town</span></dt>
+    <dd><b>Molo</b> — hello to one person; <b>Molweni</b> to a group. <b>Enkosi</b> — thank you.</dd>
+    <dt>isiZulu <span class="where">Johannesburg</span></dt>
+    <dd><b>Sawubona</b> — hello; <b>Sanibonani</b> to a group. <b>Ngiyabonga</b> — thank you.</dd>
+    <dt>Ndebele <span class="where">Victoria Falls</span></dt>
+    <dd>Close enough to Zulu to use the same two: <b>Sawubona</b>, <b>Ngiyabonga</b>. Across Zimbabwe more broadly, Shona: <b>Mhoro</b> hello, <b>Maita basa</b> thank you.</dd>
+    <dt>German <span class="where">Swakopmund</span></dt>
+    <dd>Still widely spoken there. <b>Danke</b>, <b>Guten Tag</b>.</dd>
+  </dl>
+
+  <p class="gloss-head">South African English that will confuse you</p>
+  <dl class="terms compact">
+    <dt>robot</dt><dd>Traffic light. Genuinely. "Turn left at the robot."</dd>
+    <dt>just now / now now</dt><dd><b>Just now</b> means later, sometime. <b>Now now</b> means very soon. They are not the same thing and the difference matters.</dd>
+    <dt>lekker</dt><dd>Nice, great, good. Universally useful.</dd>
+    <dt>howzit</dt><dd>Hello.</dd>
+    <dt>shame</dt><dd>Said warmly — means "aww", not pity.</dd>
+    <dt>is it?</dt><dd>Really? A conversational noise, not a question.</dd>
+    <dt>bakkie / braai</dt><dd>Pickup truck / barbecue.</dd>
+  </dl>
+
+  <p class="gloss-head">The place names</p>
+  <dl class="terms compact">
+    <dt lang="af">vlei</dt><dd>Pronounced <i>flay</i> — a shallow pan that floods seasonally. So <b>Sossusvlei</b> and <b>Deadvlei</b> are both pans; Deadvlei is the one whose camelthorn trees died when the river stopped reaching it. <i>Sossus</i> comes from Nama, the local language.</dd>
+    <dt>-mund</dt><dd>River mouth, in German. <b>Swakopmund</b> sits at the mouth of the Swakop.</dd>
+    <dt>Windhoek</dt><dd>Roughly "windy corner" in Afrikaans.</dd>
+    <dt>koppie / veld</dt><dd>A small hill / open grassland. Both turn up constantly once you're listening for them.</dd>
+  </dl>
+</section>
+
+<p class="coda"><strong>If you only remember one thing:</strong> the pictures you'll be glad you took are the ones with people in them, and the ones with <em>you</em> in them. Hand your phone to someone else now and then — you'll otherwise come home from three weeks in Africa with no evidence you were there.</p>
+
+<p class="sig">Fred Heald — September 2026</p>
+
+</div>
+
+</body>
+</html>
