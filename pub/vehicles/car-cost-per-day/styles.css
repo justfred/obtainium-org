@@ -1,0 +1,375 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    padding: 40px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+h1 {
+    font-size: 2.5em;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    color: #666;
+    font-size: 1.1em;
+}
+
+h2 {
+    font-size: 1.5em;
+    color: #333;
+    margin-bottom: 20px;
+    border-bottom: 3px solid #667eea;
+    padding-bottom: 10px;
+}
+
+
+.costs-list {
+    margin-bottom: 30px;
+}
+
+#costsList {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.cost-item {
+    background: #f8f9fa;
+    padding: 15px 20px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-left: 4px solid #667eea;
+}
+
+.cost-info {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.cost-date {
+    font-weight: 600;
+    color: #667eea;
+    min-width: 100px;
+}
+
+.cost-amount {
+    font-weight: 700;
+    font-size: 1.2em;
+    color: #333;
+    min-width: 120px;
+}
+
+.cost-description {
+    color: #666;
+}
+
+
+.chart-section {
+    margin-bottom: 30px;
+    background: #f8f9fa;
+    padding: 30px;
+    border-radius: 15px;
+}
+
+#costChart {
+    max-height: 400px;
+}
+
+.stats-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.stat-card {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 25px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.stat-card h3 {
+    font-size: 1em;
+    margin-bottom: 10px;
+    opacity: 0.9;
+    color: white;
+    border: none;
+    padding: 0;
+}
+
+.stat-card p {
+    font-size: 2em;
+    font-weight: 700;
+}
+
+.comparison-section {
+    margin-top: 30px;
+    background: #f8f9fa;
+    padding: 30px;
+    border-radius: 15px;
+}
+
+.comparison-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.comparison-card {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.comparison-card.highlight {
+    border: 2px solid #667eea;
+}
+
+.comparison-card.verdict {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.comparison-card h3 {
+    font-size: 1.2em;
+    margin-bottom: 15px;
+    border: none;
+    padding: 0;
+    color: inherit;
+}
+
+.comparison-card.verdict h3 {
+    color: white;
+}
+
+.comparison-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    gap: 10px;
+}
+
+.comparison-item label,
+.comparison-item span:first-child {
+    font-weight: 600;
+    color: #666;
+}
+
+.comparison-value {
+    font-size: 1.3em;
+    font-weight: 700;
+    color: #667eea;
+}
+
+.comparison-item input {
+    width: 100px;
+    padding: 6px;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    font-size: 0.95em;
+    text-align: right;
+}
+
+.comparison-item.strong {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 2px solid #eee;
+}
+
+.comparison-value-small {
+    font-size: 1em;
+    font-weight: 600;
+    color: #666;
+}
+
+.comparison-value-large {
+    font-size: 1.5em;
+    font-weight: 700;
+    color: #667eea;
+}
+
+.separator {
+    height: 1px;
+    background: #ddd;
+    margin: 15px 0;
+}
+
+.comparison-note {
+    font-size: 0.85em;
+    color: #999;
+    margin-top: -8px;
+    margin-bottom: 8px;
+    font-style: italic;
+}
+
+.btn-compare {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    background: #667eea;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-compare:hover {
+    background: #5568d3;
+    transform: translateY(-2px);
+}
+
+.verdict-text {
+    font-size: 2.5em;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.verdict-text.keep {
+    color: #90EE90;
+}
+
+.verdict-text.replace {
+    color: #FFB6C6;
+}
+
+.verdict-detail {
+    font-size: 1.1em;
+    opacity: 0.95;
+}
+
+.comparison-controls {
+    margin-top: 30px;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    gap: 20px;
+    align-items: flex-end;
+}
+
+.shared-inputs {
+    flex: 1;
+}
+
+.shared-inputs h4 {
+    margin: 0 0 15px 0;
+    color: #667eea;
+}
+
+.verdict-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.verdict-card {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 25px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.verdict-card.highlight {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.verdict-card h3 {
+    font-size: 1em;
+    margin-bottom: 15px;
+    opacity: 0.9;
+    color: white;
+    border: none;
+    padding: 0;
+}
+
+.verdict-text-small {
+    font-size: 1.5em;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.verdict-text-small.keep {
+    color: #90EE90;
+}
+
+.verdict-text-small.neutral {
+    color: #FFE66D;
+}
+
+.verdict-text-small.best {
+    color: white;
+    font-size: 1.8em;
+}
+
+.verdict-detail-small {
+    font-size: 0.95em;
+    opacity: 0.95;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+    }
+    
+    h1 {
+        font-size: 2em;
+    }
+    
+    .cost-info {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+    
+    .comparison-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .comparison-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}
+

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Cost Per Day Analysis</title>
+    <meta name="description" content="Interactive chart: how the average daily cost of owning my 2010 Lexus GX falls over time, with a keep-vs-replace comparison.">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Car Cost Per Day Analysis</h1>
+            <p class="subtitle">Declining average daily cost of ownership</p>
+        </header>
+
+        <div class="costs-list">
+            <h2>Cost Events</h2>
+            <div id="costsList"></div>
+        </div>
+
+        <div class="chart-section">
+            <h2>Total Cost Per Day (Including Purchase)</h2>
+            <canvas id="costChart"></canvas>
+        </div>
+
+        <div class="chart-section">
+            <h2>Maintenance Cost Per Day (Excluding Purchase)</h2>
+            <canvas id="maintenanceChart"></canvas>
+        </div>
+
+        <div class="stats-section">
+            <div class="stat-card">
+                <h3>Total Cost</h3>
+                <p id="totalCost">$0.00</p>
+            </div>
+            <div class="stat-card">
+                <h3>Purchase Price</h3>
+                <p id="purchasePrice">$0.00</p>
+            </div>
+            <div class="stat-card">
+                <h3>Total Maintenance</h3>
+                <p id="maintenanceCost">$0.00</p>
+            </div>
+            <div class="stat-card">
+                <h3>Days Owned</h3>
+                <p id="daysOwned">0</p>
+            </div>
+            <div class="stat-card">
+                <h3>Total Avg/Day</h3>
+                <p id="currentAvg">$0.00</p>
+            </div>
+            <div class="stat-card">
+                <h3>Maintenance Avg/Day</h3>
+                <p id="maintenanceAvg">$0.00</p>
+            </div>
+        </div>
+
+        <div class="comparison-section">
+            <h2>"Cheaper to Keep 'Er" Analysis - 5 Year Outlook</h2>
+            <div class="comparison-grid">
+                <div class="comparison-card">
+                    <h3>Your 2010 (Keep It)</h3>
+                    <div class="comparison-item">
+                        <span>Purchase + Maint/day:</span>
+                        <span id="compYourTotal" class="comparison-value">$0.00</span>
+                    </div>
+                    <div class="comparison-item">
+                        <span>Fuel/day:</span>
+                        <span id="compYourFuel" class="comparison-value">$0.00</span>
+                    </div>
+                    <div class="comparison-note">(15 MPG @ 20k mi/yr)</div>
+                    <div class="comparison-item">
+                        <span>Insurance/day:</span>
+                        <span id="compYourIns" class="comparison-value">$0.00</span>
+                    </div>
+                    <div class="comparison-note">(Liability only)</div>
+                    <div class="comparison-item strong">
+                        <span>Total/day:</span>
+                        <span id="compYourGrandTotal" class="comparison-value-large">$0.00</span>
+                    </div>
+                </div>
+                
+                <div class="comparison-card highlight">
+                    <h3>Used Lexus GX (~2020)</h3>
+                    <div class="comparison-item">
+                        <label>Price:</label>
+                        <input type="number" id="usedCarPrice" step="1000">
+                    </div>
+                    <div class="comparison-item">
+                        <label>Interest (%):</label>
+                        <input type="number" id="usedCarRate" step="0.1">
+                    </div>
+                    <div class="comparison-item">
+                        <label>Term (years):</label>
+                        <input type="number" id="usedCarTerm" step="1" min="1" max="10">
+                    </div>
+                    <div class="comparison-item">
+                        <label>MPG:</label>
+                        <input type="number" id="usedCarMPG" step="1">
+                    </div>
+                    <div class="comparison-item">
+                        <label>Maint/day:</label>
+                        <input type="number" id="usedCarMaint" step="0.50">
+                    </div>
+                    <div class="comparison-item">
+                        <label>Insurance/mo:</label>
+                        <input type="number" id="usedCarIns" step="10">
+                    </div>
+                    <div class="separator"></div>
+                    <div class="comparison-item">
+                        <span>Loan/day:</span>
+                        <span id="compUsedLoan" class="comparison-value-small">$0.00</span>
+                    </div>
+                    <div class="comparison-item">
+                        <span>Fuel/day:</span>
+                        <span id="compUsedFuel" class="comparison-value-small">$0.00</span>
+                    </div>
+                    <div class="comparison-item">
+                        <span>Maint/day:</span>
+                        <span id="compUsedMaint" class="comparison-value-small">$0.00</span>
+                    </div>
+                    <div class="comparison-item">
+                        <span>Insurance/day:</span>
+                        <span id="compUsedIns" class="comparison-value-small">$0.00</span>
+                    </div>
+                    <div class="comparison-item strong">
+                        <span>Total/day (5yr):</span>
+                        <span id="compUsedTotal" class="comparison-value-large">$0.00</span>
+                    </div>
+                </div>
+                
+                <div class="comparison-card highlight">
+                    <h3>New Toyota Land Cruiser</h3>
+                    <div class="comparison-item">
+                        <label>Price:</label>
+                        <input type="number" id="newCarPrice" step="1000">
+                    </div>
+                    <div class="comparison-item">
+                        <label>Interest (%):</label>
+                        <input type="number" id="newCarRate" step="0.1">
+                    </div>
+                    <div class="comparison-item">
+                        <label>Term (years):</label>
+                        <input type="number" id="newCarTerm" step="1" min="1" max="10">
+                    </div>
+                    <div class="comparison-item">
+                        <label>MPG:</label>
+                        <input type="number" id="newCarMPG" step="1">
+                    </div>
+                    <div class="comparison-item">
+                        <label>Maint/day:</label>
+                        <input type="number" id="newCarMaint" step="0.50">
+                    </div>
+                    <div class="comparison-item">
+                        <label>Insurance/mo:</label>
+                        <input type="number" id="newCarIns" step="10">
+                    </div>
+                    <div class="separator"></div>
+                    <div class="comparison-item">
+                        <span>Loan/day:</span>
+                        <span id="compNewLoan" class="comparison-value-small">$0.00</span>
+                    </div>
+                    <div class="comparison-item">
+                        <span>Fuel/day:</span>
+                        <span id="compNewFuel" class="comparison-value-small">$0.00</span>
+                    </div>
+                    <div class="comparison-item">
+                        <span>Maint/day:</span>
+                        <span id="compNewMaint" class="comparison-value-small">$0.00</span>
+                    </div>
+                    <div class="comparison-item">
+                        <span>Insurance/day:</span>
+                        <span id="compNewIns" class="comparison-value-small">$0.00</span>
+                    </div>
+                    <div class="comparison-item strong">
+                        <span>Total/day (5yr):</span>
+                        <span id="compNewTotal" class="comparison-value-large">$0.00</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="comparison-controls">
+                <div class="shared-inputs">
+                    <h4>Shared Settings:</h4>
+                    <div class="comparison-item">
+                        <label>Miles/year:</label>
+                        <input type="number" id="milesPerYear" step="1000">
+                    </div>
+                    <div class="comparison-item">
+                        <label>Gas price/gal:</label>
+                        <input type="number" id="gasPrice" step="0.10">
+                    </div>
+                    <div class="comparison-item">
+                        <label>Current ins/mo:</label>
+                        <input type="number" id="currentIns" step="10">
+                    </div>
+                </div>
+                <button onclick="updateComparison()" class="btn-compare">Update All Comparisons</button>
+            </div>
+            
+            <div class="verdict-grid">
+                <div class="verdict-card">
+                    <h3>Keep vs Used</h3>
+                    <p id="verdictUsed" class="verdict-text-small">-</p>
+                    <p id="verdictUsedDetail" class="verdict-detail-small">-</p>
+                </div>
+                <div class="verdict-card">
+                    <h3>Keep vs New</h3>
+                    <p id="verdictNew" class="verdict-text-small">-</p>
+                    <p id="verdictNewDetail" class="verdict-detail-small">-</p>
+                </div>
+                <div class="verdict-card highlight">
+                    <h3>Best Option</h3>
+                    <p id="verdictBest" class="verdict-text-small">-</p>
+                    <p id="verdictBestDetail" class="verdict-detail-small">-</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
+
