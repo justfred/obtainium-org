@@ -31,7 +31,7 @@ a:hover { color: var(--accent); }
 .brand { font-weight: 700; font-size: 1.15rem; text-decoration: none; color: var(--accent); letter-spacing: 0.02em; }
 .crumbs { display: flex; flex: 1; flex-wrap: wrap; align-items: baseline; gap: 0.2rem 0.5rem; font-family: var(--font-ui); font-size: 0.9rem; }
 .crumbs a { text-decoration: none; color: var(--ink-soft); }
-.crumbs a.brand { font-family: var(--font-body); }
+.crumbs a.brand { font-family: var(--font-body); font-weight: 700; font-size: 1.15rem; color: var(--accent); letter-spacing: 0.02em; }
 .crumbs .sep { color: var(--accent-soft); }
 .crumbs a:hover { color: var(--accent); }
 .top-links { display: flex; gap: 1rem; font-family: var(--font-ui); font-size: 0.85rem; }

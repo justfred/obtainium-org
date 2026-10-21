@@ -228,13 +228,13 @@ function updateChart() {
             datasets: [{
                 label: 'Average Cost Per Day',
                 data: dailyData.map(d => d.avgCostPerDay),
-                borderColor: '#667eea',
-                backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                borderColor: '#9a5b34',
+                backgroundColor: 'rgba(154, 91, 52, 0.1)',
                 borderWidth: 3,
                 tension: 0,  // No smoothing - show the sharp lines
                 pointRadius: dailyData.map(d => d.isCostDay ? 6 : 2),
                 pointHoverRadius: 8,
-                pointBackgroundColor: dailyData.map(d => d.isCostDay ? '#dc3545' : '#667eea'),
+                pointBackgroundColor: dailyData.map(d => d.isCostDay ? '#dc3545' : '#9a5b34'),
                 pointBorderColor: '#fff',
                 pointBorderWidth: 2,
                 fill: true
@@ -396,13 +396,13 @@ function updateMaintenanceChart() {
             datasets: [{
                 label: 'Maintenance Cost Per Day',
                 data: dailyData.map(d => d.avgCostPerDay),
-                borderColor: '#28a745',
-                backgroundColor: 'rgba(40, 167, 69, 0.1)',
+                borderColor: '#3f6e8c',
+                backgroundColor: 'rgba(63, 110, 140, 0.1)',
                 borderWidth: 3,
                 tension: 0,
                 pointRadius: dailyData.map(d => d.isCostDay ? 6 : 2),
                 pointHoverRadius: 8,
-                pointBackgroundColor: dailyData.map(d => d.isCostDay ? '#dc3545' : '#28a745'),
+                pointBackgroundColor: dailyData.map(d => d.isCostDay ? '#dc3545' : '#3f6e8c'),
                 pointBorderColor: '#fff',
                 pointBorderWidth: 2,
                 fill: true

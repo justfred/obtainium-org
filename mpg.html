@@ -4,39 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MPG Cost Calculator</title>
+    <title>MPG Cost Calculator — Fred Heald</title>
+    <link rel="stylesheet" href="pub/pub.css">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-            font-family: Georgia, 'Times New Roman', serif;
-            line-height: 1.8;
-            color: #333;
-            background: #f5f5f5;
-            padding: 40px 20px;
-        }
-
-        .container {
-            max-width: 700px;
-            margin: 0 auto;
-            background: white;
-            padding: 60px 50px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-
-        h1 {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-            color: #222;
-            font-weight: normal;
-        }
-
-        .subtitle {
-            font-size: 1rem;
-            color: #666;
-            margin-bottom: 2.5rem;
-            font-style: italic;
-        }
+        /* page shell, fonts and background come from pub/pub.css (shared WikiFred look) */
 
         .controls {
             display: grid;
@@ -48,7 +19,7 @@
         label {
             display: block;
             font-size: 0.9rem;
-            color: #555;
+            color: var(--ink-soft);
             margin-bottom: 0.3rem;
         }
 
@@ -57,9 +28,10 @@
             padding: 0.4rem 0.6rem;
             font-size: 1rem;
             font-family: inherit;
-            border: 1px solid #ccc;
+            background: var(--paper);
+            border: 1px solid var(--rule);
             border-radius: 3px;
-            color: #222;
+            color: var(--ink);
         }
 
         .mpg-list {
@@ -86,18 +58,18 @@
             font-family: inherit;
             font-size: 0.85rem;
             padding: 0.3rem 0.8rem;
-            border: 1px solid #ccc;
+            border: 1px solid var(--rule);
             border-radius: 3px;
-            background: #f9f9f9;
+            background: var(--paper-2);
             cursor: pointer;
-            color: #333;
+            color: var(--ink);
         }
-        button:hover { background: #eee; }
+        button:hover { border-color: var(--accent-soft); color: var(--accent); }
 
         .remove-btn {
             background: none;
             border: none;
-            color: #999;
+            color: var(--ink-soft);
             font-size: 1.1rem;
             cursor: pointer;
             padding: 0 0.2rem;
@@ -124,15 +96,15 @@
         th {
             text-align: left;
             padding: 0.4rem 0.6rem;
-            border-bottom: 2px solid #e5e7eb;
-            color: #555;
+            border-bottom: 2px solid var(--rule);
+            color: var(--ink-soft);
             font-weight: normal;
             font-size: 0.85rem;
         }
 
         td {
             padding: 0.4rem 0.6rem;
-            border-bottom: 1px solid #f0f0f0;
+            border-bottom: 1px solid var(--rule);
         }
 
         tr:last-child td { border-bottom: none; }
@@ -140,21 +112,21 @@
         .savings { color: #16a34a; }
         .savings-neg { color: #dc2626; }
 
-        .back { font-size: 0.9rem; color: #666; margin-top: 1rem; }
-        .back a { color: #2563eb; text-decoration: none; }
+        .back { font-size: 0.9rem; color: var(--ink-soft); margin-top: 1rem; }
+        .back a { color: var(--link); text-decoration: none; }
         .back a:hover { text-decoration: underline; }
 
         @media (max-width: 600px) {
-            .container { padding: 40px 25px; }
             .controls { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 
 <body>
-<div class="container">
+<!--pub:header--><header class="site-head"><nav class="crumbs"><a class="brand" href="index.html">obtainium.org</a></nav><nav class="top-links"><a href="pub/index.html">pub</a><a href="wiki/">WikiFred</a></nav></header><!--/pub:header-->
+<main>
     <h1>MPG Cost Calculator</h1>
-    <p class="subtitle">Fuel cost over lifetime miles — adjust any value to recalculate</p>
+    <p class="lede">Fuel cost over lifetime miles — adjust any value to recalculate</p>
 
     <div class="controls">
         <div>
@@ -191,8 +163,8 @@
         <tbody id="results-body"></tbody>
     </table>
 
-    <p class="back"><a href="index.html">← Back</a></p>
-</div>
+</main>
+<!--pub:footer--><footer class="site-foot">© 2026 Fred Heald · <a href="pub/index.html">obtainium.org/pub</a></footer><!--/pub:footer-->
 
 <script>
 // ── palette ────────────────────────────────────────────────────────────────
