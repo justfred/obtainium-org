@@ -14,7 +14,7 @@
         <a class="brand" href="/">obtainium.org</a><span class="sep">/</span><a href="/biography/">Biography</a><span class="sep">/</span><a href="/biography/thread/tech/">Tech</a>
       </nav>
       <nav class="top-links">
-        <a href="/food-and-drink/">Food &amp; Drink</a><a href="/politics/">Politics</a>
+        <a href="/food-and-drink/">Food &amp; Drink</a><a href="/politics/">Politics</a><a href="/burning-man/">Burning Man</a><a href="/photography/">Photography</a><a href="/vehicles/">Vehicles</a><a href="/misc/">Misc</a>
         <a href="/search/">🔍 Search</a>
       </nav>
     </header>
@@ -36,6 +36,30 @@
 
 
 <article class="article" data-pagefind-body>
+  <h1 class="article-title">The MONEY Data Type</h1>
+  <p class="article-date">June 13, 2002</p>
+  
+
+  
+    <div class="photos">
+      
+    </div>
+  
+
+  <div class="article-body">
+    <p><em>Waiting for a database to convert 5 million records from MONEY to DECIMAL.</em></p>
+<p>The most important part of my job at Cybertel is preparing telephone bills. I spend most of my time manipulating dollar amounts in databases — buy rate, sell rate, payments, credits, commissions, past due. This means I have to choose data types carefully. Dollar amounts need exactly two decimal places: $4.20, not $4.2; 12 or 13 cents, not 12.5.</p>
+<p>Microsoft SQL Server has a data type called MONEY. Seems like the obvious choice. It isn’t.</p>
+<p>MONEY stores four digits of decimal but displays only two. And the number of stored decimals isn’t adjustable. So if a customer owes $4.21 and I add a 10% late fee, the amount becomes $4.6310. Add up enough of these and you get: .244 + .383 + .684 = 1.311, which displays as “$1.31” — just different enough from the correct answer to be annoying on a phone bill.</p>
+<p>This is commonly known as the Superman problem, because in one of the Superman movies, Richard Pryor’s character adds up all the partial pennies left off from people’s paychecks and deposits them in his own account — and shows up for work the next day in a Ferrari.</p>
+<p>Perl is worse. It only knows “numeric” or “alpha,” and floating point numbers are stored in binary as integers plus calculated fractions. $4.20 is stored, hidden in binary, as 4 1/5. Add .70 + .15 in Perl and you might get .84999999.</p>
+<p>The correct answer is DECIMAL(10,2) — stores exactly two decimal places, no funny business. The downside is I have to specify the total number of digits, including to the left of the decimal, and I have to guess the largest number I’ll ever encounter. Is it possible for a customer to owe more than $100,000? I hope not. But it’s possible.</p>
+<p>The reason I’m ranting about this now: I’m waiting for my database to convert the cost of 5 million calls from MONEY to DECIMAL(10,2). Some of my bills last month were off by a penny. Tragedy of epic proportions.</p>
+<p>Don’t even get me started on NULL, because it’s 12:45 and time for lunch.</p>
+
+  </div>
+
+  
   
   <div class="thread-stack">
     
@@ -67,30 +91,6 @@
       </div>
       
     
-  </div>
-
-
-  <h1 class="article-title">The MONEY Data Type</h1>
-  <p class="article-date">June 13, 2002</p>
-  
-
-  
-    <div class="photos">
-      
-    </div>
-  
-
-  <div class="article-body">
-    <p><em>Waiting for a database to convert 5 million records from MONEY to DECIMAL.</em></p>
-<p>The most important part of my job at Cybertel is preparing telephone bills. I spend most of my time manipulating dollar amounts in databases — buy rate, sell rate, payments, credits, commissions, past due. This means I have to choose data types carefully. Dollar amounts need exactly two decimal places: $4.20, not $4.2; 12 or 13 cents, not 12.5.</p>
-<p>Microsoft SQL Server has a data type called MONEY. Seems like the obvious choice. It isn’t.</p>
-<p>MONEY stores four digits of decimal but displays only two. And the number of stored decimals isn’t adjustable. So if a customer owes $4.21 and I add a 10% late fee, the amount becomes $4.6310. Add up enough of these and you get: .244 + .383 + .684 = 1.311, which displays as “$1.31” — just different enough from the correct answer to be annoying on a phone bill.</p>
-<p>This is commonly known as the Superman problem, because in one of the Superman movies, Richard Pryor’s character adds up all the partial pennies left off from people’s paychecks and deposits them in his own account — and shows up for work the next day in a Ferrari.</p>
-<p>Perl is worse. It only knows “numeric” or “alpha,” and floating point numbers are stored in binary as integers plus calculated fractions. $4.20 is stored, hidden in binary, as 4 1/5. Add .70 + .15 in Perl and you might get .84999999.</p>
-<p>The correct answer is DECIMAL(10,2) — stores exactly two decimal places, no funny business. The downside is I have to specify the total number of digits, including to the left of the decimal, and I have to guess the largest number I’ll ever encounter. Is it possible for a customer to owe more than $100,000? I hope not. But it’s possible.</p>
-<p>The reason I’m ranting about this now: I’m waiting for my database to convert the cost of 5 million calls from MONEY to DECIMAL(10,2). Some of my bills last month were off by a penny. Tragedy of epic proportions.</p>
-<p>Don’t even get me started on NULL, because it’s 12:45 and time for lunch.</p>
-
   </div>
 
   
@@ -187,6 +187,6 @@
     </script>
     <script src="/js/wikifred.js" type="module"></script>
     <script src="/__admin/overlay.js" onerror="void 0"></script>
-    <script data-goatcounter="https://obtainium.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+    <script data-goatcounter="https://fheald.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
   </body>
 </html>

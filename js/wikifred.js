@@ -3,6 +3,17 @@
 
 
 const WF_BASE = window.WF_BASE || "/";
+
+// Section countdown (e.g. Politics → Election Day), computed on view so it stays current.
+const countdown = document.querySelector(".countdown[data-date]");
+if (countdown) {
+  const day = new Date(countdown.dataset.date + "T00:00:00");
+  const today = new Date(); today.setHours(0, 0, 0, 0);
+  const n = Math.round((day - today) / 864e5);
+  const when = day.toLocaleDateString(undefined, { weekday: "long", month: "long", day: "numeric", year: "numeric" });
+  countdown.textContent = `${countdown.dataset.label}: ${when}` +
+    (n > 1 ? ` — in ${n} days` : n === 1 ? " — tomorrow" : n === 0 ? " — today" : ` — ${-n} days ago`);
+}
 const manifestPromise = fetch(WF_BASE + "threads.json")
   .then((r) => (r.ok ? r.json() : { threads: {}, all: [] }))
   .catch(() => ({ threads: {}, all: [] }));
@@ -68,7 +79,9 @@ manifestPromise.then((manifest) => {
   const fdEl = document.getElementById("fd-items");
   const fd = fdEl ? JSON.parse(fdEl.textContent || "[]") : [];
   if (featured) {
-    const pool = manifest.all.concat(fd);
+    // A section landing page embeds its own items (#section-items); otherwise Biography (+ Food & Drink on home).
+    const secEl = document.getElementById("section-items");
+    const pool = secEl ? JSON.parse(secEl.textContent || "[]") : manifest.all.concat(fd);
     const withImg = pool.filter((a) => a.img);
     const render = () => {
       const pick = pickRandom(withImg.length && Math.random() < 0.75 ? withImg : pool, null);

@@ -63,3 +63,8 @@ blockquote { border-left: 3px solid var(--accent-soft); padding-left: 1rem; colo
 .list { list-style: none; padding: 0; }
 .list li { margin: 0; padding: 0.5rem 0; border-bottom: 1px dotted var(--rule); }
 @media (max-width: 600px) { html { font-size: 17px; } main { padding: 1.6rem 16px 3rem; } h1 { font-size: 1.7rem; } table { min-width: 560px; } }
+
+/* One width site-wide (Fred, 2026-10-24): text and tables share the same edges. */
+:root { --page-wide: 50rem; }
+main, main.wide { max-width: var(--page-wide); }
+.site-foot, main.wide + .site-foot { max-width: var(--page-wide); }

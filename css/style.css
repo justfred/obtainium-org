@@ -95,7 +95,7 @@ main {
 .article-body p:first-child em { color: var(--ink-soft); }
 
 /* thread nav stack at top of an article */
-.thread-stack { display: flex; flex-direction: column; gap: 0.3rem; margin-bottom: 1.5rem; }
+.thread-stack { display: flex; flex-direction: column; gap: 0.3rem; margin: 2.5rem 0 1rem; padding-top: 1rem; border-top: 1px solid var(--rule); }
 .thread-nav {
   display: flex;
   align-items: center;
@@ -235,7 +235,7 @@ main.main-wide { max-width: 62rem; }
 .front-grid .featured { margin: 0 0 1rem; text-align: left; }
 .front-grid .welcome-actions { justify-content: flex-start; }
 .feature-card.has-img { display: flex; padding: 0 0 1.2rem; overflow: hidden; }
-.feature-card.has-img img { width: 100%; max-height: 18rem; object-fit: cover; display: block; }
+.feature-card.has-img img { width: 100%; height: auto; max-height: 26rem; object-fit: contain; background: var(--paper); display: block; } /* whole photo, never cropped */
 .feature-card.has-img .feature-go, .feature-card.has-img .feature-title, .feature-card.has-img .feature-source { padding: 0 1.4rem; }
 .otd { list-style: none; padding: 0; margin: 0; }
 .otd li { display: flex; gap: 0.8rem; padding: 0.3rem 0; border-bottom: 1px dotted var(--rule); }
@@ -290,6 +290,22 @@ main.main-wide { max-width: 62rem; }
 .home-links a { color: var(--ink-soft); text-decoration: none; }
 .home-links a:hover { color: var(--accent); }
 
+/* --- section landing pages -----------------------------------------------*/
+.section-hero .countdown { font-family: var(--font-ui); font-size: 0.9rem; color: var(--accent); margin: 0.2rem 0 0.8rem; }
+.section-intro { max-width: 40rem; margin: 0.5rem auto 1.5rem; text-align: left; color: var(--ink-soft); }
+.cards { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); gap: 0.9rem; }
+.card { position: relative; display: flex; flex-direction: column; border: 1px solid var(--rule); border-radius: 0.5rem; background: var(--paper-2); overflow: hidden; transition: border-color 0.15s; }
+.card:hover { border-color: var(--accent-soft); }
+.card-link { display: flex; flex-direction: column; text-decoration: none; color: var(--ink); }
+.card-img { width: 100%; aspect-ratio: 3 / 2; object-fit: contain; background: var(--paper); display: block; } /* whole photo, letterboxed */
+/* whole card opens the page: the main link is stretched over it; sub-links sit above */
+.card-link::after { content: ""; position: absolute; inset: 0; }
+.card-subs a { position: relative; z-index: 1; }
+.card-title { font-size: 1.05rem; padding: 0.8rem 1rem 0.2rem; }
+.card-desc { font-size: 0.85rem; color: var(--ink-soft); line-height: 1.4; margin: 0; padding: 0.2rem 1rem 0.9rem; }
+.card-subs { font-family: var(--font-ui); font-size: 0.78rem; margin: 0; padding: 0 1rem 0.9rem; line-height: 1.6; }
+.card-subs a { color: var(--link); }
+
 /* --- search page ---------------------------------------------------------*/
 .search-page h1 { margin-bottom: 1.2rem; }
 
@@ -305,7 +321,7 @@ main.main-wide { max-width: 62rem; }
 
 /* --- long-form chapter-band layout (opt-in: layout_sections: true) -------*/
 main.main-full { max-width: none; padding: 0; }
-.article.sections .thread-stack { max-width: 56rem; margin: 0 auto 1.5rem; padding: 1.5rem 1.25rem 0; }
+.article.sections .thread-stack { max-width: 56rem; margin: 2.5rem auto 1rem; padding: 1rem 1.25rem 0; }
 .article.sections .hero { max-width: 56rem; margin: 0 auto; padding: 2rem 1.25rem 2.5rem; text-align: center; }
 .article.sections .hero .article-title { font-size: 2.6rem; }
 
@@ -342,3 +358,8 @@ main.main-full { max-width: none; padding: 0; }
 .section-nav .pos { font-variant-numeric: tabular-nums; letter-spacing: 0.05em; }
 
 .article.sections .article-source { max-width: 62rem; margin: 2rem auto 0; padding: 0 2.5rem 3rem; }
+
+/* One width site-wide (Fred, 2026-10-24): text and tables share the same edges. */
+:root { --page-wide: 50rem; }
+main:not(.main-full):not(.main-wide), main.wide { max-width: var(--page-wide); }
+.site-foot, main.wide + .site-foot { max-width: var(--page-wide); }

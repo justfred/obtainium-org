@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Burning Man Gate Wait Times · Burning Man</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/pagefind/pagefind-ui.css" />
+  </head>
+  <body data-rotate="0">
+    <header class="site-head">
+      <nav class="crumbs" aria-label="Breadcrumb">
+        <a class="brand" href="/">obtainium.org</a><span class="sep">/</span><a href="/burning-man/">Burning Man</a>
+      </nav>
+      <nav class="top-links">
+        <a href="/biography/">Biography</a><a href="/food-and-drink/">Food &amp; Drink</a><a href="/politics/">Politics</a><a href="/photography/">Photography</a><a href="/vehicles/">Vehicles</a><a href="/misc/">Misc</a>
+        <a href="/search/">🔍 Search</a>
+      </nav>
+    </header>
+    
+
+    <main>
+      <style>
+/* chart extras on top of pub.css */
+:root { --series-a: #3f6e8c; --series-b: #b4532a; --band: rgba(201,138,94,0.16); --surface: var(--paper); }
+.subtitle { color: var(--ink-soft); font-size: 0.9rem; margin: -0.3rem 0 1rem; }
+.jump { font-family: var(--font-ui); font-size: 0.85rem; }
+.jump a { margin-right: 1rem; }
+.chart-card { background: var(--paper); border: 1px solid var(--rule); border-radius: 0.4rem; padding: 1rem 1rem 0.8rem; }
+.legend { display: flex; gap: 1.2rem; margin-bottom: 0.4rem; font-family: var(--font-ui); font-size: 0.8rem; color: var(--ink-soft); flex-wrap: wrap; }
+.legend-item { display: flex; align-items: center; gap: 0.4rem; }
+.legend-swatch { width: 16px; height: 3px; border-radius: 2px; }
+.chart-wrap { position: relative; }
+svg { width: 100%; height: auto; display: block; overflow: visible; font-family: var(--font-ui); }
+.gridline { stroke: var(--rule); stroke-width: 1; }
+.axis-text { fill: var(--ink-soft); font-size: 11px; font-variant-numeric: tabular-nums; }
+.band-label { fill: var(--ink-soft); font-size: 11px; font-weight: 600; }
+.series-line { fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.series-dot { stroke: var(--paper); stroke-width: 2; }
+.crosshair { stroke: var(--ink-soft); stroke-width: 1; stroke-dasharray: 3 3; opacity: 0; }
+.end-label { font-size: 12px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.tooltip {
+  position: absolute; pointer-events: none; background: var(--paper-2); border: 1px solid var(--rule); border-radius: 0.4rem;
+  padding: 6px 10px; font-family: var(--font-ui); font-size: 12px; color: var(--ink);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.12); opacity: 0; transition: opacity 0.1s; white-space: nowrap; z-index: 5;
+}
+.tooltip .t-time { color: var(--ink-soft); margin-bottom: 4px; }
+.tooltip .t-row { display: flex; align-items: center; gap: 6px; margin-top: 2px; }
+.tooltip .t-dot { width: 8px; height: 8px; border-radius: 50%; flex: none; }
+.tooltip .t-val { font-variant-numeric: tabular-nums; font-weight: 600; margin-left: auto; padding-left: 10px; }
+.caption { margin-top: 1rem; font-size: 0.95rem; }
+.data-table td.thin { color: var(--ink-soft); }
+.data-table td, .data-table th { font-variant-numeric: tabular-nums; }
+details.table-toggle { margin-top: 0.8rem; font-family: var(--font-ui); font-size: 0.8rem; }
+details.table-toggle > summary { cursor: pointer; color: var(--ink-soft); }
+.data-table { margin-top: 0.5rem; }
+.chart-card table { min-width: 0; }
+.source { margin-top: 2.5rem; padding-top: 1rem; border-top: 1px solid var(--rule); font-family: var(--font-ui); font-size: 0.8rem; color: var(--ink-soft); }
+</style>
+<div class="app wide" data-pagefind-body>
+
+<p class="kicker">Burning Man · getting in and out</p>
+<h1>Burning Man Gate Wait Times</h1>
+<p class="lede">How long the line is, hour by hour, getting into Black Rock City and getting back out — <b>a 2-year average of hourly community reports (2024–2025)</b>. Hours are playa time. The short version: <b>arrive early in the morning, and leave Sunday overnight if you can.</b></p>
+<p class="jump"><a href="#arrival">Arrival: Thu–Fri before</a><a href="#exodus">Exodus: Sun–Mon</a></p>
+
+<!-- ============ ARRIVAL ============ -->
+<h2 id="arrival">Arrival: Thursday–Friday before the event</h2>
+<p class="subtitle">Gravel-to-gate wait, the Thursday and Friday before opening.</p>
+<div class="chart-card">
+<div class="legend">
+  <div class="legend-item"><span class="legend-swatch" style="background:var(--series-a)"></span>Thursday before <span class="legend-note">(n=6, 2024 only)</span></div>
+  <div class="legend-item"><span class="legend-swatch" style="background:var(--series-b)"></span>Friday before <span class="legend-note">(n=30, 2024+2025)</span></div>
+</div>
+<div class="chart-wrap" id="chart-arrival"></div>
+<details class="table-toggle"><summary>View as table</summary><div class="table-wrap"><table class="data-table" id="table-arrival"></table></div></details>
+</div>
+<div class="caption">
+  <b>Read:</b> Friday's line bottoms out at <b>6–9am (42–65 min)</b>, then climbs almost straight through the day to <b>4+ hours by 9–11pm</b> as the Saturday-before crowd starts stacking up. That matches Burning Man's own guidance that "the shortest lines are usually 3am–10am." Thursday's few readings (all 2024, all midday — there are no early-morning Thursday reports in this dataset) sit lower still (20–90 min), consistent with build week generally being lighter than the day before opening, but there's no same-hour comparison to confirm an early Thursday beats an early Friday.
+</div>
+
+<!-- ============ EXODUS ============ -->
+<h2 id="exodus">Exodus: Temple Sunday and Labor Day Monday</h2>
+<p class="subtitle">Gate-road-to-gravel wait leaving Black Rock City.</p>
+<div class="chart-card">
+<div class="legend">
+  <div class="legend-item"><span class="legend-swatch" style="background:var(--series-a)"></span>Temple Sunday <span class="legend-note">(n=56)</span></div>
+  <div class="legend-item"><span class="legend-swatch" style="background:var(--series-b)"></span>Labor Day Monday <span class="legend-note">(n=52)</span></div>
+</div>
+<div class="chart-wrap" id="chart-exodus"></div>
+<details class="table-toggle"><summary>View as table</summary><div class="table-wrap"><table class="data-table" id="table-exodus"></table></div></details>
+</div>
+<div class="caption">
+  <b>Read:</b> leaving at dawn is a good plan only on Sunday. <b>Sunday's floor is midnight–10am, 30–45 min</b> — flat and low, since most people haven't started leaving yet (the Temple burns Sunday night, and plenty of people stay for it). <b>Monday never gets that low.</b> Its best hour is <b>~7am at 112 min</b> — still 2–4× Sunday's overnight floor — and it's essentially the only good hour: by 9am it's back over 150 min, and it's 4–6 hours for most of the afternoon and evening as the holiday-weekend crowd all leaves at once. (The data caps at "360" = 6+ hours, so the real peak is likely higher.)<br><br>
+  So: <b>if you can leave Sunday, any overnight-to-mid-morning hour beats any hour of Monday.</b> If it has to be Monday, ~7am is the least-bad window, not a good one. And if you're flexible: <b>Tuesday afternoon (1–6pm, ~25 min)</b> is the best exodus window in the whole dataset.
+</div>
+
+<p class="source">Source: hourly community reports aggregated by <a href="https://x.com/bmantraffic" target="_blank" rel="noopener">@bmantraffic</a>, compiled at <a href="https://www.bmantravel.com" target="_blank" rel="noopener">bmantravel.com</a>. A historical average from two years — not an official or predictive forecast. Actual waits in any year depend on weather, road conditions and traffic management on the day.</p>
+
+
+</div>
+<script>
+(function() {
+  var ns = 'http://www.w3.org/2000/svg';
+  var W = 820, H = 380, padL = 60, padR = 115, padT = 20, padB = 50;
+  var plotW = W - padL - padR, plotH = H - padT - padB;
+
+  function el(name, attrs, parent) {
+    var e = document.createElementNS(ns, name);
+    for (var k in attrs) e.setAttribute(k, attrs[k]);
+    if (parent) parent.appendChild(e);
+    return e;
+  }
+  function pad2(h) { return h.toString().padStart(2, '0') + ':00'; }
+
+  // cfg: { id, series:[{label, color, points, endLabel, endDy}], vMax, yTicks, xTicks,
+  //        band:[h0,h1,label], marker:{series, hour, label}, capPlus }
+  function chart(cfg) {
+    var hMin = 0, hMax = 23;
+    function x(h) { return padL + (h - hMin) / (hMax - hMin) * plotW; }
+    function y(v) { return padT + plotH - (Math.min(v, cfg.vMax) / cfg.vMax) * plotH; }
+    function fmt(min) {
+      if (min < 60) return min + ' min';
+      var h = Math.floor(min / 60), m = min % 60;
+      return h + 'h' + (m ? ' ' + m + 'm' : '') + (cfg.capPlus && min >= 360 ? '+' : '');
+    }
+
+    var wrap = document.getElementById('chart-' + cfg.id);
+    var svg = el('svg', { viewBox: '0 0 ' + W + ' ' + H, preserveAspectRatio: 'xMidYMid meet', role: 'img' }, wrap);
+    var tooltip = document.createElement('div');
+    tooltip.className = 'tooltip';
+    wrap.appendChild(tooltip);
+
+    cfg.yTicks.forEach(function(v) {
+      el('line', { 'class': 'gridline', x1: padL, x2: W - padR, y1: y(v), y2: y(v) }, svg);
+      el('text', { 'class': 'axis-text', x: padL - 10, y: y(v) + 4, 'text-anchor': 'end' }, svg)
+        .textContent = v === 0 ? '0' : (v / 60) + 'h';
+    });
+    cfg.xTicks.forEach(function(h) {
+      el('text', { 'class': 'axis-text', x: x(h), y: H - padB + 18, 'text-anchor': 'middle' }, svg).textContent = pad2(h);
+    });
+
+    var b = cfg.band;
+    el('rect', { x: x(b[0]), width: x(b[1]) - x(b[0]), y: padT, height: plotH, fill: 'var(--band)' }, svg);
+    el('text', { 'class': 'band-label', x: (x(b[0]) + x(b[1])) / 2, y: padT + 14, 'text-anchor': 'middle' }, svg).textContent = b[2];
+
+    cfg.series.forEach(function(s) {
+      var d = s.points.map(function(p, i) { return (i ? 'L' : 'M') + x(p[0]).toFixed(1) + ',' + y(p[1]).toFixed(1); }).join(' ');
+      el('path', { 'class': 'series-line', d: d, stroke: s.color }, svg);
+      s.points.forEach(function(p) { el('circle', { 'class': 'series-dot', cx: x(p[0]), cy: y(p[1]), r: 4, fill: s.color }, svg); });
+      var last = s.points[s.points.length - 1];
+      el('text', { 'class': 'end-label', x: x(last[0]) + 8, y: y(last[1]) + (s.endDy || 4), fill: s.color }, svg).textContent = s.endLabel;
+    });
+
+    if (cfg.marker) {
+      var ms = cfg.series[cfg.marker.series];
+      var mp = ms.points.find(function(p) { return p[0] === cfg.marker.hour; });
+      el('text', { 'class': 'end-label', x: x(mp[0]), y: y(mp[1]) - 12, 'text-anchor': 'middle', fill: ms.color }, svg).textContent = cfg.marker.label;
+    }
+
+    var hours = [];
+    cfg.series.forEach(function(s) { s.points.forEach(function(p) { if (hours.indexOf(p[0]) < 0) hours.push(p[0]); }); });
+    hours.sort(function(a, b) { return a - b; });
+    function at(s, h) { return s.points.find(function(p) { return p[0] === h; }); }
+
+    var cross = el('line', { 'class': 'crosshair', y1: padT, y2: padT + plotH }, svg);
+    var hit = el('rect', { x: padL, y: padT, width: plotW, height: plotH, fill: 'transparent' }, svg);
+
+    function show(clientX) {
+      var rect = svg.getBoundingClientRect();
+      var mx = (clientX - rect.left) * (W / rect.width);
+      var hv = hMin + (mx - padL) / plotW * (hMax - hMin);
+      var h = hours.reduce(function(a, b) { return Math.abs(b - hv) < Math.abs(a - hv) ? b : a; });
+      cross.setAttribute('x1', x(h)); cross.setAttribute('x2', x(h));
+      cross.style.opacity = 1;
+      var html = '<div class="t-time">' + pad2(h) + ' playa time</div>';
+      cfg.series.forEach(function(s) {
+        var p = at(s, h);
+        if (p) html += '<div class="t-row"><span class="t-dot" style="background:' + s.color + '"></span>' + s.label + '<span class="t-val">' + fmt(p[1]) + '</span></div>';
+      });
+      tooltip.innerHTML = html;
+      tooltip.style.opacity = 1;
+      var wr = wrap.getBoundingClientRect();
+      var px = (x(h) / W) * wr.width, tw = tooltip.offsetWidth;
+      tooltip.style.left = Math.min(Math.max(px - tw / 2, 0), wr.width - tw) + 'px';
+      tooltip.style.top = '10px';
+    }
+    function hide() { tooltip.style.opacity = 0; cross.style.opacity = 0; }
+    hit.addEventListener('mousemove', function(e) { show(e.clientX); });
+    hit.addEventListener('mouseleave', hide);
+    hit.addEventListener('touchstart', function(e) { show(e.touches[0].clientX); }, { passive: true });
+    hit.addEventListener('touchmove', function(e) { show(e.touches[0].clientX); }, { passive: true });
+
+    var rows = '<tr><th>Hour</th>' + cfg.series.map(function(s) { return '<th>' + s.label + ' wait</th>'; }).join('') + '</tr>';
+    hours.forEach(function(h) {
+      rows += '<tr><td>' + pad2(h) + '</td>' + cfg.series.map(function(s) {
+        var p = at(s, h);
+        return '<td' + (p ? '' : ' class="thin"') + '>' + (p ? fmt(p[1]) : '—') + '</td>';
+      }).join('') + '</tr>';
+    });
+    document.getElementById('table-' + cfg.id).innerHTML = rows;
+  }
+
+  chart({
+    id: 'arrival', vMax: 300,
+    yTicks: [0, 60, 120, 180, 240, 300], xTicks: [6, 9, 12, 15, 18, 21, 23],
+    band: [6, 10, 'shortest-line window'],
+    series: [
+      { label: 'Thu', color: 'var(--series-a)', endLabel: 'Thu (last reading, 3pm)', endDy: 4,
+        points: [[10,20],[11,20],[12,25],[13,45],[14,90],[15,70]] },
+      { label: 'Fri', color: 'var(--series-b)', endLabel: 'Fri ~4h by 11pm', endDy: -6,
+        points: [[6,180],[7,42],[8,48],[9,65],[10,100],[11,105],[12,120],[13,145],[14,155],[15,170],[16,180],[17,190],[19,180],[20,210],[21,255],[22,255],[23,235]] }
+    ]
+  });
+
+  chart({
+    id: 'exodus', vMax: 380, capPlus: true,
+    yTicks: [0, 60, 120, 180, 240, 300, 360], xTicks: [0, 3, 6, 9, 12, 15, 18, 21, 23],
+    band: [0, 10, 'Sunday floor: 30–45 min'],
+    marker: { series: 1, hour: 7, label: 'Mon best: 7am, ~112 min' },
+    series: [
+      { label: 'Sun', color: 'var(--series-a)', endLabel: 'Sun', endDy: 14,
+        points: [[0,30],[1,60],[2,30],[3,30],[4,30],[5,30],[6,30],[7,30],[8,45],[9,30],[10,38],[11,70],[12,70],[13,120],[14,150],[15,115],[16,132],[17,144],[18,155],[19,210],[20,270],[21,240],[22,265],[23,218]] },
+      { label: 'Mon', color: 'var(--series-b)', endLabel: 'Mon', endDy: -8,
+        points: [[0,210],[1,188],[2,185],[3,180],[4,180],[5,195],[6,158],[7,112],[8,120],[9,160],[10,190],[11,195],[12,210],[13,210],[14,218],[15,188],[16,210],[17,210],[18,240],[19,300],[20,360],[21,300],[23,360]] }
+    ]
+  });
+})();
+</script>
+
+    </main>
+
+    <footer class="site-foot">
+      <span class="foot-comment">
+        <a id="comment-link" href="mailto:justfred@obtainium.org">Comment</a>
+        <span class="foot-email"> · justfred@obtainium.org</span>
+      </span>
+    </footer>
+
+    <script>window.WF_BASE = "/biography/";</script>
+    <script src="/pagefind/pagefind-ui.js"></script>
+    <script>
+      if (document.getElementById("search")) {
+        const ui = new PagefindUI({ element: "#search", bundlePath: "/pagefind/", showImages: false });
+        // ?q=… (search page) or the broken URL's words (404) pre-fill the search
+        const q = new URLSearchParams(location.search).get("q") || window.searchFromPath;
+        if (q) ui.triggerSearch(q);
+      }
+    </script>
+    <script src="/js/wikifred.js" type="module"></script>
+    <script src="/__admin/overlay.js" onerror="void 0"></script>
+    <script data-goatcounter="https://fheald.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+  </body>
+</html>
