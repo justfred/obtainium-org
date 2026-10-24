@@ -265,6 +265,31 @@ main.main-wide { max-width: 62rem; }
   .decades { height: 8rem; gap: 0.15rem; }
 }
 
+/* --- home page -----------------------------------------------------------*/
+.home-hero { text-align: center; margin: 0.5rem 0 2rem; }
+.home-hero h1 { font-size: 2.6rem; margin: 0; }
+.home-hero .lede { margin: 0 0 1.2rem; font-style: italic; }
+.home-search { max-width: 34rem; margin: 0 auto; text-align: left; }
+.home-sections { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr)); gap: 0.9rem; }
+.home-card { position: relative; padding: 1rem 1.1rem; border: 1px solid var(--rule); border-radius: 0.5rem; background: var(--paper-2); transition: border-color 0.15s; }
+.home-card:hover { border-color: var(--accent); }
+/* whole card opens the section: the title link is stretched over it; links inside sit above */
+.home-card-title::after { content: ""; position: absolute; inset: 0; }
+.home-card-list a, .home-card-blurb a { position: relative; z-index: 1; }
+.home-card-lg { grid-column: span 1; border-color: var(--accent-soft); }
+.home-card-title { font-size: 1.2rem; text-decoration: none; color: var(--ink); }
+.home-card-title:hover { color: var(--accent); }
+.home-card-meta { font-family: var(--font-ui); font-size: 0.75rem; color: var(--accent); margin: 0.25rem 0 0.5rem; }
+.home-card-blurb { font-size: 0.9rem; color: var(--ink-soft); margin: 0; line-height: 1.4; }
+.home-card-list { list-style: none; padding: 0; margin: 0.4rem 0 0; font-size: 0.9rem; line-height: 1.35; }
+.home-card-list li { padding: 0.15rem 0; }
+.links { list-style: none; padding: 0; margin: 0; }
+.links li { display: flex; flex-wrap: wrap; gap: 0 0.8rem; padding: 0.35rem 0; border-bottom: 1px dotted var(--rule); }
+.links .label { font-family: var(--font-ui); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--accent); min-width: 7.5rem; padding-top: 0.2rem; }
+.home-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem 1.4rem; margin: 2.5rem 0 0; padding-top: 1rem; border-top: 1px solid var(--rule); font-family: var(--font-ui); font-size: 0.8rem; }
+.home-links a { color: var(--ink-soft); text-decoration: none; }
+.home-links a:hover { color: var(--accent); }
+
 /* --- search page ---------------------------------------------------------*/
 .search-page h1 { margin-bottom: 1.2rem; }
 

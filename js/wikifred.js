@@ -64,10 +64,14 @@ manifestPromise.then((manifest) => {
 
   // Front page: random story (photo-led when one has a picture).
   const featured = document.getElementById("featured");
+  // Home page adds Food & Drink (embedded as #fd-items) to the pool.
+  const fdEl = document.getElementById("fd-items");
+  const fd = fdEl ? JSON.parse(fdEl.textContent || "[]") : [];
   if (featured) {
-    const withImg = manifest.all.filter((a) => a.img);
+    const pool = manifest.all.concat(fd);
+    const withImg = pool.filter((a) => a.img);
     const render = () => {
-      const pick = pickRandom(withImg.length && Math.random() < 0.75 ? withImg : manifest.all, null);
+      const pick = pickRandom(withImg.length && Math.random() < 0.75 ? withImg : pool, null);
       featured.innerHTML = pick
         ? `<a class="feature-card${pick.img ? " has-img" : ""}" href="${pick.url}">${pick.img ? `<img src="${pick.img}" alt="">` : ""}<span class="feature-go">Read →</span><span class="feature-title">${pick.title}</span><span class="feature-source">${[pick.date && pick.date.slice(0, 4), pick.source].filter(Boolean).join(" · ")}</span></a>`
         : `<p>No articles yet.</p>`;
@@ -93,11 +97,20 @@ manifestPromise.then((manifest) => {
       hits = dated.filter((a) => days.has(a.date.slice(5)));
     }
     hits.sort((a, b) => a.date.localeCompare(b.date));
+    const limit = parseInt(otd.dataset.limit || "0", 10);
+    if (limit && hits.length > limit) hits = hits.sort(() => Math.random() - 0.5).slice(0, limit).sort((a, b) => a.date.localeCompare(b.date));
     document.getElementById("otd-date").textContent =
       today.toLocaleDateString(undefined, { month: "long", day: "numeric" }) + (span > 1 ? " · this week" : "");
     otd.innerHTML = hits.length
       ? `<ul class="otd">${hits.map((a) => `<li><span class="otd-year">${a.date.slice(0, 4)}</span><a href="${a.url}">${a.title}</a></li>`).join("")}</ul>`
       : `<p class="front-sub">Nothing on this date yet.</p>`;
+  }
+
+  // Home page Food & Drink card: one random drink or recipe.
+  const fdPeek = document.getElementById("fd-peek");
+  if (fdPeek && fd.length) {
+    const pick = pickRandom(fd.filter((a) => a.group === "drinks" || a.group === "recipes"), null);
+    if (pick) fdPeek.innerHTML = `Try: <a href="${pick.url}">${pick.title}</a> <span class="front-sub">${pick.source.toLowerCase()}</span>`;
   }
 
   // Faces: show a random handful of the portraits (all are in the HTML for no-JS).

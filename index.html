@@ -1,51 +1,149 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fred Heald - Obtainium.org</title>
-    <link rel="stylesheet" href="pub/pub.css">
-    <style>
-        .links { list-style: none; padding: 0; margin: 2rem 0; }
-        .links li { margin: 0; padding: 0.6rem 0; border-bottom: 1px dotted var(--rule); }
-        .links .label { display: inline-block; min-width: 6rem; font-family: var(--font-ui); font-size: 0.85rem; color: var(--ink-soft); }
-    </style>
-    <script data-goatcounter="https://fheald.goatcounter.com/count"
-        async src="//gc.zgo.at/count.js"></script>
-</head>
-<body>
-<!--pub:header--><header class="site-head"><nav class="crumbs"><a class="brand" href="index.html">obtainium.org</a></nav><nav class="top-links"><a href="pub/index.html">pub</a><a href="biography/">Biography</a></nav></header><!--/pub:header-->
-<main>
-    <h1>Fred Heald</h1>
-    <p class="lede"><em>obtainium.org</em></p>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Fred Heald · obtainium.org</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/pagefind/pagefind-ui.css" />
+  </head>
+  <body data-rotate="0">
+    <header class="site-head">
+      <nav class="crumbs" aria-label="Breadcrumb">
+        <a class="brand" href="/">obtainium.org</a>
+      </nav>
+      <nav class="top-links">
+        <a href="/biography/">Biography</a><a href="/food-and-drink/">Food &amp; Drink</a><a href="/politics/">Politics</a>
+        <a href="/search/">🔍 Search</a>
+      </nav>
+    </header>
+    
 
-    <ul class="links">
-        <li>
-            <span class="label">Biography</span>
-            <a href="biography/">obtainium.org/biography</a> — a life, threaded
-        </li>
-        <li>
-            <span class="label">Pub</span>
-            <a href="pub/">obtainium.org/pub</a> — articles, guides and files
-        </li>
-        <li>
-            <span class="label">Email</span>
-            <a href="mailto:fheald@obtainium.org">fheald@obtainium.org</a>
-        </li>
-        <li>
-            <span class="label">GitHub</span>
-            <a href="https://github.com/justfred" target="_blank" rel="noopener">github.com/justfred</a>
-        </li>
-        <li>
-            <span class="label">Photos</span>
-            <a href="https://www.flickr.com/photos/justfred/albums/" target="_blank" rel="noopener">Flickr Albums</a>
-        </li>
-        <li>
-            <span class="label">Facebook</span>
-            <a href="https://www.facebook.com/justfred" target="_blank" rel="noopener">facebook.com/justfred</a>
-        </li>
-    </ul>
-</main>
-<!--pub:footer--><footer class="site-foot">© 2026 Fred Heald · <a href="pub/index.html">obtainium.org/pub</a></footer><!--/pub:footer-->
-</body>
+    <main class="main-wide">
+      
+
+<section class="home-hero">
+  <h1>Fred Heald</h1>
+  <p class="lede">obtainium.org</p>
+  <div id="search" class="home-search"></div>
+</section>
+
+<section class="front-grid">
+  <section class="front-block">
+    <h2 class="front-h">Random <span class="front-sub">from anywhere on the site</span></h2>
+    <div id="featured" class="featured" aria-live="polite"><p class="loading">Picking something…</p></div>
+    <p class="welcome-actions"><button id="reroll" class="btn" type="button">↻ another</button></p>
+  </section>
+
+  <section class="front-block">
+    <h2 class="front-h">On this day <span id="otd-date" class="front-sub"></span></h2>
+    <div id="onthisday" data-limit="6"><noscript><p class="front-sub">Turn on JavaScript to see what happened on today's date.</p></noscript></div>
+  </section>
+</section>
+
+<section class="front-block">
+  <h2 class="front-h">Sections</h2>
+  <ul class="home-sections">
+    <li class="home-card home-card-lg">
+      <a class="home-card-title" href="/biography/">Biography</a>
+      <p class="home-card-meta">897 stories · 55 people · 97 places · 1758–2026</p>
+      <p class="home-card-blurb">Stories, people and places — on this day, by decade, by thread.</p>
+    </li>
+    <li class="home-card home-card-lg">
+      <a class="home-card-title" href="/food-and-drink/">Food &amp; Drink</a>
+      <p class="home-card-meta">14 recipes · 25 drinks · 56 restaurants &amp; bars · 6 food writing</p>
+      <p class="home-card-blurb" id="fd-peek">Recipes, tiki drinks, restaurants and bars.</p>
+    </li>
+    <li class="home-card">
+      <a class="home-card-title" href="/politics/">Politics</a>
+      <ul class="home-card-list">
+        <li><a href="/politics/voter-guide/">Fred&#39;s Voter Guide — November 3, 2026</a></li><li><a href="/politics/political-views/">Political Views</a></li>
+        <li><a href="/politics/2026-midterms/">2026 Midterms — Race Tracking</a></li>
+      </ul>
+    </li>
+    
+    <li class="home-card">
+      <a class="home-card-title" href="/pub/index.html#burning-man">Burning Man</a>
+      <ul class="home-card-list">
+        <li><a href="/pub/burning-man/unpacking-list.html">The Unpacking List — Stuff to Leave Home</a></li><li><a href="/pub/burning-man/gate-wait-times.html">Burning Man Gate Wait Times</a></li>
+      </ul>
+    </li>
+    
+    <li class="home-card">
+      <a class="home-card-title" href="/pub/index.html#photography">Photography</a>
+      <ul class="home-card-list">
+        <li><a href="/pub/photography/inspirations.html">Artistic Inspirations</a></li><li><a href="/pub/photography/southern-africa-phone-photo-notes.html">Southern Africa Phone Photo Notes</a></li>
+      </ul>
+    </li>
+    
+    <li class="home-card">
+      <a class="home-card-title" href="/pub/index.html#words">Words</a>
+      <ul class="home-card-list">
+        <li><a href="/pub/words/2026-10-22-this-or-that.html">This, or that?</a></li>
+      </ul>
+    </li>
+    
+    <li class="home-card">
+      <a class="home-card-title" href="/pub/index.html#games">Games</a>
+      <ul class="home-card-list">
+        <li><a href="/pub/games/card-game-rules.html">The Card Game — Rules</a></li>
+      </ul>
+    </li>
+    
+    <li class="home-card">
+      <a class="home-card-title" href="/pub/index.html#misc">Misc</a>
+      <ul class="home-card-list">
+        <li><a href="/pub/misc/historical-markers.html">Historical Markers &amp; Monuments – Reference</a></li>
+      </ul>
+    </li>
+    
+    <li class="home-card">
+      <a class="home-card-title" href="/pub/index.html#vehicles">Vehicles</a>
+      <ul class="home-card-list">
+        <li><a href="/pub/vehicles/mpg-calculator.html">MPG Cost Calculator</a></li>
+      </ul>
+    </li>
+    
+  </ul>
+</section>
+
+<section class="front-block">
+  <h2 class="front-h">Links</h2>
+  <ul class="links">
+    <li><span class="label">Biography</span><a href="/biography/">obtainium.org/biography</a> — stories, people and places</li>
+    <li><span class="label">Food &amp; Drink</span><a href="/food-and-drink/">obtainium.org/food-and-drink</a> — recipes, drinks, restaurants and bars</li>
+    <li><span class="label">Pub</span><a href="/pub/">obtainium.org/pub</a> — articles, guides and files</li>
+    <li><span class="label">Email</span><a href="mailto:fheald@obtainium.org">fheald@obtainium.org</a></li>
+    <li><span class="label">GitHub</span><a href="https://github.com/justfred" target="_blank" rel="noopener">github.com/justfred</a></li>
+    <li><span class="label">Photos</span><a href="https://www.flickr.com/photos/justfred/albums/" target="_blank" rel="noopener">Flickr Albums</a></li>
+    <li><span class="label">Facebook</span><a href="https://www.facebook.com/justfred" target="_blank" rel="noopener">facebook.com/justfred</a></li>
+  </ul>
+</section>
+
+<script id="fd-items" type="application/json">[{"url":"/food-and-drink/cast-iron-crumble/","title":"Cast Iron Crumble","source":"Recipes","group":"recipes"},{"url":"/food-and-drink/my-pigs-on-fire-chili/","title":"Chili — \"My Pig's on Fire\" (from Ranger Long Pig)","source":"Recipes","group":"recipes"},{"url":"/food-and-drink/chili-relleno-soup/","title":"Chili Relleno Soup","source":"Recipes","group":"recipes"},{"url":"/food-and-drink/easy-baked-chicken-thighs/","title":"Easy Baked Chicken Thighs","source":"Recipes","group":"recipes"},{"url":"/food-and-drink/slow-cooker-lamb-chops/","title":"Easy Slow Cooker Lamb Chops","source":"Recipes","group":"recipes"},{"url":"/food-and-drink/kellys-carne-asada/","title":"Kelly's Carne Asada","source":"Recipes","group":"recipes"},{"url":"/food-and-drink/meatloaf-muffin-pan/","title":"Meatloaf in a Muffin Pan","source":"Recipes","group":"recipes"},{"url":"/food-and-drink/oven-roasted-beef-short-ribs/","title":"Oven-Roasted Beef Short Ribs","source":"Recipes","group":"recipes"},{"url":"/food-and-drink/ranch-chicken/","title":"Ranch Chicken (Spatchcocked)","source":"Recipes","group":"recipes"},{"url":"/food-and-drink/sausage-muffins/","title":"Sausage Muffins","source":"Recipes","group":"recipes"},{"url":"/food-and-drink/slow-cooker-chicken-and-dumplings/","title":"Slow Cooker Chicken and Dumplings","source":"Recipes","group":"recipes"},{"url":"/food-and-drink/sous-vide-steak/","title":"Sous Vide Steak","source":"Recipes","group":"recipes"},{"url":"/food-and-drink/uncle-alans-waffles/","title":"Uncle Alan's Waffles (or Pancakes)","source":"Recipes","group":"recipes"},{"url":"/food-and-drink/vindaloo-dry-rub-chicken-wings/","title":"Vindaloo Dry Rub Chicken Wings","source":"Recipes","group":"recipes"},{"url":"/food-and-drink/ancient-mariner/","title":"Ancient Mariner","source":"Drinks","group":"drinks"},{"url":"/food-and-drink/angostura-colada/","title":"Angostura Colada","source":"Drinks","group":"drinks"},{"url":"/food-and-drink/banana-foster/","title":"Banana Foster","source":"Drinks","group":"drinks"},{"url":"/food-and-drink/banana-toast-crunch/","title":"Banana Toast Crunch","source":"Drinks","group":"drinks"},{"url":"/food-and-drink/corn-and-oil/","title":"Corn and Oil","source":"Drinks","group":"drinks"},{"url":"/food-and-drink/cthulhus-curse/","title":"Cthulhu's Curse","source":"Drinks","group":"drinks"},{"url":"/food-and-drink/daiquiri/","title":"Daiquiri","source":"Drinks","group":"drinks"},{"url":"/food-and-drink/dark-and-stormy/","title":"Dark and Stormy","source":"Drinks","group":"drinks"},{"url":"/food-and-drink/don-ho-suck-em-up-mai-tai/","title":"Don Ho Suck 'Em Up Mai Tai","source":"Drinks","group":"drinks"},{"url":"/food-and-drink/el-presidente/","title":"El Presidente","source":"Drinks","group":"drinks"},{"url":"/food-and-drink/hawaiian-eye/","title":"Hawaiian Eye","source":"Drinks","group":"drinks"},{"url":"/food-and-drink/honi-honi/","title":"Honi Honi","source":"Drinks","group":"drinks"},{"url":"/food-and-drink/jungle-bird/","title":"Jungle Bird","source":"Drinks","group":"drinks"},{"url":"/food-and-drink/mai-tai/","title":"Mai Tai","source":"Drinks","group":"drinks"},{"url":"/food-and-drink/miniature-hurricane/","title":"Miniature Hurricane","source":"Drinks","group":"drinks"},{"url":"/food-and-drink/mr-bali-hai/","title":"Mr Bali Hai","source":"Drinks","group":"drinks"},{"url":"/food-and-drink/navy-grog/","title":"Navy Grog","source":"Drinks","group":"drinks"},{"url":"/food-and-drink/nsaid/","title":"NSAID","source":"Drinks","group":"drinks"},{"url":"/food-and-drink/orange-blossom/","title":"Orange Blossom","source":"Drinks","group":"drinks"},{"url":"/food-and-drink/painkiller/","title":"Painkillah (Painkiller)","source":"Drinks","group":"drinks"},{"url":"/food-and-drink/queens-park-swizzle/","title":"Queens Park Swizzle","source":"Drinks","group":"drinks"},{"url":"/food-and-drink/scorpion/","title":"Scorpion","source":"Drinks","group":"drinks"},{"url":"/food-and-drink/suffering-bastard/","title":"Suffering Bastard","source":"Drinks","group":"drinks"},{"url":"/food-and-drink/tapa-punch/","title":"Tapa Punch","source":"Drinks","group":"drinks"},{"url":"/food-and-drink/ti-punch/","title":"Ti Punch","source":"Drinks","group":"drinks"},{"url":"/food-and-drink/bali-hai/","title":"Bali Hai","source":"Restaurants & Bars","group":"restaurants"},{"url":"/food-and-drink/beach-break-cafe/","title":"Beach Break Cafe","source":"Restaurants & Bars","group":"restaurants"},{"url":"/food-and-drink/blairs/","title":"Blair's","source":"Restaurants & Bars","group":"restaurants"},{"url":"/food-and-drink/bo-beau-kitchen-and-bar/","title":"BO-beau kitchen + bar","source":"Restaurants & Bars","group":"restaurants"},{"url":"/food-and-drink/bombay-cafe/","title":"Bombay Cafe","source":"Restaurants & Bars","group":"restaurants"},{"url":"/food-and-drink/bullys-east-prime-rib/","title":"Bully's East — The Solo Prime Rib","source":"Restaurants & Bars","group":"restaurants","img":"/img/8WaVmXmMjFV7e-3bnFBBtA.jpg"},{"url":"/food-and-drink/chesapeake-bar-grill-leucadia/","title":"Chesapeake Bar & Grill, Inner Leucadia","source":"Restaurants & Bars","group":"restaurants"},{"url":"/food-and-drink/crabby-bobs-carlsbad/","title":"Crabby Bob's Seafood, Carlsbad","source":"Restaurants & Bars","group":"restaurants"},{"url":"/food-and-drink/daltons-road-house/","title":"Dalton's Road House","source":"Restaurants & Bars","group":"restaurants"},{"url":"/food-and-drink/dirty-birds/","title":"Dirty Birds","source":"Restaurants & Bars","group":"restaurants"},{"url":"/food-and-drink/don-the-beachcomber/","title":"Don the Beachcomber","source":"Restaurants & Bars","group":"restaurants"},{"url":"/food-and-drink/false-idol/","title":"False Idol","source":"Restaurants & Bars","group":"restaurants"},{"url":"/food-and-drink/famous-dave-s-barbeque/","title":"Famous Dave's Barbeque","source":"Restaurants & Bars","group":"restaurants"},{"url":"/food-and-drink/famous-daves-vista-2008/","title":"Famous Dave's, Vista","source":"Restaurants & Bars","group":"restaurants"},{"url":"/food-and-drink/fat-ivors/","title":"Fat Ivor's","source":"Restaurants & Bars","group":"restaurants"},{"url":"/food-and-drink/fat-ivors-rib-rack/","title":"Fat Ivor's Rib Rack","source":"Restaurants & Bars","group":"restaurants"},{"url":"/food-and-drink/gardens-of-taxco/","title":"Gardens of Taxco","source":"Restaurants & Bars","group":"restaurants"},{"url":"/food-and-drink/grasso-el-centro/","title":"Grasso's, El Centro","source":"Restaurants & Bars","group":"restaurants"},{"url":"/food-and-drink/great-divide-brewery/","title":"Great Divide Brewing, Denver","source":"Restaurants & Bars","group":"restaurants"},{"url":"/food-and-drink/indias-oven/","title":"India's Oven","source":"Restaurants & Bars","group":"restaurants"},{"url":"/food-and-drink/jamroc-caribbean-grill/","title":"Jamroc 101 Caribbean Grill","source":"Restaurants & Bars","group":"restaurants"},{"url":"/food-and-drink/jay-bees-bbq/","title":"Jay Bee's Bar-B-Q","source":"Restaurants & Bars","group":"restaurants"},{"url":"/food-and-drink/joeys-smokin-bbq/","title":"Joey's Smokin' BBQ","source":"Restaurants & Bars","group":"restaurants"},{"url":"/food-and-drink/jr-barbecue/","title":"JR's Barbeque","source":"Restaurants & Bars","group":"restaurants"},{"url":"/food-and-drink/kennedy-s-market-el-centro/","title":"Kennedy's Market, El Centro","source":"Restaurants & Bars","group":"restaurants"},{"url":"/food-and-drink/kings-fish-house-laguna-niguel/","title":"King's Fish House, Laguna Niguel","source":"Restaurants & Bars","group":"restaurants"},{"url":"/food-and-drink/kings-carlsbad-oysters/","title":"King's, Carlsbad: Oysters and the Darkest Beer","source":"Restaurants & Bars","group":"restaurants"},{"url":"/food-and-drink/la-especial-norte/","title":"La Especial Norte","source":"Restaurants & Bars","group":"restaurants"},{"url":"/food-and-drink/mahogany-smoked-meats/","title":"Mahogany Smoked Meats, Bishop","source":"Restaurants & Bars","group":"restaurants"},{"url":"/food-and-drink/marco-italian-restaurant/","title":"Marco Italian Restaurant","source":"Restaurants & Bars","group":"restaurants"},{"url":"/food-and-drink/mount-signal-cafe/","title":"Mount Signal Cafe","source":"Restaurants & Bars","group":"restaurants"},{"url":"/food-and-drink/muzita-abyssinian-bistro/","title":"Muzita Abyssinian Bistro","source":"Restaurants & Bars","group":"restaurants"},{"url":"/food-and-drink/nozomi-carlsbad/","title":"Nozomi, Carlsbad","source":"Restaurants & Bars","group":"restaurants"},{"url":"/food-and-drink/outback-solo-dinners/","title":"Outback Steakhouse: A Solo Ritual","source":"Restaurants & Bars","group":"restaurants"},{"url":"/food-and-drink/outback-mission-viejo-2003/","title":"Outback, Mission Viejo","source":"Restaurants & Bars","group":"restaurants"},{"url":"/food-and-drink/passage-to-india/","title":"Passage to India","source":"Restaurants & Bars","group":"restaurants"},{"url":"/food-and-drink/penny-lane-pub/","title":"Penny Lane Pub & Grill","source":"Restaurants & Bars","group":"restaurants"},{"url":"/food-and-drink/pizza-port-old-brewery-bottle/","title":"Pizza Port and the Old Brewery Bottle","source":"Restaurants & Bars","group":"restaurants"},{"url":"/food-and-drink/pizza-port-carlsbad/","title":"Pizza Port Carlsbad","source":"Restaurants & Bars","group":"restaurants"},{"url":"/food-and-drink/pizza-port-solana-beach/","title":"Pizza Port, Solana Beach","source":"Restaurants & Bars","group":"restaurants"},{"url":"/food-and-drink/new-orleans-beignets-2000/","title":"Powdered Sugar All Over Myself","source":"Restaurants & Bars","group":"restaurants"},{"url":"/food-and-drink/roy-s-restaurant/","title":"Roy's Restaurant, Carlsbad","source":"Restaurants & Bars","group":"restaurants"},{"url":"/food-and-drink/scolari-s-food-drug/","title":"Scolari's Food & Drug, Reno","source":"Restaurants & Bars","group":"restaurants"},{"url":"/food-and-drink/soot-bull-jip/","title":"Soot Bull Jip","source":"Restaurants & Bars","group":"restaurants"},{"url":"/food-and-drink/spring-street-smokehouse/","title":"Spring Street Smokehouse, Los Angeles","source":"Restaurants & Bars","group":"restaurants"},{"url":"/food-and-drink/stone-brewing/","title":"Stone Brewing","source":"Restaurants & Bars","group":"restaurants"},{"url":"/food-and-drink/stowaway/","title":"Stowaway","source":"Restaurants & Bars","group":"restaurants"},{"url":"/food-and-drink/strong-water-anaheim/","title":"Strong Water","source":"Restaurants & Bars","group":"restaurants"},{"url":"/food-and-drink/scotch-bonnet-waiver/","title":"The Scotch Bonnet Waiver","source":"Restaurants & Bars","group":"restaurants"},{"url":"/food-and-drink/tiki-ti/","title":"Tiki-Ti","source":"Restaurants & Bars","group":"restaurants"},{"url":"/food-and-drink/tip-top-meats/","title":"Tip Top Meats","source":"Restaurants & Bars","group":"restaurants"},{"url":"/food-and-drink/tortilleria-leon/","title":"Tortilleria Leon","source":"Restaurants & Bars","group":"restaurants"},{"url":"/food-and-drink/travertine-grill-borrego/","title":"Travertine Grill, Borrego Springs","source":"Restaurants & Bars","group":"restaurants"},{"url":"/food-and-drink/tropical-mexico-restaurant-pomona/","title":"Tropical Mexico Restaurant, Pomona","source":"Restaurants & Bars","group":"restaurants","img":"/img/fiBs2FrdgkJVWjyFfcJcMg.jpg"},{"url":"/food-and-drink/woody-creek-tavern/","title":"Woody Creek Tavern","source":"Restaurants & Bars","group":"restaurants"},{"url":"/food-and-drink/zeke-s-smokehouse/","title":"Zeke's Smokehouse, Montrose","source":"Restaurants & Bars","group":"restaurants"},{"url":"/food-and-drink/burgers-ranked/","title":"Burgers, Ranked","source":"Food Writing","group":"food-writing"},{"url":"/food-and-drink/sous-vide-convert/","title":"I Am a Sous Vide Convert","source":"Food Writing","group":"food-writing"},{"url":"/food-and-drink/mexican-food-rules/","title":"Mexican Food Rules","source":"Food Writing","group":"food-writing"},{"url":"/food-and-drink/tipping-opinions/","title":"On Tipping","source":"Food Writing","group":"food-writing"},{"url":"/food-and-drink/sous-vide-ribs-on-a-tuesday/","title":"Sous Vide Ribs on a Tuesday","source":"Food Writing","group":"food-writing"},{"url":"/food-and-drink/thanksgiving-solo-turkey/","title":"Thanksgiving Solo Turkey","source":"Food Writing","group":"food-writing"}]</script>
+
+    </main>
+
+    <footer class="site-foot">
+      <span class="foot-comment">
+        <a id="comment-link" href="mailto:justfred@obtainium.org">Comment</a>
+        <span class="foot-email"> · justfred@obtainium.org</span>
+      </span>
+    </footer>
+
+    <script>window.WF_BASE = "/biography/";</script>
+    <script src="/pagefind/pagefind-ui.js"></script>
+    <script>
+      if (document.getElementById("search")) {
+        const ui = new PagefindUI({ element: "#search", bundlePath: "/pagefind/", showImages: false });
+        // ?q=… (search page) or the broken URL's words (404) pre-fill the search
+        const q = new URLSearchParams(location.search).get("q") || window.searchFromPath;
+        if (q) ui.triggerSearch(q);
+      }
+    </script>
+    <script src="/js/wikifred.js" type="module"></script>
+    <script src="/__admin/overlay.js" onerror="void 0"></script>
+    <script data-goatcounter="https://obtainium.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+  </body>
 </html>
