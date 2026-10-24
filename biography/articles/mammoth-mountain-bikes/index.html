@@ -1,24 +1,31 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="robots" content="noindex, nofollow">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
     <title>Mammoth Mountain Bike Park · Biography</title>
-    <link rel="stylesheet" href="/biography/css/style.css">
-    <link rel="stylesheet" href="/biography/pagefind/pagefind-ui.css">
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/pagefind/pagefind-ui.css" />
   </head>
   <body data-rotate="0">
     <header class="site-head">
-      <a class="brand" href="/biography/" id="brand-random">Biography</a>
+      <nav class="crumbs" aria-label="Breadcrumb">
+        <a class="brand" href="/">obtainium.org</a><span class="sep">/</span><a href="/biography/">Biography</a><span class="sep">/</span><a href="/biography/thread/stories/">Stories</a>
+      </nav>
       <nav class="top-links">
-        <a href="/biography/browse/">Index</a>
-        <a href="/biography/recent/">New</a>
-        <a href="/biography/search/">🔍 Search</a>
-        <a href="/biography/" id="header-random" title="random article">🎲 Random</a>
-        <a href="/biography/guides/" class="nav-right">Sources &amp; Methods</a>
+        <a href="/food-and-drink/">Food &amp; Drink</a>
+        <a href="/search/">🔍 Search</a>
       </nav>
     </header>
+    
+    <nav class="sub-nav">
+      <a href="/biography/browse/">Index</a>
+      <a href="/biography/recent/">New</a>
+      <a href="/biography/" id="header-random" title="random article">🎲 Random</a>
+      <a href="/biography/guides/" class="nav-right">Sources &amp; Methods</a>
+    </nav>
+    
 
     <main>
       
@@ -28,17 +35,17 @@
 
 
 
-<article class="article" data-pagefind-body="">
+<article class="article" data-pagefind-body>
   
   <div class="thread-stack">
     
       
-      <div class="thread-nav" data-thread="travel" data-url="/articles/mammoth-mountain-bikes/">
+      <div class="thread-nav" data-thread="travel" data-url="/biography/articles/mammoth-mountain-bikes/">
         <a class="tn-home" href="/biography/thread/travel/" title="Travel — home / timeline">🏠</a>
         <a class="tn-name" href="/biography/thread/travel/">Travel</a>
         <span class="tn-kind">event</span>
         <span class="tn-controls">
-          <a class="tn-prev" href="/biography/articles/mahogany-smoked-meats/" title="previous in Travel">◀</a>
+          <a class="tn-prev" href="/food-and-drink/mahogany-smoked-meats/" title="previous in Travel">◀</a>
           <span class="tn-pos">112/214</span>
           <a class="tn-next" href="/biography/articles/2008-12-newport/" title="next in Travel">▶</a>
           <a class="tn-rand" href="/biography/thread/travel/" title="random in Travel">🎲</a>
@@ -49,12 +56,12 @@
       
     
       
-      <div class="thread-nav" data-thread="src-yelp" data-url="/articles/mammoth-mountain-bikes/">
+      <div class="thread-nav" data-thread="src-yelp" data-url="/biography/articles/mammoth-mountain-bikes/">
         <a class="tn-home" href="/biography/thread/src-yelp/" title="Yelp — home / timeline">🏠</a>
         <a class="tn-name" href="/biography/thread/src-yelp/">Yelp</a>
         <span class="tn-kind">source</span>
         <span class="tn-controls">
-          <a class="tn-prev" href="/biography/articles/mahogany-smoked-meats/" title="previous in Yelp">◀</a>
+          <a class="tn-prev" href="/food-and-drink/mahogany-smoked-meats/" title="previous in Yelp">◀</a>
           <span class="tn-pos">39/89</span>
           <a class="tn-next" href="/biography/articles/johnson-s-autohaven/" title="next in Yelp">▶</a>
           <a class="tn-rand" href="/biography/thread/src-yelp/" title="random in Yelp">🎲</a>
@@ -130,7 +137,7 @@
     var ta = form.querySelector('.rb-text'), status = form.querySelector('.rb-status');
     var comment = (ta.value||'').trim(); if(!comment) return;
     status.textContent = 'saving…';
-    fetch('/biography/__review', {method:'POST', headers:{'Content-Type':'application/json'},
+    fetch('/__review', {method:'POST', headers:{'Content-Type':'application/json'},
       body: JSON.stringify({url: form.dataset.url, title: form.dataset.title, comment: comment})})
       .then(function(r){ if(!r.ok) throw 0; return r.json(); })
       .then(function(){ status.textContent='saved ✓ — Claude will process review-questions.md'; ta.value=''; })
@@ -143,7 +150,7 @@
       var ta = form.querySelector('.rb-text'), status = form.querySelector('.rb-status');
       var vis = btn.dataset.vis;
       status.textContent = 'setting ' + vis + '…';
-      fetch('/biography/__disposition', {method:'POST', headers:{'Content-Type':'application/json'},
+      fetch('/__disposition', {method:'POST', headers:{'Content-Type':'application/json'},
         body: JSON.stringify({input: form.dataset.input, url: form.dataset.url, title: form.dataset.title, visibility: vis, comment: (ta.value||'').trim()})})
         .then(function(r){ if(!r.ok) throw 0; return r.json(); })
         .then(function(){ status.textContent = (vis==='review' ? '✓ left flagged for review' : '✓ set to ' + vis) + ' — next…'; ta.value='';
@@ -158,7 +165,6 @@
     </main>
 
     <footer class="site-foot">
-      <span>A life, threaded.</span>
       <span class="foot-comment">
         <a id="comment-link" href="mailto:justfred@obtainium.org">Comment</a>
         <span class="foot-email"> · justfred@obtainium.org</span>
@@ -166,17 +172,17 @@
     </footer>
 
     <script>window.WF_BASE = "/biography/";</script>
-    <script src="/biography/pagefind/pagefind-ui.js"></script>
+    <script src="/pagefind/pagefind-ui.js"></script>
     <script>
       if (document.getElementById("search")) {
-        const ui = new PagefindUI({ element: "#search", bundlePath: "/biography/pagefind/", showImages: false });
+        const ui = new PagefindUI({ element: "#search", bundlePath: "/pagefind/", showImages: false });
         // ?q=… (search page) or the broken URL's words (404) pre-fill the search
         const q = new URLSearchParams(location.search).get("q") || window.searchFromPath;
         if (q) ui.triggerSearch(q);
       }
     </script>
-    <script src="/biography/js/wikifred.js" type="module"></script>
-    <script src="/biography/__admin/overlay.js" onerror="void 0"></script>
-    <script data-goatcounter="https://obtainium.goatcounter.com/count" async="" src="//gc.zgo.at/count.js"></script>
+    <script src="/js/wikifred.js" type="module"></script>
+    <script src="/__admin/overlay.js" onerror="void 0"></script>
+    <script data-goatcounter="https://obtainium.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
   </body>
 </html>

@@ -1,24 +1,31 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="robots" content="noindex, nofollow">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
     <title>Bodie · Biography</title>
-    <link rel="stylesheet" href="/biography/css/style.css">
-    <link rel="stylesheet" href="/biography/pagefind/pagefind-ui.css">
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/pagefind/pagefind-ui.css" />
   </head>
   <body data-rotate="0">
     <header class="site-head">
-      <a class="brand" href="/biography/" id="brand-random">Biography</a>
+      <nav class="crumbs" aria-label="Breadcrumb">
+        <a class="brand" href="/">obtainium.org</a><span class="sep">/</span><a href="/biography/">Biography</a>
+      </nav>
       <nav class="top-links">
-        <a href="/biography/browse/">Index</a>
-        <a href="/biography/recent/">New</a>
-        <a href="/biography/search/">🔍 Search</a>
-        <a href="/biography/" id="header-random" title="random article">🎲 Random</a>
-        <a href="/biography/guides/" class="nav-right">Sources &amp; Methods</a>
+        <a href="/food-and-drink/">Food &amp; Drink</a>
+        <a href="/search/">🔍 Search</a>
       </nav>
     </header>
+    
+    <nav class="sub-nav">
+      <a href="/biography/browse/">Index</a>
+      <a href="/biography/recent/">New</a>
+      <a href="/biography/" id="header-random" title="random article">🎲 Random</a>
+      <a href="/biography/guides/" class="nav-right">Sources &amp; Methods</a>
+    </nav>
+    
 
     <main>
       <section class="thread-hub">
@@ -52,7 +59,6 @@
     </main>
 
     <footer class="site-foot">
-      <span>A life, threaded.</span>
       <span class="foot-comment">
         <a id="comment-link" href="mailto:justfred@obtainium.org">Comment</a>
         <span class="foot-email"> · justfred@obtainium.org</span>
@@ -60,17 +66,17 @@
     </footer>
 
     <script>window.WF_BASE = "/biography/";</script>
-    <script src="/biography/pagefind/pagefind-ui.js"></script>
+    <script src="/pagefind/pagefind-ui.js"></script>
     <script>
       if (document.getElementById("search")) {
-        const ui = new PagefindUI({ element: "#search", bundlePath: "/biography/pagefind/", showImages: false });
+        const ui = new PagefindUI({ element: "#search", bundlePath: "/pagefind/", showImages: false });
         // ?q=… (search page) or the broken URL's words (404) pre-fill the search
         const q = new URLSearchParams(location.search).get("q") || window.searchFromPath;
         if (q) ui.triggerSearch(q);
       }
     </script>
-    <script src="/biography/js/wikifred.js" type="module"></script>
-    <script src="/biography/__admin/overlay.js" onerror="void 0"></script>
-    <script data-goatcounter="https://obtainium.goatcounter.com/count" async="" src="//gc.zgo.at/count.js"></script>
+    <script src="/js/wikifred.js" type="module"></script>
+    <script src="/__admin/overlay.js" onerror="void 0"></script>
+    <script data-goatcounter="https://obtainium.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
   </body>
 </html>

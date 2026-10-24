@@ -1,24 +1,31 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="robots" content="noindex, nofollow">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
     <title>1972 Steyr-Puch Pinzgauer 710M · Biography</title>
-    <link rel="stylesheet" href="/biography/css/style.css">
-    <link rel="stylesheet" href="/biography/pagefind/pagefind-ui.css">
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/pagefind/pagefind-ui.css" />
   </head>
   <body data-rotate="0">
     <header class="site-head">
-      <a class="brand" href="/biography/" id="brand-random">Biography</a>
+      <nav class="crumbs" aria-label="Breadcrumb">
+        <a class="brand" href="/">obtainium.org</a><span class="sep">/</span><a href="/biography/">Biography</a><span class="sep">/</span><a href="/biography/thread/vehicles/">Vehicles</a>
+      </nav>
       <nav class="top-links">
-        <a href="/biography/browse/">Index</a>
-        <a href="/biography/recent/">New</a>
-        <a href="/biography/search/">🔍 Search</a>
-        <a href="/biography/" id="header-random" title="random article">🎲 Random</a>
-        <a href="/biography/guides/" class="nav-right">Sources &amp; Methods</a>
+        <a href="/food-and-drink/">Food &amp; Drink</a>
+        <a href="/search/">🔍 Search</a>
       </nav>
     </header>
+    
+    <nav class="sub-nav">
+      <a href="/biography/browse/">Index</a>
+      <a href="/biography/recent/">New</a>
+      <a href="/biography/" id="header-random" title="random article">🎲 Random</a>
+      <a href="/biography/guides/" class="nav-right">Sources &amp; Methods</a>
+    </nav>
+    
 
     <main>
       
@@ -28,12 +35,12 @@
 
 
 
-<article class="article" data-pagefind-body="">
+<article class="article" data-pagefind-body>
   
   <div class="thread-stack">
     
       
-      <div class="thread-nav" data-thread="vehicles" data-url="/articles/1999-pinzgauer-710m/">
+      <div class="thread-nav" data-thread="vehicles" data-url="/biography/articles/1999-pinzgauer-710m/">
         <a class="tn-home" href="/biography/thread/vehicles/" title="Vehicles — home / timeline">🏠</a>
         <a class="tn-name" href="/biography/thread/vehicles/">Vehicles</a>
         <span class="tn-kind">curated</span>
@@ -47,7 +54,7 @@
       
     
       
-      <div class="thread-nav" data-thread="pinzgauer" data-url="/articles/1999-pinzgauer-710m/">
+      <div class="thread-nav" data-thread="pinzgauer" data-url="/biography/articles/1999-pinzgauer-710m/">
         <a class="tn-home" href="/biography/thread/pinzgauer/" title="1972 Pinzgauer 710M — home / timeline">🏠</a>
         <a class="tn-name" href="/biography/thread/pinzgauer/">1972 Pinzgauer 710M</a>
         <span class="tn-kind">vehicle</span>
@@ -61,7 +68,7 @@
       
     
       
-      <div class="thread-nav" data-thread="src-writing" data-url="/articles/1999-pinzgauer-710m/">
+      <div class="thread-nav" data-thread="src-writing" data-url="/biography/articles/1999-pinzgauer-710m/">
         <a class="tn-home" href="/biography/thread/src-writing/" title="Writings — home / timeline">🏠</a>
         <a class="tn-name" href="/biography/thread/src-writing/">Writings</a>
         <span class="tn-kind">source</span>
@@ -85,17 +92,17 @@
     <div class="photos">
       
         <figure>
-          <img src="/biography/img/3952649804_7f9696b5ca_o_193416.jpg" alt="Pinzgauer 710M on the Black Rock Desert playa at Burning Man, early 2000s" loading="lazy">
+          <img src="/img/3952649804_7f9696b5ca_o_193416.jpg" alt="Pinzgauer 710M on the Black Rock Desert playa at Burning Man, early 2000s" loading="lazy" />
           <figcaption>Pinzgauer 710M on the Black Rock Desert playa at Burning Man, early 2000s — <span class="photo-filename">3952649804_7f9696b5ca_o_193416.jpg</span></figcaption>
         </figure>
       
         <figure>
-          <img src="/biography/img/1fredcamp.jpg" alt="Fred&#39;s Burning Man camp with the Pinzgauer, late 1990s–early 2000s" loading="lazy">
+          <img src="/img/1fredcamp.jpg" alt="Fred&#39;s Burning Man camp with the Pinzgauer, late 1990s–early 2000s" loading="lazy" />
           <figcaption>Fred&#39;s Burning Man camp with the Pinzgauer, late 1990s–early 2000s — <span class="photo-filename">1fredcamp.jpg</span></figcaption>
         </figure>
       
         <figure>
-          <img src="/biography/img/bm13.honk.jpg" alt="Pinzgauer canvas panel: &#39;HONK IF YOU ♥&#39; — Burning Man era" loading="lazy">
+          <img src="/img/bm13.honk.jpg" alt="Pinzgauer canvas panel: &#39;HONK IF YOU ♥&#39; — Burning Man era" loading="lazy" />
           <figcaption>Pinzgauer canvas panel: &#39;HONK IF YOU ♥&#39; — Burning Man era — <span class="photo-filename">bm13.honk.jpg</span></figcaption>
         </figure>
       
@@ -160,7 +167,7 @@
     var ta = form.querySelector('.rb-text'), status = form.querySelector('.rb-status');
     var comment = (ta.value||'').trim(); if(!comment) return;
     status.textContent = 'saving…';
-    fetch('/biography/__review', {method:'POST', headers:{'Content-Type':'application/json'},
+    fetch('/__review', {method:'POST', headers:{'Content-Type':'application/json'},
       body: JSON.stringify({url: form.dataset.url, title: form.dataset.title, comment: comment})})
       .then(function(r){ if(!r.ok) throw 0; return r.json(); })
       .then(function(){ status.textContent='saved ✓ — Claude will process review-questions.md'; ta.value=''; })
@@ -173,7 +180,7 @@
       var ta = form.querySelector('.rb-text'), status = form.querySelector('.rb-status');
       var vis = btn.dataset.vis;
       status.textContent = 'setting ' + vis + '…';
-      fetch('/biography/__disposition', {method:'POST', headers:{'Content-Type':'application/json'},
+      fetch('/__disposition', {method:'POST', headers:{'Content-Type':'application/json'},
         body: JSON.stringify({input: form.dataset.input, url: form.dataset.url, title: form.dataset.title, visibility: vis, comment: (ta.value||'').trim()})})
         .then(function(r){ if(!r.ok) throw 0; return r.json(); })
         .then(function(){ status.textContent = (vis==='review' ? '✓ left flagged for review' : '✓ set to ' + vis) + ' — next…'; ta.value='';
@@ -188,7 +195,6 @@
     </main>
 
     <footer class="site-foot">
-      <span>A life, threaded.</span>
       <span class="foot-comment">
         <a id="comment-link" href="mailto:justfred@obtainium.org">Comment</a>
         <span class="foot-email"> · justfred@obtainium.org</span>
@@ -196,17 +202,17 @@
     </footer>
 
     <script>window.WF_BASE = "/biography/";</script>
-    <script src="/biography/pagefind/pagefind-ui.js"></script>
+    <script src="/pagefind/pagefind-ui.js"></script>
     <script>
       if (document.getElementById("search")) {
-        const ui = new PagefindUI({ element: "#search", bundlePath: "/biography/pagefind/", showImages: false });
+        const ui = new PagefindUI({ element: "#search", bundlePath: "/pagefind/", showImages: false });
         // ?q=… (search page) or the broken URL's words (404) pre-fill the search
         const q = new URLSearchParams(location.search).get("q") || window.searchFromPath;
         if (q) ui.triggerSearch(q);
       }
     </script>
-    <script src="/biography/js/wikifred.js" type="module"></script>
-    <script src="/biography/__admin/overlay.js" onerror="void 0"></script>
-    <script data-goatcounter="https://obtainium.goatcounter.com/count" async="" src="//gc.zgo.at/count.js"></script>
+    <script src="/js/wikifred.js" type="module"></script>
+    <script src="/__admin/overlay.js" onerror="void 0"></script>
+    <script data-goatcounter="https://obtainium.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
   </body>
 </html>
