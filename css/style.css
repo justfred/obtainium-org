@@ -61,6 +61,7 @@ a:hover { color: var(--accent); }
 .crumbs a { text-decoration: none; color: var(--ink-soft); }
 .crumbs a.brand { font-family: var(--font-body); font-size: 1.15rem; color: var(--accent); }
 .crumbs .sep { color: var(--accent-soft); }
+.crumbs .crumb-current { color: var(--ink); max-width: 22rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .crumbs a:hover { color: var(--accent); }
 .top-links { display: flex; gap: 1rem; font-family: var(--font-ui); font-size: 0.85rem; }
 .top-links a { text-decoration: none; color: var(--ink-soft); }
@@ -303,7 +304,9 @@ main.main-wide { max-width: 62rem; }
 .card-subs a { position: relative; z-index: 1; }
 .card-title { font-size: 1.05rem; padding: 0.8rem 1rem 0.2rem; }
 .card-desc { font-size: 0.85rem; color: var(--ink-soft); line-height: 1.4; margin: 0; padding: 0.2rem 1rem 0.9rem; }
-.card-subs { font-family: var(--font-ui); font-size: 0.78rem; margin: 0; padding: 0 1rem 0.9rem; line-height: 1.6; }
+.card-subs { list-style: none; font-family: var(--font-ui); font-size: 0.8rem; margin: 0; padding: 0 1rem 0.9rem; line-height: 1.35; }
+.card-subs li, .card-lines li { padding: 0.2rem 0; }  /* one link (or title) per line; long ones wrap */
+.card-lines { list-style: none; }
 .card-subs a { color: var(--link); }
 
 /* --- search page ---------------------------------------------------------*/
