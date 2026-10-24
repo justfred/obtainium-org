@@ -7,6 +7,15 @@
 <meta name="robots" content="noindex">
 <link rel="stylesheet" href="../../../pub/pub.css">
 <script data-goatcounter="https://fheald.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<style>
+tr.r2 td { background: #eeb4b0; } tr.r1 td { background: #f8dcd9; }
+tr.t0 td { background: #e7ddef; }
+tr.d1 td { background: #d9e4f6; } tr.d2 td { background: #b3c8ec; }
+tr.y2 td { background: #b9dcb0; } tr.y1 td { background: #ddefd7; }
+tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
+.legend { font: 0.8rem var(--font-ui); margin: 0 0 1rem; display: flex; flex-wrap: wrap; gap: 0.3rem; }
+.legend span { padding: 0.1rem 0.5rem; border-radius: 3px; }
+</style>
 </head>
 <body>
 <!--pub:header--><header class="site-head"><nav class="crumbs"><a class="brand" href="../../../index.html">obtainium.org</a><span class="sep">/</span><a href="../../../dev/index.html">dev</a></nav><nav class="top-links"><a href="../../../wiki/">WikiFred</a></nav></header><!--/pub:header-->
@@ -32,11 +41,12 @@
 <tbody>
 <tr>
 <td>2026-10-24</td>
-<td>Initial snapshot</td>
+<td>Initial snapshot. Added Backed-by column; standardized outlook labels (Toss-up used as placeholder where no polling)</td>
 </tr>
 </tbody>
 </table></div>
 <h2>Ranked — most critical first</h2>
+<div class="legend"><span style="background:#b9dcb0">Likely Yes</span><span style="background:#ddefd7">Leans Yes</span><span style="background:#e7ddef">Toss-up</span><span style="background:#f8dcd9">Leans No</span><span style="background:#eeb4b0">Likely No</span></div>
 <div class="table-wrap"><table>
 <thead>
 <tr>
@@ -44,6 +54,7 @@
 <th>State</th>
 <th>Measure</th>
 <th>What (≤ 12 words)</th>
+<th>Backed by</th>
 <th>Polling (source, date)</th>
 <th>Realistic outlook</th>
 <th>Turnout lever (who it likely mobilizes)</th>
@@ -51,83 +62,91 @@
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="t0">
 <td>1</td>
 <td>MO</td>
 <td>Amendment 3</td>
 <td>Repeals 2024 abortion rights; near-total ban; bans minors’ gender care</td>
+<td><strong>R</strong> — MO GOP legislature, Her Health Her Future PAC (Kehoe circle) · <em>vs</em> Stop the Ban MO, ACLU, Bloomberg</td>
 <td>43 Y / 44 N / 13 undecided (SLU/YouGov, Aug); was 50–39 Y in Feb</td>
-<td>Toss-up</td>
+<td><strong>Toss-up.</strong></td>
 <td>Both sides. Bundling in trans care is the GOP’s attempt to win back 2024 swing voters</td>
 <td>MO not on the close list. Prop A (row 2) shapes House seats</td>
 </tr>
-<tr>
+<tr class="t0">
 <td>2</td>
 <td>MO</td>
 <td>Prop A (veto referendum)</td>
 <td>Keep or reject GOP 2025 map splitting Kansas City</td>
+<td><strong>R</strong> (Yes = keep 2025 map) — Gov. Kehoe, MO GOP, Trump · <em>vs</em> People Not Politicians</td>
 <td>~⅓ yes / ⅓ no / ⅓ unsure (SLU/YouGov, late Sept)</td>
-<td>Toss-up. Voters are confused about what yes and no mean</td>
+<td><strong>Toss-up.</strong> Voters are confused about what yes and no mean</td>
 <td>Dems (KC); low salience otherwise</td>
 <td>Directly decides future MO-5 (KC) seat. AG appealing to SCOTUS</td>
 </tr>
-<tr>
+<tr class="n2">
 <td>3</td>
 <td>MD</td>
 <td>Question 3</td>
 <td>Strips compactness rules from congressional maps (enables a Dem gerrymander)</td>
+<td><strong>D</strong> — Gov. Moore, MD Dems, unions (Fight Back Maryland) · <em>vs</em> MD GOP, Sen. Chris West</td>
 <td>25 Y / 53 N (UMBC, ~Oct 6); 40–35 Y (Hart, pro, Sept); 28–41 (opponents’ poll, Sept)</td>
-<td>Likely fails</td>
+<td><strong>Likely No.</strong> Likely fails. Two circuit judges also ruled against it; state appealing</td>
 <td>Mixed. Even Democrats lean no (35–42)</td>
 <td>No (MD safe). Would target the state’s last GOP seat (MD-1)</td>
 </tr>
-<tr>
+<tr class="y2">
 <td>4</td>
 <td>VA</td>
 <td>Question 1</td>
 <td>Constitutional right to reproductive freedom</td>
+<td><strong>D</strong> — VA Dem legislature, reproductive-rights groups (?) · <em>vs</em> anti-abortion groups (?)</td>
 <td>n/a for 2026. 62% back an abortion right in the constitution (VCU, late 2024/early 2025)</td>
-<td>Likely passes</td>
+<td><strong>Likely Yes.</strong> Likely passes</td>
 <td>Dems (abortion)</td>
 <td><strong>Yes: VA House seats</strong></td>
 </tr>
-<tr>
+<tr class="y2">
 <td>5</td>
 <td>NV</td>
 <td>Question 6</td>
 <td>Constitutional abortion right to viability (second required vote)</td>
+<td><strong>D</strong> — reproductive-rights coalition (?) · <em>vs</em> anti-abortion groups (?)</td>
 <td>n/a. Passed 64.4% in 2024</td>
-<td>Likely passes</td>
+<td><strong>Likely Yes.</strong> Likely passes</td>
 <td>Dems</td>
 <td>NV not on Fred’s list, but it is a swing state</td>
 </tr>
-<tr>
+<tr class="y2">
 <td>6</td>
 <td>NV</td>
 <td>Question 7</td>
 <td>Photo ID in person; ID digits on mail ballots</td>
+<td><strong>R</strong> — Repair the Vote (David Gibbs), Gov. Lombardo’s PAC · <em>vs</em> Battle Born Progress, Silver State Voices</td>
 <td>65 Y / 24 N RV; 67–25 LV (Noble Predictive, Sept 22–26)</td>
-<td>Likely passes (second vote)</td>
+<td><strong>Likely Yes.</strong> Likely passes (second vote)</td>
 <td>GOP</td>
 <td>Same ballot as Q6. A clean test of measures pulling turnout both ways</td>
 </tr>
-<tr>
+<tr class="y1">
 <td>7</td>
 <td>ID</td>
 <td>Prop 1</td>
 <td>Statutory right to abortion; reverses near-total ban</td>
+<td><strong>D</strong> — Idahoans United for Women and Families (~$4.9M) · <em>vs</em> Too Extreme for Idaho, ID GOP</td>
 <td>61 Y / 28 N; R ~45%, I 66% (Boise State, rpt Jul 10)</td>
-<td>Lean pass, but the legislature could amend it later (statute)</td>
+<td><strong>Leans Yes.</strong> Lean pass, but the legislature could amend it later (statute)</td>
 <td>Dems + moderate Rs</td>
 <td>No</td>
 </tr>
-<tr>
+<tr class="t0">
 <td>8</td>
 <td>AK</td>
 <td>Ballot Measure 2</td>
 <td>Repeals top-4 primary + RCV; restores closed primaries</td>
+<td><strong>R</strong> — Bernadette Wilson et al., Musk ($1.5M) · <em>vs</em> No on 2 / Alaskans for Better Elections, NEA</td>
 <td>n/a. 2024 repeal failed 49.9–50.1 (~740 votes)</td>
-<td>Toss-up</td>
+<td><strong>Toss-up.</strong></td>
 <td>GOP base vs. Native/independent coalition</td>
 <td><strong>Yes: AK Senate</strong></td>
 </tr>
@@ -136,18 +155,20 @@
 <td>CO</td>
 <td>Amendment 86</td>
 <td>Commission + supreme court must approve mid-decade congressional maps</td>
+<td><strong>R</strong> — Advance Colorado · <em>vs</em> CO Dems</td>
 <td>n/a</td>
-<td>n/a. Needs 55%</td>
+<td><strong>No data.</strong> n/a. Needs 55%. No polling; label is a placeholder</td>
 <td>Rs/independents (anti-gerrymander framing)</td>
 <td><strong>Yes: CO House seats</strong></td>
 </tr>
-<tr>
+<tr class="n1">
 <td>10</td>
 <td>WA</td>
 <td>I-645</td>
 <td>Repeals millionaires’ income tax; bans state/local income taxes</td>
+<td><strong>R</strong> — Let’s Go Washington (Brian Heywood) · <em>vs</em> WEA, WA Dems (?)</td>
 <td>35 Y / 57 N with fiscal language; 40–44 without (DHM, rpt Sept 30); 38–57 (GBAO, D, June)</td>
-<td>Lean fails. Wording-sensitive</td>
+<td><strong>Leans No.</strong> Lean fails. Wording-sensitive</td>
 <td>Anti-tax Rs / Heywood network</td>
 <td>No</td>
 </tr>
@@ -156,38 +177,42 @@
 <td>CO</td>
 <td>Amendment 87 vs Prop 136</td>
 <td>Graduated income tax (top 8.4% over $1M) vs. 4.4% flat cap</td>
+<td><strong>Mixed</strong> — 87: CO Dems · <em>vs</em> Polis. 136: anti-tax groups (?) · <em>vs</em> CO Dems</td>
 <td>n/a</td>
-<td>n/a. Whichever gets more votes wins if both pass; Polis opposes 87; lawsuit pending</td>
+<td><strong>No data.</strong> n/a; label is a placeholder. Whichever gets more votes wins if both pass; Polis opposes 87; lawsuit pending</td>
 <td>Progressive vs. anti-tax</td>
 <td><strong>Yes: CO House</strong></td>
 </tr>
-<tr>
+<tr class="y2">
 <td>12</td>
 <td>NC</td>
 <td>Photo-ID amendment (+ income-tax cap 3.5%, property-tax limit)</td>
 <td>Extends constitutional photo ID to mail ballots</td>
+<td><strong>R</strong> — NC GOP legislature (?) · <em>vs</em> NC Dems, voting-rights groups (?)</td>
 <td>ID 63% (Elon, Sept); tax cap 67 Y / 18 N</td>
-<td>Likely passes</td>
+<td><strong>Likely Yes.</strong> Likely passes</td>
 <td>GOP. The tax cap is a long-term revenue squeeze</td>
 <td><strong>Yes: NC House</strong> (NC Senate seat also open, not on Fred’s list)</td>
 </tr>
-<tr>
+<tr class="y2">
 <td>13</td>
 <td>OH</td>
 <td>Issue 3</td>
 <td>Photo-ID requirement into state constitution</td>
+<td><strong>R</strong> — OH GOP (?), Honest Elections Project Action · <em>vs</em> voting-rights groups (?)</td>
 <td>86% back photo ID in principle (Honest Elections Project Action, pro-ID, June). No independent poll</td>
-<td>Likely passes</td>
+<td><strong>Likely Yes.</strong> Likely passes</td>
 <td>GOP</td>
 <td><strong>Yes: OH Senate + House</strong></td>
 </tr>
-<tr>
+<tr class="y2">
 <td>14</td>
 <td>6 states</td>
 <td>Citizens-only voting (AK M3, AZ Prop 144, AR, KS, SD Amd J, WV)</td>
 <td>Says only citizens may vote (already the law)</td>
+<td><strong>R</strong> — GOP legislatures, Americans for Citizen Voting (?) · <em>vs</em> little organized opposition</td>
 <td>n/a</td>
-<td>Likely pass everywhere (similar 2024 measures passed in all 8 states, per memory, unverified)</td>
+<td><strong>Likely Yes.</strong> Likely pass everywhere (similar 2024 measures passed in all 8 states, per memory, unverified)</td>
 <td>GOP. A textbook turnout lever</td>
 <td><strong>Yes: AK, KS Senate; AZ House</strong></td>
 </tr>
@@ -196,8 +221,9 @@
 <td>ND / SD</td>
 <td>ND Measure 1 / SD Amd L</td>
 <td>60% vote to pass constitutional amendments</td>
+<td><strong>R</strong> — GOP legislatures (ND Speaker Weisz) · <em>vs</em> LWV, ACS CAN, Protect the ND Constitution</td>
 <td>n/a</td>
-<td>n/a</td>
+<td><strong>No data.</strong> n/a; label is a placeholder</td>
 <td>GOP legislature vs. initiative users</td>
 <td>No</td>
 </tr>
@@ -206,28 +232,31 @@
 <td>MO / MT</td>
 <td>MO Amd 6; MT CI-133 (+ CI-132, I-194)</td>
 <td>Protect initiative process; MT also: nonpartisan judges, ban corporate political spending</td>
+<td><strong>Nonpartisan</strong> — Montanans Decide (ex-SoS Brown R, Cooney D) · <em>vs</em> MT GOP legislators (?)</td>
 <td>n/a</td>
-<td>n/a</td>
+<td><strong>No data.</strong> n/a; label is a placeholder. CI-133 sponsor poll: 68%</td>
 <td>Pro-democracy coalitions</td>
 <td><strong>MT: yes (House)</strong></td>
 </tr>
-<tr>
+<tr class="y1">
 <td>17</td>
 <td>VA</td>
 <td>Q2 &amp; Q3</td>
 <td>Repeal same-sex marriage ban; auto-restore felon voting rights</td>
+<td><strong>D</strong> — VA Dem legislature · <em>vs</em> VA GOP, social conservatives (?)</td>
 <td>n/a for 2026. 66% back restoration (VCU, late 2024/early 2025)</td>
-<td>Lean pass</td>
+<td><strong>Leans Yes.</strong> Lean pass</td>
 <td>Dems / Black voters (Q3)</td>
 <td><strong>Yes: VA House</strong></td>
 </tr>
-<tr>
+<tr class="t0">
 <td>18</td>
 <td>MA</td>
 <td>Q3 / Q8 / Q9</td>
 <td>Top-two primary; repeal pot sales; uphold 2024 gun law</td>
+<td><strong>Mixed</strong> — Q9 Yes: Healey, gun-safety groups (?) · <em>vs</em> GOAL (?); Q3/Q8 sponsors (?)</td>
 <td>Q3 51–32 (UMass, Aug), 41–39 (UNH, Sept); Q8 55% oppose (UMass, Aug); Q9 ~70% keep (UMass)</td>
-<td>Q3 toss-up; Q8 likely fails; Q9 likely upheld</td>
+<td><strong>Toss-up.</strong> (label = Q3) Q3 toss-up; Q8 likely fails; Q9 likely upheld</td>
 <td>Q9: gun-rights base</td>
 <td>No</td>
 </tr>
@@ -236,8 +265,9 @@
 <td>CO / AZ / NE / WA</td>
 <td>CO 134 &amp; 135; AZ 318; NE sports; WA I-638</td>
 <td>Trans sports bans, bathroom rules, ban on minors’ gender surgery</td>
+<td><strong>R</strong> — GOP legislators, Let’s Go Washington (I-638) (?) · <em>vs</em> CO Dems, LGBTQ groups</td>
 <td>n/a</td>
-<td>n/a. NE measure pending at state supreme court</td>
+<td><strong>No data.</strong> n/a; label is a placeholder. NE measure pending at state supreme court</td>
 <td>GOP. Classic wedge</td>
 <td><strong>Yes: CO, AZ House; NE Senate</strong></td>
 </tr>
@@ -246,8 +276,9 @@
 <td>MI</td>
 <td>Proposal 2 (+ Prop 1 con-con)</td>
 <td>Bans utility/contractor donations; ad disclosure</td>
+<td><strong>Nonpartisan</strong> — Mop Up Michigan · <em>vs</em> Protect MI Free Speech, DTE, Consumers, BCBS MI</td>
 <td>81% (PPP, for sponsors, undated)</td>
-<td>n/a. DTE is spending against it</td>
+<td><strong>No data.</strong> n/a; label is a placeholder. DTE is spending against it</td>
 <td>Anti-corruption, cross-party</td>
 <td><strong>Yes: MI Senate + House</strong></td>
 </tr>
@@ -308,6 +339,7 @@
 <li><a href="https://clickondetroit.com/news/local/2026/10/17/michigan-proposal-2-aims-to-limit-corporate-money-in-politics-supporters-opponents-clash/">ClickOnDetroit — Michigan Proposal 2</a> (2026-10-17)</li>
 <li><a href="https://minnlawyer.com/2026/08/05/kansans-reject-constitutional-amendment-supreme-court-elections/">Minnesota Lawyer — Kansans reject Supreme Court elections amendment</a> (2026-08-05)</li>
 <li><a href="https://cardinalnews.org/2026/08/25/virginians-will-weigh-in-on-3-changes-to-their-state-constitution-this-fall-heres-a-look-at-the-proposed-amendments/">Cardinal News — Virginia’s 3 amendments</a> (2026-08-25)</li>
+<li>Backed-by column (all accessed 2026-10-24): <a href="https://missouriindependent.com/2026/05/27/abortion-rights-coalition-launches-campaign-against-missouri-amendment-3/">Missouri Independent — Stop the Ban launches No on 3</a> · <a href="https://www.kcur.org/politics-elections-and-government/2025-09-24/missouri-abortion-ban-amendment-3-first-lady-claudia-kehoe">KCUR — Her Health Her Future PAC</a> · <a href="https://www.stlpr.org/government-politics-issues/2026-09-29/with-trump-backed-missouri-congressional-redistricting-plan-in-tatters-kehoe-has-no-regrets">STLPR — Kehoe on Trump-backed map</a> · <a href="https://www.axios.com/local/kansas-city/2026/09/04/missouri-supreme-court-blocks-new-congressional-map">Axios KC — Prop A</a> · <a href="https://marylandmatters.org/2026/09/25/democrats-unions-advocates-push-for-support-on-question-3-on-redistricting/">Maryland Matters — Q3 supporters</a> · <a href="https://wjla.com/news/local/two-rulings-two-parties-and-one-high-stakes-redistricting-fight-in-maryland">WJLA — MD rulings</a> · <a href="https://thenevadaindependent.com/article/indy-explains-how-question-7-would-require-voter-id-in-nevada">Nevada Independent — Q7</a> · <a href="https://idahocapitalsun.com/?p=32475">Idaho Capital Sun — Prop 1 money</a> · <a href="https://www.adn.com/alaska-journal/news/2026/08/17/elon-musk-spends-big-in-push-to-repeal-alaskas-voting-system/">ADN — Musk and AK M2</a> · <a href="https://www.axios.com/local/denver/2026/10/15/amendment-86-colorado-voting-guide">Axios Denver — Amd 86</a> · <a href="https://www.coloradodems.org/press/colorado-democrats-finalize-positions-on-2026-ballot-measures">CO Dems ballot positions</a> · <a href="https://washingtonstatestandard.com/2026/07/02/wa-income-tax-foes-file-signatures-to-get-repeal-measure-on-ballot/">WA State Standard — I-645</a> · <a href="https://kfgo.com/2026/09/22/sponsor-opponent-debate-need-for-north-dakota-ballot-measure-to-change-constitution/">KFGO — ND Measure 1 debate</a> · <a href="https://dailymontanan.com/?p=39439">Daily Montanan — CI-133</a> · <a href="https://clickondetroit.com/news/local/2026/10/17/michigan-proposal-2-aims-to-limit-corporate-money-in-politics-supporters-opponents-clash/">ClickOnDetroit — MI Prop 2</a></li>
 <li><a href="https://www.initiativeandreferenduminstitute.org/s/Smith-Mark-Impact-of-Initiatives-on-Voter-Turnout-IRI.pdf">Tolbert &amp; Smith — Impact of initiatives on turnout (IRI)</a> (n.d.)</li>
 <li><a href="https://macleans.ca/news/world/when-ballots-get-stuffed/">Maclean’s — When ballots get stuffed (Smith 2004 analysis)</a> (n.d.)</li>
 <li><a href="https://archive.civicyouth.org/do-controversial-ballot-measures-affect-youth-voter-turnout/?cat_id=6">CIRCLE — Do controversial ballot measures affect youth turnout?</a> (n.d.)</li>
