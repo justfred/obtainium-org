@@ -12,6 +12,7 @@ tr.t0 td { background: #e7ddef; }
 tr.d1 td { background: #d9e4f6; } tr.d2 td { background: #b3c8ec; }
 tr.y2 td { background: #b9dcb0; } tr.y1 td { background: #ddefd7; }
 tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
+tr.ch td { background: #eeb4b0; } tr.cm td { background: #f6e3b8; } tr.cl td { background: #ddefd7; }
 .legend { font: 0.8rem var(--font-ui); margin: 0 0 1rem; display: flex; flex-wrap: wrap; gap: 0.3rem; }
 .legend span { padding: 0.1rem 0.5rem; border-radius: 3px; }
 </style>
@@ -38,7 +39,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <th>Date</th>
 <th>Close governor races</th>
 <th>Chambers rated Toss-up</th>
-<th>Notes</th>
+<th class="nosort">Notes</th>
 </tr>
 </thead>
 <tbody>
@@ -57,15 +58,15 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <tr>
 <th>#</th>
 <th>State</th>
-<th>Race (D vs R; * = incumbent)</th>
+<th class="nosort">Race (D vs R; * = incumbent)</th>
 <th>Held</th>
-<th>Cook / Sabato / Inside</th>
-<th>Best indicator</th>
-<th>Why it matters nationally</th>
+<th data-sort="row">Cook / Sabato / Inside</th>
+<th class="nosort">Best indicator</th>
+<th class="nosort">Why it matters nationally</th>
 </tr>
 </thead>
 <tbody>
-<tr class="t0">
+<tr class="t0" data-k="0">
 <td>1</td>
 <td><strong>GA</strong> (open)</td>
 <td>Keisha Lance Bottoms vs Rick Jackson</td>
@@ -74,7 +75,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td>AJC/UGA Oct 7–15: Jackson 46–45</td>
 <td>Certifies 2028 electors; signs maps; 6-week abortion ban; R trifecta at risk</td>
 </tr>
-<tr class="t0">
+<tr class="t0" data-k="0">
 <td>2</td>
 <td><strong>NV</strong></td>
 <td>Aaron Ford vs Joe Lombardo*</td>
@@ -83,7 +84,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td>Noble Oct 7–13: Lombardo 40–37</td>
 <td>Ford + D legislature = D trifecta; ends record veto streak</td>
 </tr>
-<tr class="t0">
+<tr class="t0" data-k="0">
 <td>3</td>
 <td><strong>WI</strong> (open)</td>
 <td>David Crowley vs Tom Tiffany</td>
@@ -92,7 +93,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td>Marquette Sep: Crowley 49–46</td>
 <td>Veto over GOP legislature; trifecta possible either way; certifies 2028 electors</td>
 </tr>
-<tr class="d1">
+<tr class="d1" data-k="1">
 <td>4</td>
 <td><strong>OR</strong></td>
 <td>Tina Kotek* vs Christine Drazan</td>
@@ -101,7 +102,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td>Polls split ±2</td>
 <td>Drazan win breaks D trifecta; Kotek approval ~−19</td>
 </tr>
-<tr class="d1">
+<tr class="d1" data-k="1">
 <td>5</td>
 <td><strong>OH</strong> (open)</td>
 <td>Amy Acton vs Vivek Ramaswamy</td>
@@ -110,7 +111,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td>Silver avg Oct 21: Acton +4.7</td>
 <td>Governor sits on the redistricting commission; flip breaks R trifecta</td>
 </tr>
-<tr class="d1">
+<tr class="d1" data-k="1">
 <td>6</td>
 <td><strong>AK</strong> (open)</td>
 <td>Jonathan Kreiss-Tomkins vs Bernadette Wilson</td>
@@ -119,7 +120,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td>DFP ~Oct 20: K-T 53–47 after ranked-choice rounds</td>
 <td>First D governor since 2014; R vote split three ways</td>
 </tr>
-<tr class="r1">
+<tr class="r1" data-k="-1">
 <td>7</td>
 <td><strong>TX</strong></td>
 <td>Gina Hinojosa vs Greg Abbott*</td>
@@ -128,7 +129,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td>RCP avg ~Oct 21: Abbott +3.5</td>
 <td>Started the redistricting war; abortion ban</td>
 </tr>
-<tr class="d1">
+<tr class="d1" data-k="1">
 <td>8</td>
 <td><strong>MI</strong> (open)</td>
 <td>Jocelyn Benson vs John James</td>
@@ -137,7 +138,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td>Marist Oct: Benson 51–45</td>
 <td>James + both chambers = R trifecta; certifies 2028 electors</td>
 </tr>
-<tr class="d1">
+<tr class="d1" data-k="1">
 <td>9</td>
 <td><strong>AZ</strong></td>
 <td>Katie Hobbs* vs Andy Biggs</td>
@@ -146,7 +147,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td>Equis Sep: Hobbs 49–43</td>
 <td>Hobbs’ vetoes block GOP legislature; Biggs is an election denier</td>
 </tr>
-<tr class="r1">
+<tr class="r1" data-k="-1">
 <td>10</td>
 <td><strong>KS</strong> (open)</td>
 <td>Cindy Holscher vs Ty Masterson</td>
@@ -155,7 +156,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td>270toWin avg: Masterson +6</td>
 <td>R flip = R trifecta; abortion</td>
 </tr>
-<tr class="r1">
+<tr class="r1" data-k="-1">
 <td>11</td>
 <td><strong>FL</strong> (open)</td>
 <td>David Jolly vs Byron Donalds</td>
@@ -164,7 +165,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td>Most polls Donalds +7–11; one tie</td>
 <td>R trifecta; new congressional map</td>
 </tr>
-<tr class="d1">
+<tr class="d1" data-k="1">
 <td>12</td>
 <td><strong>IA</strong> (open)</td>
 <td>Rob Sand vs Zach Lahn</td>
@@ -184,68 +185,68 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <th>#</th>
 <th>State</th>
 <th>Race</th>
-<th>Ratings</th>
-<th>Why it matters</th>
+<th data-sort="row">Ratings</th>
+<th class="nosort">Why it matters</th>
 </tr>
 </thead>
 <tbody>
-<tr class="t0">
+<tr class="t0" data-k="0">
 <td>1</td>
 <td><strong>MI</strong> (open)</td>
 <td>Garlin Gilchrist vs Anthony Forlini</td>
 <td>Toss-up</td>
 <td>Top 2028 swing state; open seat</td>
 </tr>
-<tr class="t0">
+<tr class="t0" data-k="0">
 <td>2</td>
 <td><strong>IN</strong> (open)</td>
 <td>Beau Bayh vs Max Engling</td>
 <td>Toss-up</td>
 <td>Rare red-state opening</td>
 </tr>
-<tr class="r1">
+<tr class="r1" data-k="-1">
 <td>3</td>
 <td><strong>GA</strong> (open)</td>
 <td>Penny Brown Reynolds vs Tim Fleming</td>
 <td>Lean R</td>
 <td>Replaces Raffensperger, who held firm in 2020; runoff Dec 1 if needed</td>
 </tr>
-<tr class="r1">
+<tr class="r1" data-k="-1">
 <td>4</td>
 <td><strong>OH</strong> (open)</td>
 <td>Allison Russo vs Robert Sprague</td>
 <td>Lean R</td>
 <td>Sits on the Ohio Redistricting Commission</td>
 </tr>
-<tr class="r1">
+<tr class="r1" data-k="-1">
 <td>5</td>
 <td><strong>IA</strong></td>
 <td>Ryan Peterman vs Paul Pate*</td>
 <td>Lean R</td>
 <td>Red-state reach</td>
 </tr>
-<tr class="d1">
+<tr class="d1" data-k="1">
 <td>6</td>
 <td><strong>WI</strong> (open)</td>
 <td>JoCasta Zamarripa vs Jay Schroeder</td>
 <td>Lean D</td>
 <td>Mostly symbolic — a bipartisan commission runs WI elections</td>
 </tr>
-<tr class="d2">
+<tr class="d2" data-k="2">
 <td>7</td>
 <td><strong>AZ</strong></td>
 <td>Adrian Fontes* vs Alexander Kolodin</td>
 <td>Likely D</td>
 <td>Kolodin has pushed fraud claims; AZ has a history of county certification fights</td>
 </tr>
-<tr class="d2">
+<tr class="d2" data-k="2">
 <td>8</td>
 <td><strong>NV</strong></td>
 <td>Cisco Aguilar* vs Jim Marchant</td>
 <td>Likely D</td>
 <td>2022 rematch; Marchant is a prominent election denier</td>
 </tr>
-<tr class="d2">
+<tr class="d2" data-k="2">
 <td>9</td>
 <td><strong>MN</strong></td>
 <td>Steve Simon* vs Tad Jude</td>
@@ -262,68 +263,68 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <th>#</th>
 <th>State</th>
 <th>Race</th>
-<th>Ratings</th>
-<th>Why it matters</th>
+<th data-sort="row">Ratings</th>
+<th class="nosort">Why it matters</th>
 </tr>
 </thead>
 <tbody>
-<tr class="t0">
+<tr class="t0" data-k="0">
 <td>1</td>
 <td><strong>MN</strong></td>
 <td>Keith Ellison* vs Ron Schutz</td>
 <td>Toss-up · SurveyUSA Oct 8–12: 45–44</td>
 <td>High-profile anti-administration litigator</td>
 </tr>
-<tr class="t0">
+<tr class="t0" data-k="0">
 <td>2</td>
 <td><strong>MI</strong> (open)</td>
 <td>Eli Savit vs Doug Lloyd</td>
 <td>Toss-up · “virtual tie” (unverified)</td>
 <td>Nessel led multistate suits and the fake-electors prosecution</td>
 </tr>
-<tr class="d1">
+<tr class="d1" data-k="1">
 <td>3</td>
 <td><strong>AZ</strong></td>
 <td>Kris Mayes* vs Warren Petersen</td>
 <td>Lean D · Oct polls Mayes +2 to +14</td>
 <td>Fake-electors case; election law; abortion</td>
 </tr>
-<tr class="d1">
+<tr class="d1" data-k="1">
 <td>4</td>
 <td><strong>WI</strong></td>
 <td>Josh Kaul* vs Eric Toney</td>
 <td>Lean D</td>
 <td>Election litigation; multistate suits</td>
 </tr>
-<tr class="d1">
+<tr class="d1" data-k="1">
 <td>5</td>
 <td><strong>NV</strong> (open)</td>
 <td>Nicole Cannizzaro vs Adriana Guzmán Fralick</td>
 <td>Lean D</td>
 <td>Fake-electors case</td>
 </tr>
-<tr class="r1">
+<tr class="r1" data-k="-1">
 <td>6</td>
 <td><strong>GA</strong> (open)</td>
 <td>Tanya Miller vs Brian Strickland</td>
 <td>Lean R</td>
 <td>Defends election rules in a swing state</td>
 </tr>
-<tr class="r1">
+<tr class="r1" data-k="-1">
 <td>7</td>
 <td><strong>KS</strong></td>
 <td>Chris Mann vs Kris Kobach*</td>
 <td>Lean R</td>
 <td>Kobach is the national voter-ID / proof-of-citizenship crusader</td>
 </tr>
-<tr class="r1">
+<tr class="r1" data-k="-1">
 <td>8</td>
 <td><strong>IA</strong></td>
 <td>Nathan Willems vs Brenna Bird*</td>
 <td>Lean R</td>
 <td>Leads GOP multistate suits</td>
 </tr>
-<tr class="r2">
+<tr class="r2" data-k="-2">
 <td>9</td>
 <td><strong>TX</strong> (open)</td>
 <td>Nathan Johnson vs Mayes Middleton</td>
@@ -339,96 +340,96 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <th>#</th>
 <th>Chamber</th>
 <th>Now</th>
-<th>Ratings</th>
-<th>Stakes</th>
+<th data-sort="row">Ratings</th>
+<th class="nosort">Stakes</th>
 </tr>
 </thead>
 <tbody>
-<tr class="t0">
+<tr class="t0" data-k="0">
 <td>1</td>
 <td><strong>AZ Senate</strong></td>
 <td>R 17–13</td>
 <td>Toss-up</td>
 <td>Both AZ chambers + Hobbs = D trifecta; Biggs + both = R trifecta</td>
 </tr>
-<tr class="t0">
+<tr class="t0" data-k="0">
 <td>2</td>
 <td><strong>AZ House</strong></td>
 <td>R 33–27</td>
 <td>Toss-up</td>
 <td>Same</td>
 </tr>
-<tr class="t0">
+<tr class="t0" data-k="0">
 <td>3</td>
 <td><strong>MI House</strong></td>
 <td>R 58–52</td>
 <td>Toss-up</td>
 <td>D flip + Senate + Benson = D trifecta</td>
 </tr>
-<tr class="t0">
+<tr class="t0" data-k="0">
 <td>4</td>
 <td><strong>MI Senate</strong></td>
 <td>D 20–18</td>
 <td>Toss-up</td>
 <td>R flip + House + James = R trifecta</td>
 </tr>
-<tr class="t0">
+<tr class="t0" data-k="0">
 <td>5</td>
 <td><strong>MN House</strong></td>
 <td>Tied 67–66</td>
 <td>Toss-up</td>
 <td>Both MN chambers + Klobuchar = D trifecta</td>
 </tr>
-<tr class="t0">
+<tr class="t0" data-k="0">
 <td>6</td>
 <td><strong>MN Senate</strong></td>
 <td>DFL 34–33</td>
 <td>Toss-up</td>
 <td>Same</td>
 </tr>
-<tr class="t0">
+<tr class="t0" data-k="0">
 <td>7</td>
 <td><strong>PA Senate</strong></td>
 <td>R 27–23</td>
 <td>Toss-up</td>
 <td>Flip + Shapiro = D trifecta in the top 2028 swing state</td>
 </tr>
-<tr class="t0">
+<tr class="t0" data-k="0">
 <td>8</td>
 <td><strong>WI Assembly</strong></td>
 <td>R 54–45</td>
 <td>Toss-up</td>
 <td>Both WI chambers + Crowley = first D trifecta since 2010</td>
 </tr>
-<tr class="d1">
+<tr class="d1" data-k="1">
 <td>9</td>
 <td><strong>WI Senate</strong></td>
 <td>R 18–15</td>
 <td>Lean D</td>
 <td>Same</td>
 </tr>
-<tr class="d1">
+<tr class="d1" data-k="1">
 <td>10</td>
 <td><strong>NH House</strong></td>
 <td>R 212–169</td>
 <td>Lean D</td>
 <td>Breaks R trifecta</td>
 </tr>
-<tr class="d1">
+<tr class="d1" data-k="1">
 <td>11</td>
 <td><strong>ME House</strong></td>
 <td>D 75–73–3</td>
 <td>Lean D</td>
 <td>Protects D trifecta</td>
 </tr>
-<tr class="r1">
+<tr class="r1" data-k="-1">
 <td>12</td>
 <td><strong>GA House</strong></td>
 <td>R 99–81</td>
 <td>Lean R</td>
 <td>Breaks R trifecta; veto point on maps and election rules</td>
 </tr>
-<tr class="r1">
+<tr class="r1" data-k="-1">
 <td>13</td>
 <td><strong>NH Senate</strong></td>
 <td>R 16–8</td>
@@ -443,10 +444,10 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <thead>
 <tr>
 <th>Court</th>
-<th>Up</th>
+<th class="nosort">Up</th>
 <th>Majority now</th>
-<th>Could it flip?</th>
-<th>Stakes</th>
+<th class="nosort">Could it flip?</th>
+<th class="nosort">Stakes</th>
 </tr>
 </thead>
 <tbody>
@@ -528,14 +529,18 @@ document.querySelectorAll('table').forEach(table => {
     m = t.match(/^[+-]?\$?\d[\d,]*(?:\.\d+)?/); if (m) return parseFloat(m[0].replace(/[$,]/g, ''));
     return t.toLowerCase();
   };
+  [...body.rows].forEach((r, n) => r.dataset.ord = n); // original order, restored on the third click
   table.querySelectorAll('thead th').forEach((th, i) => {
-    th.classList.add('sortable'); th.title = 'Click to sort';
+    if (th.classList.contains('nosort')) return;
+    th.classList.add('sortable'); th.title = 'Click to sort (third click: original order)';
+    const val = r => th.dataset.sort === 'row' ? (r.dataset.k !== undefined ? +r.dataset.k : '') : key(r.cells[i] || r);
     th.addEventListener('click', () => {
-      const dir = th.dataset.dir === 'asc' ? 'desc' : 'asc';
-      table.querySelectorAll('thead th').forEach(h => delete h.dataset.dir); th.dataset.dir = dir;
+      const dir = th.dataset.dir === 'asc' ? 'desc' : th.dataset.dir === 'desc' ? '' : 'asc';
+      table.querySelectorAll('thead th').forEach(h => delete h.dataset.dir); if (dir) th.dataset.dir = dir;
       const rows = [...body.rows], sign = dir === 'asc' ? 1 : -1;
       rows.sort((a, b) => {
-        const x = key(a.cells[i] || a), y = key(b.cells[i] || b);
+        if (!dir) return a.dataset.ord - b.dataset.ord;
+        const x = val(a), y = val(b);
         if (typeof x === typeof y) return (typeof x === 'number' ? x - y : x.localeCompare(y)) * sign;
         return typeof x === 'number' ? -1 : 1; // numbers before text either way
       });

@@ -12,6 +12,7 @@ tr.t0 td { background: #e7ddef; }
 tr.d1 td { background: #d9e4f6; } tr.d2 td { background: #b3c8ec; }
 tr.y2 td { background: #b9dcb0; } tr.y1 td { background: #ddefd7; }
 tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
+tr.ch td { background: #eeb4b0; } tr.cm td { background: #f6e3b8; } tr.cl td { background: #ddefd7; }
 .legend { font: 0.8rem var(--font-ui); margin: 0 0 1rem; display: flex; flex-wrap: wrap; gap: 0.3rem; }
 .legend span { padding: 0.1rem 0.5rem; border-radius: 3px; }
 </style>
@@ -34,7 +35,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <thead>
 <tr>
 <th>Date</th>
-<th>Notes</th>
+<th class="nosort">Notes</th>
 </tr>
 </thead>
 <tbody>
@@ -52,16 +53,16 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <th>#</th>
 <th>State</th>
 <th>Measure</th>
-<th>What (≤ 12 words)</th>
-<th>Backed by</th>
-<th>Polling (source, date)</th>
-<th>Realistic outlook</th>
-<th>Turnout lever (who it likely mobilizes)</th>
-<th>Close race on same ballot?</th>
+<th class="nosort">What (≤ 12 words)</th>
+<th class="nosort">Backed by</th>
+<th class="nosort">Polling (source, date)</th>
+<th data-sort="row">Realistic outlook</th>
+<th class="nosort">Turnout lever (who it likely mobilizes)</th>
+<th class="nosort">Close race on same ballot?</th>
 </tr>
 </thead>
 <tbody>
-<tr class="t0">
+<tr class="t0" data-k="0">
 <td>1</td>
 <td>MO</td>
 <td>Amendment 3</td>
@@ -72,7 +73,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td>Both sides. Bundling in trans care is the GOP’s attempt to win back 2024 swing voters</td>
 <td>MO not on the close list. Prop A (row 2) shapes House seats</td>
 </tr>
-<tr class="t0">
+<tr class="t0" data-k="0">
 <td>2</td>
 <td>MO</td>
 <td>Prop A (veto referendum)</td>
@@ -83,7 +84,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td>Dems (KC); low salience otherwise</td>
 <td>Directly decides future MO-5 (KC) seat. AG appealing to SCOTUS</td>
 </tr>
-<tr class="n2">
+<tr class="n2" data-k="-2">
 <td>3</td>
 <td>MD</td>
 <td>Question 3</td>
@@ -94,7 +95,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td>Mixed. Even Democrats lean no (35–42)</td>
 <td>No (MD safe). Would target the state’s last GOP seat (MD-1)</td>
 </tr>
-<tr class="y2">
+<tr class="y2" data-k="2">
 <td>4</td>
 <td>VA</td>
 <td>Question 1</td>
@@ -105,7 +106,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td>Dems (abortion)</td>
 <td><strong>Yes: VA House seats</strong></td>
 </tr>
-<tr class="y2">
+<tr class="y2" data-k="2">
 <td>5</td>
 <td>NV</td>
 <td>Question 6</td>
@@ -116,7 +117,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td>Dems</td>
 <td>NV not on Fred’s list, but it is a swing state</td>
 </tr>
-<tr class="y2">
+<tr class="y2" data-k="2">
 <td>6</td>
 <td>NV</td>
 <td>Question 7</td>
@@ -127,7 +128,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td>GOP</td>
 <td>Same ballot as Q6. A clean test of measures pulling turnout both ways</td>
 </tr>
-<tr class="y1">
+<tr class="y1" data-k="1">
 <td>7</td>
 <td>ID</td>
 <td>Prop 1</td>
@@ -138,7 +139,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td>Dems + moderate Rs</td>
 <td>No</td>
 </tr>
-<tr class="t0">
+<tr class="t0" data-k="0">
 <td>8</td>
 <td>AK</td>
 <td>Ballot Measure 2</td>
@@ -160,7 +161,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td>Rs/independents (anti-gerrymander framing)</td>
 <td><strong>Yes: CO House seats</strong></td>
 </tr>
-<tr class="n1">
+<tr class="n1" data-k="-1">
 <td>10</td>
 <td>WA</td>
 <td>I-645</td>
@@ -182,7 +183,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td>Progressive vs. anti-tax</td>
 <td><strong>Yes: CO House</strong></td>
 </tr>
-<tr class="y2">
+<tr class="y2" data-k="2">
 <td>12</td>
 <td>NC</td>
 <td>Photo-ID amendment (+ income-tax cap 3.5%, property-tax limit)</td>
@@ -193,7 +194,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td>GOP. The tax cap is a long-term revenue squeeze</td>
 <td><strong>Yes: NC House</strong> (NC Senate seat also open, not on Fred’s list)</td>
 </tr>
-<tr class="y2">
+<tr class="y2" data-k="2">
 <td>13</td>
 <td>OH</td>
 <td>Issue 3</td>
@@ -204,7 +205,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td>GOP</td>
 <td><strong>Yes: OH Senate + House</strong></td>
 </tr>
-<tr class="y2">
+<tr class="y2" data-k="2">
 <td>14</td>
 <td>6 states</td>
 <td>Citizens-only voting (AK M3, AZ Prop 144, AR, KS, SD Amd J, WV)</td>
@@ -237,7 +238,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td>Pro-democracy coalitions</td>
 <td><strong>MT: yes (House)</strong></td>
 </tr>
-<tr class="y1">
+<tr class="y1" data-k="1">
 <td>17</td>
 <td>VA</td>
 <td>Q2 &amp; Q3</td>
@@ -248,7 +249,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td>Dems / Black voters (Q3)</td>
 <td><strong>Yes: VA House</strong></td>
 </tr>
-<tr class="t0">
+<tr class="t0" data-k="0">
 <td>18</td>
 <td>MA</td>
 <td>Q3 / Q8 / Q9</td>
@@ -361,14 +362,18 @@ document.querySelectorAll('table').forEach(table => {
     m = t.match(/^[+-]?\$?\d[\d,]*(?:\.\d+)?/); if (m) return parseFloat(m[0].replace(/[$,]/g, ''));
     return t.toLowerCase();
   };
+  [...body.rows].forEach((r, n) => r.dataset.ord = n); // original order, restored on the third click
   table.querySelectorAll('thead th').forEach((th, i) => {
-    th.classList.add('sortable'); th.title = 'Click to sort';
+    if (th.classList.contains('nosort')) return;
+    th.classList.add('sortable'); th.title = 'Click to sort (third click: original order)';
+    const val = r => th.dataset.sort === 'row' ? (r.dataset.k !== undefined ? +r.dataset.k : '') : key(r.cells[i] || r);
     th.addEventListener('click', () => {
-      const dir = th.dataset.dir === 'asc' ? 'desc' : 'asc';
-      table.querySelectorAll('thead th').forEach(h => delete h.dataset.dir); th.dataset.dir = dir;
+      const dir = th.dataset.dir === 'asc' ? 'desc' : th.dataset.dir === 'desc' ? '' : 'asc';
+      table.querySelectorAll('thead th').forEach(h => delete h.dataset.dir); if (dir) th.dataset.dir = dir;
       const rows = [...body.rows], sign = dir === 'asc' ? 1 : -1;
       rows.sort((a, b) => {
-        const x = key(a.cells[i] || a), y = key(b.cells[i] || b);
+        if (!dir) return a.dataset.ord - b.dataset.ord;
+        const x = val(a), y = val(b);
         if (typeof x === typeof y) return (typeof x === 'number' ? x - y : x.localeCompare(y)) * sign;
         return typeof x === 'number' ? -1 : 1; // numbers before text either way
       });

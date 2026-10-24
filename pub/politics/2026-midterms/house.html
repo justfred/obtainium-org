@@ -12,6 +12,7 @@ tr.t0 td { background: #e7ddef; }
 tr.d1 td { background: #d9e4f6; } tr.d2 td { background: #b3c8ec; }
 tr.y2 td { background: #b9dcb0; } tr.y1 td { background: #ddefd7; }
 tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
+tr.ch td { background: #eeb4b0; } tr.cm td { background: #f6e3b8; } tr.cl td { background: #ddefd7; }
 .legend { font: 0.8rem var(--font-ui); margin: 0 0 1rem; display: flex; flex-wrap: wrap; gap: 0.3rem; }
 .legend span { padding: 0.1rem 0.5rem; border-radius: 3px; }
 </style>
@@ -39,7 +40,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <th>Proj. D seats</th>
 <th>Generic ballot</th>
 <th>Cook Toss-ups</th>
-<th>Notes</th>
+<th class="nosort">Notes</th>
 </tr>
 </thead>
 <tbody>
@@ -59,7 +60,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <tr>
 <th>State</th>
 <th>Shift</th>
-<th>Notes</th>
+<th class="nosort">Notes</th>
 </tr>
 </thead>
 <tbody>
@@ -117,8 +118,8 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <tr>
 <th>State (drew)</th>
 <th>Targeted</th>
-<th>Realistic now</th>
-<th>Backfire / shortfall seats</th>
+<th class="nosort">Realistic now</th>
+<th class="nosort">Backfire / shortfall seats</th>
 </tr>
 </thead>
 <tbody>
@@ -181,16 +182,16 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <tr>
 <th>#</th>
 <th>District</th>
-<th>Race (D vs R; * = incumbent)</th>
+<th class="nosort">Race (D vs R; * = incumbent)</th>
 <th>Held</th>
 <th>Score</th>
-<th>Ratings</th>
-<th>Indicator</th>
-<th>Note</th>
+<th data-sort="row">Ratings</th>
+<th class="nosort">Indicator</th>
+<th class="nosort">Note</th>
 </tr>
 </thead>
 <tbody>
-<tr class="t0">
+<tr class="t0" data-k="0">
 <td>1</td>
 <td>VA-1</td>
 <td>Shannon Taylor vs Rob Wittman*</td>
@@ -200,7 +201,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td>WaPo 9/28: Taylor 50–46</td>
 <td></td>
 </tr>
-<tr class="t0">
+<tr class="t0" data-k="0">
 <td>2</td>
 <td>ME-2</td>
 <td>Matt Dunlap vs Paul LePage (open)</td>
@@ -210,7 +211,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td>Tulchin (D) 10/14: Dunlap 50–46</td>
 <td>Golden retiring; R pickup target</td>
 </tr>
-<tr class="t0">
+<tr class="t0" data-k="0">
 <td>3</td>
 <td>FL-22</td>
 <td>Pia Dandiya vs Casey Askar (open)</td>
@@ -220,7 +221,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td>PVI R+4</td>
 <td>New FL seat</td>
 </tr>
-<tr class="t0">
+<tr class="t0" data-k="0">
 <td>4</td>
 <td>MI-4</td>
 <td>Sean McCann vs Bill Huizenga*</td>
@@ -230,7 +231,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td>PVI R+3</td>
 <td></td>
 </tr>
-<tr class="t0">
+<tr class="t0" data-k="0">
 <td>5</td>
 <td>TX-35</td>
 <td>Johnny Garcia vs Carlos De La Cruz (open)</td>
@@ -240,7 +241,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td>WaPo 10/19: R 48–47</td>
 <td>New TX seat</td>
 </tr>
-<tr class="t0">
+<tr class="t0" data-k="0">
 <td>6</td>
 <td>TX-15</td>
 <td>Bobby Pulido vs Monica De La Cruz*</td>
@@ -250,7 +251,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td>TSU 10/16: Pulido 51–44</td>
 <td>Redrawn</td>
 </tr>
-<tr class="t0">
+<tr class="t0" data-k="0">
 <td>7</td>
 <td>PA-1</td>
 <td>Bob Harvie vs Brian Fitzpatrick*</td>
@@ -260,7 +261,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td>GSG (D) 10/8: 46–46</td>
 <td>D-leaning seat, R incumbent</td>
 </tr>
-<tr class="t0">
+<tr class="t0" data-k="0">
 <td>8</td>
 <td>MT-1</td>
 <td>Sam Forstag vs Aaron Flint (open)</td>
@@ -270,7 +271,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td>Split early-Oct polls (±1–3)</td>
 <td>Zinke retiring</td>
 </tr>
-<tr class="t0">
+<tr class="t0" data-k="0">
 <td>9</td>
 <td>OH-7</td>
 <td>Brian Poindexter vs Max Miller*</td>
@@ -280,7 +281,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td>PVI R+5</td>
 <td>New OH map</td>
 </tr>
-<tr class="t0">
+<tr class="t0" data-k="0">
 <td>10</td>
 <td>KY-6</td>
 <td>Zach Dembo vs Ralph Alvarado (open)</td>
@@ -301,13 +302,13 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <th>Race</th>
 <th>Held</th>
 <th>Score</th>
-<th>Ratings</th>
-<th>Indicator</th>
-<th>Note</th>
+<th data-sort="row">Ratings</th>
+<th class="nosort">Indicator</th>
+<th class="nosort">Note</th>
 </tr>
 </thead>
 <tbody>
-<tr class="d1">
+<tr class="d1" data-k="1">
 <td>11</td>
 <td>IA-2</td>
 <td>Lindsay James vs Joe Mitchell (open)</td>
@@ -317,7 +318,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td>Emerson 10/14: James 50–47</td>
 <td>Hinson running for Senate</td>
 </tr>
-<tr class="d1">
+<tr class="d1" data-k="1">
 <td>12</td>
 <td>NC-1</td>
 <td>Don Davis* vs Laurie Buckhout</td>
@@ -327,7 +328,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td>Polls range R+1 to D+10</td>
 <td>Map made redder</td>
 </tr>
-<tr class="d1">
+<tr class="d1" data-k="1">
 <td>13</td>
 <td>OH-9</td>
 <td>Marcy Kaptur* vs Derek Merrin</td>
@@ -337,7 +338,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td>DCCC: 48–48</td>
 <td>Map made redder; 2024 rematch</td>
 </tr>
-<tr class="r1">
+<tr class="r1" data-k="-1">
 <td>14</td>
 <td>WI-1</td>
 <td>Mitchell Berman vs Bryan Steil*</td>
@@ -347,7 +348,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td>Impact (D) 10/1: Berman 48–47</td>
 <td></td>
 </tr>
-<tr class="d1">
+<tr class="d1" data-k="1">
 <td>15</td>
 <td>PA-8</td>
 <td>Paige Cognetti vs Rob Bresnahan*</td>
@@ -357,7 +358,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td>PVI R+4</td>
 <td></td>
 </tr>
-<tr class="r1">
+<tr class="r1" data-k="-1">
 <td>16</td>
 <td>CO-5</td>
 <td>Jessica Killin vs Jeff Crank*</td>
@@ -367,7 +368,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td>PVI R+5</td>
 <td></td>
 </tr>
-<tr class="d1">
+<tr class="d1" data-k="1">
 <td>17</td>
 <td>FL-14</td>
 <td>Kathy Castor* vs Mike Beltran</td>
@@ -377,7 +378,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td>PVI R+4</td>
 <td>Map made redder</td>
 </tr>
-<tr class="d1">
+<tr class="d1" data-k="1">
 <td>18</td>
 <td>NC-11</td>
 <td>Jamie Ager vs Jennifer Balkcom (open)</td>
@@ -387,7 +388,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td>PVI R+5</td>
 <td>Edwards withdrew after renomination</td>
 </tr>
-<tr class="d1">
+<tr class="d1" data-k="1">
 <td>19</td>
 <td>NY-17</td>
 <td>Cait Conley vs Mike Lawler*</td>
@@ -397,7 +398,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td>Emerson 9/29: Conley 48–46</td>
 <td></td>
 </tr>
-<tr class="d1">
+<tr class="d1" data-k="1">
 <td>20</td>
 <td>MI-10</td>
 <td>Christina Hines vs Mike Bouchard Jr. (open)</td>
@@ -407,7 +408,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td>PVI R+3</td>
 <td>James running for gov</td>
 </tr>
-<tr class="r1">
+<tr class="r1" data-k="-1">
 <td>21</td>
 <td>MO-2</td>
 <td>Fred Wellman vs Ann Wagner*</td>
@@ -417,7 +418,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td>PVI R+4</td>
 <td></td>
 </tr>
-<tr class="d1">
+<tr class="d1" data-k="1">
 <td>22</td>
 <td>FL-25</td>
 <td>Jared Moskowitz* vs Scott Singer</td>
@@ -427,7 +428,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td>NRS (R) 10/15: Singer 49–42</td>
 <td>Redrawn</td>
 </tr>
-<tr class="d1">
+<tr class="d1" data-k="1">
 <td>23</td>
 <td>MI-7</td>
 <td>William Lawrence vs Tom Barrett*</td>
@@ -437,7 +438,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td>PVI EVEN</td>
 <td></td>
 </tr>
-<tr class="r1">
+<tr class="r1" data-k="-1">
 <td>24</td>
 <td>MN-1</td>
 <td>Jake Johnson vs Brad Finstad*</td>
@@ -447,7 +448,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td>SurveyUSA 10/12: Johnson 46–44</td>
 <td></td>
 </tr>
-<tr class="r1">
+<tr class="r1" data-k="-1">
 <td>25</td>
 <td>TX-23</td>
 <td>Katy Padilla Stout vs Brandon Herrera (open)</td>
@@ -468,13 +469,13 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <th>Race</th>
 <th>Held</th>
 <th>Score</th>
-<th>Ratings</th>
-<th>Indicator</th>
-<th>Note</th>
+<th data-sort="row">Ratings</th>
+<th class="nosort">Indicator</th>
+<th class="nosort">Note</th>
 </tr>
 </thead>
 <tbody>
-<tr class="d1">
+<tr class="d1" data-k="1">
 <td>26</td>
 <td>TX-34</td>
 <td>Vicente Gonzalez* vs Eric Flores</td>
@@ -484,7 +485,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td>PVI R+3</td>
 <td>Redrawn</td>
 </tr>
-<tr class="d1">
+<tr class="d1" data-k="1">
 <td>27</td>
 <td>WI-3</td>
 <td>Rebecca Cooke vs Derrick Van Orden*</td>
@@ -494,7 +495,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td>PVI R+3</td>
 <td>Rematch</td>
 </tr>
-<tr class="r1">
+<tr class="r1" data-k="-1">
 <td>28</td>
 <td>AZ-2</td>
 <td>Jonathan Nez vs Eli Crane*</td>
@@ -504,7 +505,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td>PVI R+7</td>
 <td></td>
 </tr>
-<tr class="r1">
+<tr class="r1" data-k="-1">
 <td>29</td>
 <td>FL-13</td>
 <td>Leela Gray vs Anna Paulina Luna*</td>
@@ -514,7 +515,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td>PVI R+6</td>
 <td></td>
 </tr>
-<tr class="r1">
+<tr class="r1" data-k="-1">
 <td>30</td>
 <td>SC-1</td>
 <td>Nancy Lacore vs Jenny Costa Honeycutt (open)</td>
@@ -524,7 +525,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td>co/efficient (R): R+6</td>
 <td>Mace running for gov</td>
 </tr>
-<tr class="d1">
+<tr class="d1" data-k="1">
 <td>31</td>
 <td>CO-8</td>
 <td>Manny Rutinel vs Gabe Evans*</td>
@@ -534,7 +535,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td>PVI EVEN</td>
 <td></td>
 </tr>
-<tr class="r1">
+<tr class="r1" data-k="-1">
 <td>32</td>
 <td>AL-2</td>
 <td>Shomari Figures* vs Rhett Marques</td>
@@ -544,7 +545,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td>PVI R+7</td>
 <td>Map made redder; R pickup</td>
 </tr>
-<tr class="r1">
+<tr class="r1" data-k="-1">
 <td>33</td>
 <td>NV-2</td>
 <td>Teresa Benitez-Thompson vs David Flippo (open)</td>
@@ -554,7 +555,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td>PVI R+7</td>
 <td>Amodei retiring</td>
 </tr>
-<tr class="r1">
+<tr class="r1" data-k="-1">
 <td>34</td>
 <td>OH-15</td>
 <td>Don Leonard vs Mike Carey*</td>
@@ -564,7 +565,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td>PVI R+5</td>
 <td>New OH map</td>
 </tr>
-<tr class="d1">
+<tr class="d1" data-k="1">
 <td>35</td>
 <td>CA-22</td>
 <td>Randy Villegas vs David Valadao*</td>
@@ -574,7 +575,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td>KVPR 10/16: Villegas +4–5</td>
 <td>Prop 50 made bluer</td>
 </tr>
-<tr class="d1">
+<tr class="d1" data-k="1">
 <td>36</td>
 <td>PA-10</td>
 <td>Janelle Stelson vs Scott Perry*</td>
@@ -584,7 +585,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td>Susquehanna (R) 10/11: Stelson 49–46</td>
 <td>Rematch</td>
 </tr>
-<tr class="d1">
+<tr class="d1" data-k="1">
 <td>37</td>
 <td>VA-2</td>
 <td>Elaine Luria vs Jen Kiggans*</td>
@@ -594,7 +595,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td>CNU 10/10: Luria 46–43</td>
 <td></td>
 </tr>
-<tr class="r1">
+<tr class="r1" data-k="-1">
 <td>38</td>
 <td>FL-27</td>
 <td>Eliott Rodriguez vs María Elvira Salazar*</td>
@@ -604,7 +605,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td>PVI R+6</td>
 <td></td>
 </tr>
-<tr class="d1">
+<tr class="d1" data-k="1">
 <td>39</td>
 <td>IA-3</td>
 <td>Sarah Trone Garriott vs Zach Nunn*</td>
@@ -614,7 +615,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td>PVI R+2</td>
 <td></td>
 </tr>
-<tr class="d1">
+<tr class="d1" data-k="1">
 <td>40</td>
 <td>NJ-7</td>
 <td>Rebecca Bennett vs Tom Kean Jr.*</td>
@@ -624,7 +625,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td>PVI EVEN</td>
 <td></td>
 </tr>
-<tr class="d1">
+<tr class="d1" data-k="1">
 <td>41</td>
 <td>PA-7</td>
 <td>Bob Brooks vs Ryan Mackenzie*</td>
@@ -634,7 +635,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td>PVI R+1</td>
 <td></td>
 </tr>
-<tr class="d1">
+<tr class="d1" data-k="1">
 <td>42</td>
 <td>WA-3</td>
 <td>Marie Gluesenkamp Perez* vs John Braun</td>
@@ -644,7 +645,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td>Polls split ±1</td>
 <td></td>
 </tr>
-<tr class="r1">
+<tr class="r1" data-k="-1">
 <td>43</td>
 <td>CO-4</td>
 <td>Eileen Laubacher vs Lauren Boebert*</td>
@@ -654,7 +655,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td>PVI R+9</td>
 <td></td>
 </tr>
-<tr class="r1">
+<tr class="r1" data-k="-1">
 <td>44</td>
 <td>NY-21</td>
 <td>Blake Gendebien vs Anthony Constantino (open)</td>
@@ -664,7 +665,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td>Siena 10/6: Gendebien 46–42</td>
 <td>Stefanik retiring</td>
 </tr>
-<tr class="d1">
+<tr class="d1" data-k="1">
 <td>45</td>
 <td>AZ-1</td>
 <td>Amish Shah vs Jay Feely (open)</td>
@@ -674,7 +675,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td>PVI R+1</td>
 <td>Schweikert running for gov</td>
 </tr>
-<tr class="d1">
+<tr class="d1" data-k="1">
 <td>46</td>
 <td>IA-1</td>
 <td>Christina Bohannan vs Mariannette Miller-Meeks*</td>
@@ -684,7 +685,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td>Wavefield 45–29 (anomalous)</td>
 <td></td>
 </tr>
-<tr class="d2">
+<tr class="d2" data-k="2">
 <td>47</td>
 <td>AZ-6</td>
 <td>JoAnna Mendoza vs Juan Ciscomani*</td>
@@ -694,7 +695,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td>PVI EVEN</td>
 <td></td>
 </tr>
-<tr class="r2">
+<tr class="r2" data-k="-2">
 <td>48</td>
 <td>AK-AL</td>
 <td>Eric Hafner vs Nick Begich III*</td>
@@ -704,7 +705,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td>NYT/Siena 10/1: Begich 47, Hafner 8</td>
 <td>Main challenger may be an independent — unverified</td>
 </tr>
-<tr class="r2">
+<tr class="r2" data-k="-2">
 <td>49</td>
 <td>VA-5</td>
 <td>Tom Perriello vs John McGuire*</td>
@@ -725,13 +726,13 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <th>Race</th>
 <th>Held</th>
 <th>Score</th>
-<th>Ratings</th>
-<th>Indicator</th>
-<th>Note</th>
+<th data-sort="row">Ratings</th>
+<th class="nosort">Indicator</th>
+<th class="nosort">Note</th>
 </tr>
 </thead>
 <tbody>
-<tr class="d2">
+<tr class="d2" data-k="2">
 <td>50</td>
 <td>NM-2</td>
 <td>Gabe Vasquez* vs Greg Cunningham</td>
@@ -741,7 +742,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td>R&amp;P 10/9: Vasquez 48–44</td>
 <td></td>
 </tr>
-<tr class="d2">
+<tr class="d2" data-k="2">
 <td>51</td>
 <td>TX-28</td>
 <td>Henry Cuellar* vs Tano Tijerina</td>
@@ -751,7 +752,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td>PVI R+3</td>
 <td>Redrawn</td>
 </tr>
-<tr class="d2">
+<tr class="d2" data-k="2">
 <td>52</td>
 <td><strong>CA-48</strong> 🏠</td>
 <td>Marni von Wilpert vs Jim Desmond (open)</td>
@@ -761,7 +762,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td>PVI D+2</td>
 <td>Prop 50 made bluer; Issa retiring</td>
 </tr>
-<tr class="r2">
+<tr class="r2" data-k="-2">
 <td>53</td>
 <td>OH-10</td>
 <td>Kristina Knickerbocker vs Mike Turner*</td>
@@ -771,7 +772,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td>PVI R+4</td>
 <td></td>
 </tr>
-<tr class="d2">
+<tr class="d2" data-k="2">
 <td>54</td>
 <td>OH-1</td>
 <td>Greg Landsman* vs Eric Conroy</td>
@@ -781,7 +782,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td>PVI R+1</td>
 <td>New OH map</td>
 </tr>
-<tr class="d2">
+<tr class="d2" data-k="2">
 <td>55</td>
 <td>NH-1</td>
 <td>Stefany Shaheen vs Anthony DiLorenzo (open)</td>
@@ -791,7 +792,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td>St. Anselm 10/20: Shaheen 46–42</td>
 <td>Pappas running for Senate</td>
 </tr>
-<tr class="d2">
+<tr class="d2" data-k="2">
 <td>56</td>
 <td>NE-2</td>
 <td>Denise Powell vs Brinker Harding (open)</td>
@@ -801,7 +802,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td>NPA (R) 10/5: Powell 50–38</td>
 <td>Bacon retiring — likely D flip</td>
 </tr>
-<tr class="d2">
+<tr class="d2" data-k="2">
 <td>57</td>
 <td>CA-13</td>
 <td>Adam Gray* vs Kevin Lincoln</td>
@@ -811,7 +812,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td>PVI D+2</td>
 <td></td>
 </tr>
-<tr class="d2">
+<tr class="d2" data-k="2">
 <td>58</td>
 <td>NV-1</td>
 <td>Dina Titus* vs Carrie Buck</td>
@@ -821,7 +822,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td>PVI D+2</td>
 <td></td>
 </tr>
-<tr class="d2">
+<tr class="d2" data-k="2">
 <td>59</td>
 <td>NY-3</td>
 <td>Tom Suozzi* vs Mike LiPetri</td>
@@ -831,7 +832,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td>PVI EVEN</td>
 <td></td>
 </tr>
-<tr class="d2">
+<tr class="d2" data-k="2">
 <td>60</td>
 <td>NV-3</td>
 <td>Susie Lee* vs Martin O’Donnell</td>
@@ -841,7 +842,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td>PVI D+1</td>
 <td></td>
 </tr>
-<tr class="d2">
+<tr class="d2" data-k="2">
 <td>61</td>
 <td>NY-4</td>
 <td>Laura Gillen* vs Jeanine Driscoll</td>
@@ -851,7 +852,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td>PVI D+2</td>
 <td></td>
 </tr>
-<tr class="d2">
+<tr class="d2" data-k="2">
 <td>62</td>
 <td>CA-6</td>
 <td>Richard Pan vs Kevin Kiley* (I)</td>
@@ -868,146 +869,146 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <div class="table-wrap"><table>
 <thead>
 <tr>
-<th>#</th>
 <th>District</th>
-<th>Issues</th>
+<th class="nosort">Issues</th>
+<th class="nosort">On the ballot</th>
 </tr>
 </thead>
 <tbody>
-<tr class="t0">
-<td>1</td>
+<tr class="t0" data-k="0">
 <td>VA-1</td>
 <td>Wittman’s OBBB vote; Medicaid &amp; ACA cuts; private equity in health care</td>
+<td>Q1 (abortion rights) · Q2 (repeal same-sex marriage ban) · Q3 (felon voting rights)</td>
 </tr>
-<tr class="t0">
-<td>2</td>
+<tr class="t0" data-k="0">
 <td>ME-2</td>
 <td>MaineCare vetoes; ACA subsidies; heating oil; LePage breaking with Trump on tariffs &amp; Iran</td>
+<td>—</td>
 </tr>
-<tr class="t0">
-<td>3</td>
+<tr class="t0" data-k="0">
 <td>FL-22</td>
 <td>Askar wants ACA repealed; cost of living; Trump + DeSantis endorsed Askar</td>
+<td>—</td>
 </tr>
-<tr class="t0">
-<td>4</td>
+<tr class="t0" data-k="0">
 <td>MI-4</td>
 <td>Cost of living; insider trading; Huizenga’s tax-cut &amp; border record</td>
+<td>Proposal 2 (utility/contractor donation ban) · Proposal 1 (constitutional convention)</td>
 </tr>
-<tr class="t0">
-<td>5</td>
+<tr class="t0" data-k="0">
 <td>TX-35</td>
 <td>Affordability; tariffs hitting small business; immigration; drawn from Casar’s D seat to Trump+9</td>
+<td>—</td>
 </tr>
-<tr class="t0">
-<td>6</td>
+<tr class="t0" data-k="0">
 <td>TX-15</td>
 <td>Pulido’s bandmate a convicted sex offender; border &amp; guns (Pulido centrist); Social Security</td>
+<td>—</td>
 </tr>
-<tr class="t0">
-<td>7</td>
+<tr class="t0" data-k="0">
 <td>PA-1</td>
 <td>Medicaid cuts (Fitzpatrick voted no on final bill); affordability; disputed “defund police” ads</td>
+<td>—</td>
 </tr>
-<tr class="t0">
-<td>8</td>
+<tr class="t0" data-k="0">
 <td>MT-1</td>
 <td>Affordability (“Montana dream”); “socialist lobbyist” attacks on Forstag; Flint’s Trump ties</td>
+<td>CI-133 (protect initiatives) · CI-132 (nonpartisan judges) · I-194 (corporate spending ban)</td>
 </tr>
-<tr class="t0">
-<td>9</td>
+<tr class="t0" data-k="0">
 <td>OH-7</td>
 <td>Max Miller abuse allegations by ex-wife; both OH GOP senators urged him to quit</td>
+<td>Issue 3 (photo ID)</td>
 </tr>
-<tr class="t0">
-<td>10</td>
+<tr class="t0" data-k="0">
 <td>KY-6</td>
 <td>Affordability &amp; health care vs border, fentanyl, tax cuts (Trump-endorsed Alvarado)</td>
+<td>—</td>
 </tr>
-<tr class="d1">
-<td>11</td>
+<tr class="d1" data-k="1">
 <td>IA-2</td>
 <td>Tariffs vs new steel plant; Deere/Whirlpool jobs to Mexico; Medicaid cuts; data centers</td>
+<td>—</td>
 </tr>
-<tr class="d1">
-<td>12</td>
+<tr class="d1" data-k="1">
 <td>NC-1</td>
 <td>Redraw to R+8 cut out Davis’s home county; affordability; border &amp; defense</td>
+<td>Photo-ID amendment · income-tax cap · property-tax limit</td>
 </tr>
-<tr class="d1">
-<td>13</td>
+<tr class="d1" data-k="1">
 <td>OH-9</td>
 <td>Redder redraw; Medicare/Medicaid claims (fact-checked misleading); prices; trans-sports votes</td>
+<td>Issue 3 (photo ID)</td>
 </tr>
-<tr class="r1">
-<td>14</td>
+<tr class="r1" data-k="-1">
 <td>WI-1</td>
 <td>Cost of living; OBBB Medicaid cuts; tariffs on farm exports</td>
+<td>—</td>
 </tr>
-<tr class="d1">
-<td>15</td>
+<tr class="d1" data-k="1">
 <td>PA-8</td>
 <td>Bresnahan’s ~650 stock trades despite trading-ban pledge; Medicaid; Scranton hospital troubles</td>
+<td>—</td>
 </tr>
-<tr class="r1">
-<td>16</td>
+<tr class="r1" data-k="-1">
 <td>CO-5</td>
 <td>Space Command moved out of Colorado Springs (Crank accused of not fighting it)</td>
+<td>Amd 86 (redistricting limits) · Amd 87 vs Prop 136 (income tax) · 134/135 (trans)</td>
 </tr>
-<tr class="d1">
-<td>17</td>
+<tr class="d1" data-k="1">
 <td>FL-14</td>
 <td>Redraw to Trump+10; “MAGA Mike” Beltran vs Castor’s 20 years</td>
+<td>—</td>
 </tr>
-<tr class="d1">
-<td>18</td>
+<tr class="d1" data-k="1">
 <td>NC-11</td>
 <td>Edwards quit over harassment report; Helene recovery; data-center/AI moratorium</td>
+<td>Photo-ID amendment · income-tax cap · property-tax limit</td>
 </tr>
-<tr class="d1">
-<td>19</td>
+<tr class="d1" data-k="1">
 <td>NY-17</td>
 <td>ICE &amp; sanctuary; bail reform; antisemitism; Lawler ties Conley to Mamdani, she ties him to Trump</td>
+<td>—</td>
 </tr>
-<tr class="d1">
-<td>20</td>
+<tr class="d1" data-k="1">
 <td>MI-10</td>
 <td>Border &amp; “socialism” vs working families; Hines’s prosecutor record</td>
+<td>Proposal 2 (utility/contractor donation ban) · Proposal 1 (constitutional convention)</td>
 </tr>
-<tr class="r1">
-<td>21</td>
+<tr class="r1" data-k="-1">
 <td>MO-2</td>
 <td>Wagner backs Iran war; cost of living &amp; health care; Wagner outspending ~6:1</td>
+<td>Amd 3 (abortion repeal) · Prop A (KC map) · Amd 6 (initiatives)</td>
 </tr>
-<tr class="d1">
-<td>22</td>
+<tr class="d1" data-k="1">
 <td>FL-25</td>
 <td>Trump+9 redraw; Israel &amp; antisemitism; Moskowitz’s stock trading; Social Security</td>
+<td>—</td>
 </tr>
-<tr class="d1">
-<td>23</td>
+<tr class="d1" data-k="1">
 <td>MI-7</td>
 <td>Tariffs; gas; data centers; health costs; Barrett attacks Lawrence’s DSA ties</td>
+<td>Proposal 2 (utility/contractor donation ban) · Proposal 1 (constitutional convention)</td>
 </tr>
-<tr class="r1">
-<td>24</td>
+<tr class="r1" data-k="-1">
 <td>MN-1</td>
 <td>Tariffs in farm district; Finstad holds no in-person town halls; affordability</td>
+<td>—</td>
 </tr>
-<tr class="r1">
-<td>25</td>
+<tr class="r1" data-k="-1">
 <td>TX-23</td>
 <td>Open after Gonzales sex scandal; Herrera’s extremism; guns vs health care &amp; abortion; indep. Mendoza</td>
+<td>—</td>
 </tr>
-<tr class="d1">
-<td>35</td>
+<tr class="d1" data-k="1">
 <td>CA-22</td>
 <td>Medicaid cuts (&gt;half district enrolled; Valadao voted for OBBB); ICE raids; Prop 50 shift</td>
+<td>Props 39 (voter ID) · 40/41/42 (billionaire tax fight) · 45 (CEQA) — see CA props page</td>
 </tr>
-<tr class="d2">
-<td>52</td>
+<tr class="d2" data-k="2">
 <td><strong>CA-48</strong> 🏠</td>
 <td>Prop 50 redraw (now Harris+3); ICE enforcement; Trump referendum vs Desmond’s local-service pitch; housing</td>
+<td>Props 39 (voter ID) · 40/41/42 (billionaire tax fight) · 45 (CEQA) — see CA props page</td>
 </tr>
 </tbody>
 </table></div>
@@ -1050,14 +1051,18 @@ document.querySelectorAll('table').forEach(table => {
     m = t.match(/^[+-]?\$?\d[\d,]*(?:\.\d+)?/); if (m) return parseFloat(m[0].replace(/[$,]/g, ''));
     return t.toLowerCase();
   };
+  [...body.rows].forEach((r, n) => r.dataset.ord = n); // original order, restored on the third click
   table.querySelectorAll('thead th').forEach((th, i) => {
-    th.classList.add('sortable'); th.title = 'Click to sort';
+    if (th.classList.contains('nosort')) return;
+    th.classList.add('sortable'); th.title = 'Click to sort (third click: original order)';
+    const val = r => th.dataset.sort === 'row' ? (r.dataset.k !== undefined ? +r.dataset.k : '') : key(r.cells[i] || r);
     th.addEventListener('click', () => {
-      const dir = th.dataset.dir === 'asc' ? 'desc' : 'asc';
-      table.querySelectorAll('thead th').forEach(h => delete h.dataset.dir); th.dataset.dir = dir;
+      const dir = th.dataset.dir === 'asc' ? 'desc' : th.dataset.dir === 'desc' ? '' : 'asc';
+      table.querySelectorAll('thead th').forEach(h => delete h.dataset.dir); if (dir) th.dataset.dir = dir;
       const rows = [...body.rows], sign = dir === 'asc' ? 1 : -1;
       rows.sort((a, b) => {
-        const x = key(a.cells[i] || a), y = key(b.cells[i] || b);
+        if (!dir) return a.dataset.ord - b.dataset.ord;
+        const x = val(a), y = val(b);
         if (typeof x === typeof y) return (typeof x === 'number' ? x - y : x.localeCompare(y)) * sign;
         return typeof x === 'number' ? -1 : 1; // numbers before text either way
       });

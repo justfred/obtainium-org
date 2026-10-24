@@ -12,6 +12,7 @@ tr.t0 td { background: #e7ddef; }
 tr.d1 td { background: #d9e4f6; } tr.d2 td { background: #b3c8ec; }
 tr.y2 td { background: #b9dcb0; } tr.y1 td { background: #ddefd7; }
 tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
+tr.ch td { background: #eeb4b0; } tr.cm td { background: #f6e3b8; } tr.cl td { background: #ddefd7; }
 .legend { font: 0.8rem var(--font-ui); margin: 0 0 1rem; display: flex; flex-wrap: wrap; gap: 0.3rem; }
 .legend span { padding: 0.1rem 0.5rem; border-radius: 3px; }
 </style>
@@ -34,7 +35,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <thead>
 <tr>
 <th>Date</th>
-<th>Notes</th>
+<th class="nosort">Notes</th>
 </tr>
 </thead>
 <tbody>
@@ -51,17 +52,17 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <tr>
 <th>#</th>
 <th>Prop</th>
-<th>What (≤ 12 words)</th>
-<th>Backed by</th>
+<th class="nosort">What (≤ 12 words)</th>
+<th class="nosort">Backed by</th>
 <th>Fred</th>
-<th>Latest polling (pollster, date)</th>
-<th>$ For / Against</th>
-<th>Realistic outlook</th>
-<th>Why it matters / who it turns out</th>
+<th class="nosort">Latest polling (pollster, date)</th>
+<th class="nosort">$ For / Against</th>
+<th data-sort="row">Realistic outlook</th>
+<th class="nosort">Why it matters / who it turns out</th>
 </tr>
 </thead>
 <tbody>
-<tr class="n1">
+<tr class="n1" data-k="-1">
 <td>1</td>
 <td><strong>40</strong></td>
 <td>One-time 5% tax on ~200 billionaires’ net worth; mostly health care</td>
@@ -72,7 +73,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td><strong>Leans No.</strong> A new tax under 50% this late usually loses (IGS: “undecideds likely break No”). Prediction markets give it 14–23%.</td>
 <td>Biggest money fight in the state. National wealth-tax test. Can only pass with high turnout of young voters and voters of color.</td>
 </tr>
-<tr class="t0">
+<tr class="t0" data-k="0">
 <td>2</td>
 <td><strong>42</strong></td>
 <td>Bans state wealth/personal-property taxes; voids conflicting taxes after 1/1/26</td>
@@ -83,7 +84,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td><strong>Toss-up.</strong> Leans Yes. Newsom endorsed it Oct 9. It’s the more dangerous of the two poison pills.</td>
 <td>The way 40 gets killed even if it passes. The ban is permanent, beyond just Prop 40.</td>
 </tr>
-<tr class="t0">
+<tr class="t0" data-k="0">
 <td>3</td>
 <td><strong>41</strong></td>
 <td>Voids new taxes exempt from the Gann spending limit</td>
@@ -94,7 +95,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td><strong>Toss-up.</strong> Leans No. Wonky subject and a high undecided share, which usually breaks No.</td>
 <td>Second poison pill aimed at 40.</td>
 </tr>
-<tr class="t0">
+<tr class="t0" data-k="0">
 <td>4</td>
 <td><strong>45</strong></td>
 <td>CEQA deadlines: 365-day reviews, 270-day court rulings</td>
@@ -105,7 +106,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td><strong>Toss-up.</strong> Leans No. A 24-point slide in two months, with Labor and the environmental groups united against it.</td>
 <td>Biggest housing and infrastructure policy change on the ballot. Labor vs. Chamber.</td>
 </tr>
-<tr class="n1">
+<tr class="n1" data-k="-1">
 <td>5</td>
 <td><strong>39</strong></td>
 <td>Voter ID in person; ID digits required on mail ballots</td>
@@ -116,7 +117,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td><strong>Leans No.</strong> About 9 in 10 Republicans support it but nonpartisans oppose it. The polling gap between pollsters is real.</td>
 <td>Main reason Republicans turn out. Even a loss creates a national talking point.</td>
 </tr>
-<tr class="n1">
+<tr class="n1" data-k="-1">
 <td>6</td>
 <td><strong>43</strong></td>
 <td>Two-thirds vote for citizen-initiated local special taxes</td>
@@ -127,7 +128,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td><strong>Leans No.</strong></td>
 <td>Would raise the bar for future local measures like SD County’s sales tax.</td>
 </tr>
-<tr class="n1">
+<tr class="n1" data-k="-1">
 <td>7</td>
 <td><strong>4</strong></td>
 <td>Lifts ban on public campaign financing</td>
@@ -138,7 +139,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td><strong>Leans No.</strong> Low awareness, no money to explain it, and “taxpayer-funded campaigns” sounds bad.</td>
 <td>Matters for good-government policy but drives no turnout.</td>
 </tr>
-<tr class="y1">
+<tr class="y1" data-k="1">
 <td>8</td>
 <td><strong>1</strong></td>
 <td>$11.25B affordable-housing bond</td>
@@ -149,7 +150,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td><strong>Leans Yes.</strong> Soft. 55% is a thin cushion for a bond.</td>
 <td>One of three bonds on the ballot (about $44B together), so bond fatigue is a risk.</td>
 </tr>
-<tr class="y1">
+<tr class="y1" data-k="1">
 <td>9</td>
 <td><strong>38</strong></td>
 <td>$8.4B immunology research bond; half to one institute</td>
@@ -160,7 +161,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td><strong>Leans Yes.</strong> Soft. CalMatters’ scrutiny of the institute (3 employees) could cost it support.</td>
 <td>Funded by one donor (Michelson), with about $4B going to a single nonprofit.</td>
 </tr>
-<tr class="y2">
+<tr class="y2" data-k="2">
 <td>10</td>
 <td><strong>3</strong></td>
 <td>Makes the high-earner income tax permanent</td>
@@ -171,7 +172,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td><strong>Likely Yes.</strong> Markets ~94%.</td>
 <td>$5–15B/yr. The safe wealth tax, which shows voters are distinguishing 3 from 40.</td>
 </tr>
-<tr class="y2">
+<tr class="y2" data-k="2">
 <td>11</td>
 <td><strong>37</strong></td>
 <td>Realtor-backed second-mortgage loans for new homes</td>
@@ -182,7 +183,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td><strong>Likely Yes.</strong></td>
 <td>A $25B revenue bond, but it reads to voters as “help buying a home.”</td>
 </tr>
-<tr class="n2">
+<tr class="n2" data-k="-2">
 <td>12</td>
 <td><strong>44</strong></td>
 <td>Clinics must spend 90% on programs</td>
@@ -193,7 +194,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td><strong>Likely No.</strong></td>
 <td>A labor fight between SEIU-UHW and the clinics.</td>
 </tr>
-<tr class="n2">
+<tr class="n2" data-k="-2">
 <td>13</td>
 <td><strong>5</strong></td>
 <td>Recall becomes yes/no only; no replacement candidates on same ballot</td>
@@ -204,7 +205,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <td><strong>Likely No.</strong></td>
 <td>Will likely lose because voters don’t know about it.</td>
 </tr>
-<tr class="y2">
+<tr class="y2" data-k="2">
 <td>14</td>
 <td><strong>2</strong></td>
 <td>Raises rainy-day reserve cap</td>
@@ -269,14 +270,18 @@ document.querySelectorAll('table').forEach(table => {
     m = t.match(/^[+-]?\$?\d[\d,]*(?:\.\d+)?/); if (m) return parseFloat(m[0].replace(/[$,]/g, ''));
     return t.toLowerCase();
   };
+  [...body.rows].forEach((r, n) => r.dataset.ord = n); // original order, restored on the third click
   table.querySelectorAll('thead th').forEach((th, i) => {
-    th.classList.add('sortable'); th.title = 'Click to sort';
+    if (th.classList.contains('nosort')) return;
+    th.classList.add('sortable'); th.title = 'Click to sort (third click: original order)';
+    const val = r => th.dataset.sort === 'row' ? (r.dataset.k !== undefined ? +r.dataset.k : '') : key(r.cells[i] || r);
     th.addEventListener('click', () => {
-      const dir = th.dataset.dir === 'asc' ? 'desc' : 'asc';
-      table.querySelectorAll('thead th').forEach(h => delete h.dataset.dir); th.dataset.dir = dir;
+      const dir = th.dataset.dir === 'asc' ? 'desc' : th.dataset.dir === 'desc' ? '' : 'asc';
+      table.querySelectorAll('thead th').forEach(h => delete h.dataset.dir); if (dir) th.dataset.dir = dir;
       const rows = [...body.rows], sign = dir === 'asc' ? 1 : -1;
       rows.sort((a, b) => {
-        const x = key(a.cells[i] || a), y = key(b.cells[i] || b);
+        if (!dir) return a.dataset.ord - b.dataset.ord;
+        const x = val(a), y = val(b);
         if (typeof x === typeof y) return (typeof x === 'number' ? x - y : x.localeCompare(y)) * sign;
         return typeof x === 'number' ? -1 : 1; // numbers before text either way
       });
