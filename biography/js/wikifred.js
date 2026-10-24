@@ -1,4 +1,4 @@
-// WikiFred client enhancements — progressive: every control is a working
+// Biography client enhancements — progressive: every control is a working
 // link without JS; this just upgrades "next" and "random" to act in-place.
 
 
@@ -62,13 +62,14 @@ manifestPromise.then((manifest) => {
     }
   });
 
-  // Welcome page feature.
+  // Front page: random story (photo-led when one has a picture).
   const featured = document.getElementById("featured");
   if (featured) {
+    const withImg = manifest.all.filter((a) => a.img);
     const render = () => {
-      const pick = pickRandom(manifest.all, null);
+      const pick = pickRandom(withImg.length && Math.random() < 0.75 ? withImg : manifest.all, null);
       featured.innerHTML = pick
-        ? `<a class="feature-card" href="${pick.url}"><span class="feature-go">Read →</span><span class="feature-title">${pick.title}</span>${pick.source ? `<span class="feature-source">${pick.source}</span>` : ""}</a>`
+        ? `<a class="feature-card${pick.img ? " has-img" : ""}" href="${pick.url}">${pick.img ? `<img src="${pick.img}" alt="">` : ""}<span class="feature-go">Read →</span><span class="feature-title">${pick.title}</span><span class="feature-source">${[pick.date && pick.date.slice(0, 4), pick.source].filter(Boolean).join(" · ")}</span></a>`
         : `<p>No articles yet.</p>`;
     };
     render();
@@ -76,5 +77,39 @@ manifestPromise.then((manifest) => {
     if (reroll) reroll.addEventListener("click", render);
     const ms = parseInt(document.body.dataset.rotate || "0", 10);
     if (ms > 0) setInterval(render, ms);
+  }
+
+  // On this day: same month-day, any year (Jan 1 is a year-only placeholder, so
+  // it's skipped). Nothing today → widen to the nearest days, up to a week.
+  const otd = document.getElementById("onthisday");
+  if (otd) {
+    const today = new Date();
+    const md = (d) => d.toISOString().slice(5, 10);
+    const dated = manifest.all.filter((a) => a.date && a.date.slice(5) !== "01-01");
+    let hits = [], span = 0;
+    for (; span <= 3 && !hits.length; span++) {
+      const days = new Set();
+      for (let k = -span; k <= span; k++) days.add(md(new Date(Date.UTC(today.getFullYear(), today.getMonth(), today.getDate() + k))));
+      hits = dated.filter((a) => days.has(a.date.slice(5)));
+    }
+    hits.sort((a, b) => a.date.localeCompare(b.date));
+    document.getElementById("otd-date").textContent =
+      today.toLocaleDateString(undefined, { month: "long", day: "numeric" }) + (span > 1 ? " · this week" : "");
+    otd.innerHTML = hits.length
+      ? `<ul class="otd">${hits.map((a) => `<li><span class="otd-year">${a.date.slice(0, 4)}</span><a href="${a.url}">${a.title}</a></li>`).join("")}</ul>`
+      : `<p class="front-sub">Nothing on this date yet.</p>`;
+  }
+
+  // Faces: show a random handful of the portraits (all are in the HTML for no-JS).
+  const faces = document.getElementById("faces");
+  if (faces) {
+    const items = [...faces.children];
+    const show = () => {
+      const order = items.map((li) => [Math.random(), li]).sort((a, b) => a[0] - b[0]);
+      order.forEach(([, li], i) => { li.hidden = i >= 8; faces.appendChild(li); });
+    };
+    show();
+    const more = document.getElementById("faces-reroll");
+    if (more) more.addEventListener("click", show);
   }
 });
