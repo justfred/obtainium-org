@@ -987,7 +987,7 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 <p><strong>Likely D (not above):</strong> CA-21, CA-45, IN-1, MI-3, MI-8, MN-2, NV-4, NH-2, NJ-9, NY-19, OH-13, OR-5, VA-7
 <strong>Likely R (not above):</strong> AR-2, CO-3, FL-7, FL-9 (D-held → flip), FL-12, FL-16, IN-5, KS-2, MD-1, NE-1, NJ-2, NY-1, NC-3, NC-13, TX-9 (new), WA-5, WY-AL
 <strong>Already flipped on paper:</strong> TN-9 (D → Solid R, map split Memphis)</p>
-<p>Realism check: see <a href="forecasts.html">forecasts</a>.</p>
+<p>Realism check: see <a href="forecasts.html">2026 Midterms — Realistic Forecasts &amp; Nate Silver</a>.</p>
 <h2>Caveats</h2>
 <ul>
 <li>Cook verified via Oct 23 coverage (totals match). Sabato &amp; Inside ratings via Wikipedia only.</li>
@@ -1009,5 +1009,35 @@ tr.n1 td { background: #f8dcd9; } tr.n2 td { background: #eeb4b0; }
 
 </main>
 <!--pub:footer--><footer class="site-foot">© 2026 Fred Heald · <a href="../../../dev/index.html">obtainium.org/dev</a></footer><!--/pub:footer-->
+<style>
+th.sortable { cursor: pointer; user-select: none; }
+th.sortable::after { content: " ⇅"; color: var(--ink-soft); font-size: 0.8em; }
+th.sortable[data-dir="asc"]::after { content: " ▲"; } th.sortable[data-dir="desc"]::after { content: " ▼"; }
+</style>
+<script>
+document.querySelectorAll('table').forEach(table => {
+  const body = table.tBodies[0]; if (!body || body.rows.length < 2) return;
+  const key = cell => {
+    const t = cell.textContent.trim().replace(/−/g, '-');
+    let m = t.match(/^([DR])\+(\d+(?:\.\d+)?)/); if (m) return (m[1] === 'D' ? 1 : -1) * parseFloat(m[2]);
+    m = t.match(/^[+-]?\$?\d[\d,]*(?:\.\d+)?/); if (m) return parseFloat(m[0].replace(/[$,]/g, ''));
+    return t.toLowerCase();
+  };
+  table.querySelectorAll('thead th').forEach((th, i) => {
+    th.classList.add('sortable'); th.title = 'Click to sort';
+    th.addEventListener('click', () => {
+      const dir = th.dataset.dir === 'asc' ? 'desc' : 'asc';
+      table.querySelectorAll('thead th').forEach(h => delete h.dataset.dir); th.dataset.dir = dir;
+      const rows = [...body.rows], sign = dir === 'asc' ? 1 : -1;
+      rows.sort((a, b) => {
+        const x = key(a.cells[i] || a), y = key(b.cells[i] || b);
+        if (typeof x === typeof y) return (typeof x === 'number' ? x - y : x.localeCompare(y)) * sign;
+        return typeof x === 'number' ? -1 : 1; // numbers before text either way
+      });
+      rows.forEach(r => body.appendChild(r));
+    });
+  });
+});
+</script>
 </body>
 </html>
