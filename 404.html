@@ -28,7 +28,8 @@
 </section>
 <script>
   // Moved paths: GitHub Pages has no server redirects, so the 404 forwards them.
-  // Order: exact pages, then article/thread slugs (/slugs.json), then folder prefixes.
+  // Order: exact pages, then article/thread URLs via /slugs.json (hand-matched old URLs, then
+  // same slug), then folder prefixes.
   // A target that has itself moved 404s here again and takes the next hop.
   // Not forwarded on purpose: pub/vehicles/{car-cost-per-day,commute-fuel-cost} (moved to dev/).
   {
@@ -69,8 +70,9 @@
     else if (/\/(articles|thread)\/|^\/food-and-drink\//.test(path)) { // F&D: pre-group URLs
       const slug = path.replace(/\/(index\.html?)?$/, "").split("/").pop();
       const kinds = path.includes("/thread/") ? ["t", "a"] : ["a", "t"];
+      const key = path.replace(/(index\.html?)?$/, "").replace(/\/?$/, "/");
       fetch("/slugs.json").then((r) => r.json())
-        .then((m) => kinds.map((k) => m[k][slug]).find(Boolean))
+        .then((m) => m.m[key] || kinds.map((k) => m[k][slug]).find(Boolean))
         .catch(() => null)
         .then((to) => (to && to !== path ? go(to) : count404()));
     } else if (prefixed()) go(prefixed());
