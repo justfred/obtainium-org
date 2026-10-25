@@ -497,6 +497,12 @@ Scale: ~99,894 photos, 1922–2026. Well-organized with named collections, peopl
 </tbody>
 </table>
 <p><strong>Exception — JPEG source files:</strong> <code>sips</code> <em>does</em> apply the camera’s EXIF orientation when re-encoding JPEG→JPEG (it rotates pixels and clears the EXIF tag). LR’s catalog orientation often mirrors the original EXIF, so applying it again produces a double-rotation. Symptom: portrait shots exported correctly by sips end up sideways after the correction script. Fix: apply catalog rotation only for RAW source files (CR2, NEF, ARW, DNG, etc.), not for JPEG originals from cameras where sips handles it automatically.</p>
+<p><strong>HEIC too, and the check that catches it <em>(2026-10-24)</em>:</strong> the same double-rotation hit iPhone HEICs (sips applies HEIC/irot rotation on conversion; exiftool may still report Orientation 1). 140 site photos (43 in <code>oregon-2024</code>) were sideways or upside down until <code>cb6863f</code>. Rules:</p>
+<ul>
+<li>Apply the LR catalog rotation <strong>only when it differs from the camera’s own orientation</strong> (i.e. Fred rotated it by hand in LR; mostly scans). If LR just mirrors EXIF, the converter already did it.</li>
+<li>Write web copies upright with EXIF <code>Orientation=1</code>; a stale tag makes browsers rotate again.</li>
+<li><strong>Audit:</strong> <code>photography/photo-index.jsonl</code> <code>phash</code> is computed on EXIF-transposed originals. Hash each site image (<code>ImageOps.exif_transpose</code>, 512px) in 0/90/180/270 and compare: a match (distance ≤ 8) at a non-zero angle, where LR orientation agrees with EXIF, is a wrong-way photo. Then eyeball a contact sheet of the corrected results before writing.</li>
+</ul>
 <p><strong>Evenly-spaced photo selection:</strong> when a collection has more 4★ photos than the max (10), pick evenly spaced: <code>step = (len-1)/(n-1)</code>, use <code>{round(i*step) for i in range(n)}</code> as indices. Produces representative coverage without clustering at start/end.</p>
 <h3>Audio Recordings</h3>
 <table>

@@ -27,6 +27,56 @@
   <div id="search"></div>
 </section>
 <script>
+  // Moved paths: GitHub Pages has no server redirects, so the 404 forwards them.
+  // Order: exact pages, then article/thread slugs (/slugs.json), then folder prefixes.
+  // A target that has itself moved 404s here again and takes the next hop.
+  // Not forwarded on purpose: pub/vehicles/{car-cost-per-day,commute-fuel-cost} (moved to dev/).
+  {
+    const EXACT = {
+      "/pub/burning-man/gate-wait-times.html": "/burning-man/gate-wait-times/",
+      "/pub/burning-man/unpacking-list.html": "/burning-man/unpacking-list/",
+      "/pub/games/card-game-rules.html": "/misc/card-game-rules/",
+      "/pub/historical-markers.html": "/misc/historical-markers/",
+      "/pub/misc/historical-markers.html": "/misc/historical-markers/",
+      "/pub/photography/inspirations.html": "/photography/inspirations/",
+      "/photography/inspirations.html": "/photography/inspirations/",
+      "/pub/photography/southern-africa-phone-photo-notes.html": "/photography/southern-africa-phone-photo-notes/",
+      "/pub/travel/southern-africa-phone-photo-notes.html": "/photography/southern-africa-phone-photo-notes/",
+      "/pub/politics/political-views.html": "/politics/political-views/",
+      "/pub/vehicles/mpg-calculator.html": "/vehicles/mpg-calculator/",
+      "/pub/words/2026-10-22-this-or-that.html": "/misc/this-or-that/",
+    };
+    const PREFIX = [ // [old, new] — first match wins
+      ["/wiki/search", "/search"],
+      ["/biography/search", "/search"],
+      ["/pub/politics/2026-midterms", "/politics/2026-midterms"],
+      ["/dev/politics/2026-midterms", "/politics/2026-midterms"],
+      ["/wiki", "/biography"], // WikiFred renamed 2026-10-24
+    ];
+    const path = location.pathname;
+    const go = (to) => location.replace(to + location.search + location.hash);
+    const prefixed = () => {
+      for (const [from, to] of PREFIX) if (path === from || path.startsWith(from + "/")) return to + path.slice(from.length);
+    };
+    // Count what really 404s (not what gets forwarded) as "404:/path" in GoatCounter.
+    window.goatcounter = { no_onload: true };
+    const count404 = () => {
+      const c = () => window.goatcounter.count({ path: "404:" + path, title: "404" });
+      window.goatcounter.count ? c() : addEventListener("load", c);
+    };
+
+    if (EXACT[path]) go(EXACT[path]);
+    else if (/\/(articles|thread)\/|^\/food-and-drink\//.test(path)) { // F&D: pre-group URLs
+      const slug = path.replace(/\/(index\.html?)?$/, "").split("/").pop();
+      const kinds = path.includes("/thread/") ? ["t", "a"] : ["a", "t"];
+      fetch("/slugs.json").then((r) => r.json())
+        .then((m) => kinds.map((k) => m[k][slug]).find(Boolean))
+        .catch(() => null)
+        .then((to) => (to && to !== path ? go(to) : count404()));
+    } else if (prefixed()) go(prefixed());
+    else count404();
+  }
+
   // Served as the site-wide 404 (deploy copies it to the site root), so build the
   // query from whatever path was asked for: /wiki/articles/sous-vide-steak/ → "sous vide steak".
   window.searchFromPath = location.pathname.split("/")
