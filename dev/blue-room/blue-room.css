@@ -88,3 +88,20 @@ body.blue-room {
 .blue-room .fine { font-family: var(--font-ui); font-size: 0.78rem; color: var(--ink-soft); }
 
 @media (max-width: 600px) { .blue-room .hero h1 { font-size: 2.2rem; } .blue-room .hero { margin: 0.4rem -16px 1.4rem; } }
+
+/* Images and the charter. */
+.blue-room .hero { background: linear-gradient(rgba(10,42,94,0.86), rgba(10,42,94,0.9)), url("img/capitol.jpg") center 38% / cover; }
+.blue-room .hero .flag { position: absolute; top: 1.7rem; width: 3.2rem; height: auto; border: 1px solid rgba(255,255,255,0.6); box-shadow: 0 2px 6px rgba(0,0,0,0.35); }
+.blue-room .hero .flag-l { left: 1.2rem; }
+.blue-room .hero .flag-r { right: 1.2rem; transform: scaleX(-1); }
+.blue-room .wonka-say { border-left: 8px solid var(--navy); background: var(--paper-2); padding: 1rem 1.2rem 0.4rem; margin: 0 0 1rem; font-size: 1.05rem; border-radius: 0 6px 6px 0; }
+.blue-room .punch { text-align: center; font-weight: 700; color: var(--red); font-size: 1.25rem; margin: 1.2rem 0; }
+.blue-room .plate { margin: 1.6rem 0; border: 3px double var(--blue); padding: 0.6rem; background: #fff; }
+.blue-room .plate img { display: block; width: 100%; height: auto; }
+.blue-room .plate figcaption { font-family: var(--font-ui); font-size: 0.78rem; color: var(--ink-soft); margin-top: 0.5rem; line-height: 1.4; }
+.blue-room .charter { border: 3px double var(--navy); background: #fffdf7; padding: 1.2rem 1.4rem 0.8rem; margin: 2rem 0 1.4rem; box-shadow: inset 0 0 0 4px #fff, inset 0 0 0 5px var(--rule); }
+.blue-room .charter h2 { border: 0; padding: 0; text-align: center; text-transform: uppercase; letter-spacing: 0.12em; font-size: 1.15rem; color: var(--navy); margin: 0 0 0.2rem; }
+.blue-room .charter .sub { text-align: center; font-style: italic; color: var(--ink-soft); margin-bottom: 1.1rem; font-size: 0.92rem; }
+.blue-room .charter p strong { color: var(--red-deep); font-variant: small-caps; letter-spacing: 0.04em; }
+.blue-room .charter .sign { text-align: center; margin-top: 1rem; font-variant: small-caps; letter-spacing: 0.05em; }
+.blue-room .charter .seal { color: var(--red); font-size: 1.3rem; vertical-align: -0.1em; }
