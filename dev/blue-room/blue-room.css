@@ -65,7 +65,7 @@ body.blue-room {
 /* The index: a network promo. The markdown title is kept for the page title and hidden. */
 .blue-room main > h1:has(+ .hero) { display: none; } /* only the index, whose hero carries the title */
 .blue-room .hero {
-  background: var(--blue); color: #fff; padding: 2rem 1.4rem 1.7rem; margin: 0.4rem -1.25rem 1.6rem; text-align: center;
+  background: var(--blue); color: #fff; padding: 2rem 1.4rem 1.7rem; margin: -2.5rem -1.25rem 1.6rem; text-align: center;
   border-bottom: 6px solid var(--red); position: relative;
 }
 .blue-room .hero::before {
@@ -86,7 +86,7 @@ body.blue-room {
 .blue-room .episodes li { border-bottom: 1px dotted var(--rule); padding: 0.55rem 0; }
 .blue-room .fine { font-family: var(--font-ui); font-size: 0.78rem; color: var(--ink-soft); }
 
-@media (max-width: 600px) { .blue-room .hero h1 { font-size: 2.2rem; } .blue-room .hero { margin: 0.4rem -16px 1.4rem; } }
+@media (max-width: 600px) { .blue-room .hero h1 { font-size: 2.2rem; } .blue-room .hero { margin: -1.6rem -16px 1.4rem; } }
 
 /* Images and the charter. */
 .blue-room .hero { background: linear-gradient(rgba(0,96,168,0.84), rgba(0,69,122,0.92)), url("img/capitol.jpg") center 38% / cover; }
