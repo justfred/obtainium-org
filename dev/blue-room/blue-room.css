@@ -38,6 +38,7 @@ body.blue-room {
 .blue-room .who.walt   { background: var(--blue); }
 .blue-room .who.dale   { background: #ffffff; color: var(--red); box-shadow: inset 0 0 0 2px var(--red); }
 .blue-room .who.margo  { background: #ffffff; color: var(--blue); box-shadow: inset 0 0 0 2px var(--blue); }
+.blue-room .who.chip  { background: #1b2233; color: #ffd0d4; }
 .blue-room .who.guest { background: var(--navy); color: #fff; border-top: 3px solid var(--red); border-bottom: 3px solid #fff; padding-top: 0.04rem; padding-bottom: 0.04rem; box-shadow: none; text-shadow: none; }
 
 /* The audience reacts. */
