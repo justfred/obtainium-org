@@ -13,6 +13,7 @@ body.blue-room {
 .blue-room .crumbs a, .blue-room .top-links a { color: #d4e7f6; }
 .blue-room .crumbs a:hover, .blue-room .top-links a:hover { color: #ffffff; }
 .blue-room .crumbs .sep { color: #8fbbe0; }
+.blue-room .crumbs { color: #ffffff; }
 .blue-room main { background: var(--paper); border: 1px solid var(--rule); border-top: 0; margin-top: 0; box-shadow: 0 6px 18px rgba(0,69,122,0.10); }
 .blue-room .site-foot { color: var(--ink-soft); background: var(--paper); border: 1px solid var(--rule); border-top: 4px solid var(--red); margin-bottom: 1.5rem; }
 
@@ -125,3 +126,5 @@ body.blue-room {
 .blue-room .service { display: inline-block; font-family: var(--font-ui); font-size: 0.72rem; letter-spacing: 0.04em; color: var(--ink-soft); border: 1px solid var(--rule); border-left: 5px solid #1d7a3a; background: #fbfdff; padding: 0.25rem 0.6rem; margin: 0 0 1rem; border-radius: 0 3px 3px 0; }
 .blue-room .service b { text-transform: uppercase; letter-spacing: 0.08em; color: var(--navy); margin-right: 0.35rem; }
 .blue-room .occupancy { text-align: center; font-family: var(--font-ui); font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); margin: -0.6rem 0 1.2rem; }
+.blue-room .pilot-note { text-align: center; font-family: var(--font-ui); letter-spacing: 0.08em; text-transform: uppercase; font-size: 0.82rem; color: var(--blue); margin: 1.4rem 0 0.2rem; }
+.blue-room .episodes.pilot li { border-top: 3px double var(--rule); border-bottom: 0; }
