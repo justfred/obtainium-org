@@ -6,15 +6,17 @@
     <meta name="robots" content="noindex, nofollow" />
     <title>Sources &amp; Methods Field Guide · Biography</title>
     <link rel="stylesheet" href="/css/style.css" />
+    
+    <link rel="stylesheet" href="/css/sections.css" />
     <link rel="stylesheet" href="/pagefind/pagefind-ui.css" />
   </head>
-  <body data-rotate="0">
+  <body class="bio-look themed" data-rotate="0">
     <header class="site-head">
       <nav class="crumbs" aria-label="Breadcrumb">
         <a class="brand" href="/">obtainium.org</a><span class="sep">/</span><a href="/biography/">Biography</a><span class="sep">/</span><span class="crumb-current" aria-current="page">Sources &amp; Methods Field Guide</span>
       </nav>
       <nav class="top-links">
-        <a href="/food-and-drink/">Food &amp; Drink</a><a href="/politics/">Politics</a><a href="/burning-man/">Burning Man</a><a href="/photography/">Photography</a><a href="/vehicles/">Vehicles</a><a href="/misc/">Misc</a>
+        <a href="/biography/" aria-current="true">Biography</a><a href="/food-and-drink/">Food &amp; Drink</a><a href="/politics/">Politics</a><a href="/burning-man/">Burning Man</a><a href="/photography/">Photography</a><a href="/vehicles/">Vehicles</a><a href="/misc/">Misc</a>
         <a href="/search/">🔍 Search</a>
       </nav>
     </header>
@@ -774,6 +776,64 @@ backup will then show only a handful of messages). Older backups predating that 
 local history — they’re the goldmine. iCloud-resident messages can’t be read off-disk; recovering
 them means restoring to a device or a forensic downloader.</li>
 </ul>
+<h4>Reading someone else’s phone backup: inventory first, then account archaeology <em>(added 2026-10-26)</em></h4>
+<p>When the phone belongs to someone who has died (or anyone else who cannot sit beside you), work in
+layers, from least to most personal, and stop at the layer that answers the question:</p>
+<ol>
+<li><strong>Inventory the manifest — read no content.</strong> Counts and sizes per category (Camera Roll, message
+attachments, voicemail, contacts, notes, calendar, call history, health), the biggest app domains, and the
+<strong>installed third-party apps</strong> (bundle ids, from the <code>AppDomain-…</code> domains). This is a map: it tells you
+what exists before you decide what to open. Most installed apps are Apple’s own; the handful of others
+(a news subscription, an audiobook service, a thermostat, a mail app) are the first account clues.</li>
+<li><strong>Websites as host names only.</strong> Safari history and bookmarks reduced to <code>chase.com</code>-style hosts with
+visit counts and first/last month; no titles, URLs or search terms. If Safari history is empty, the
+person used another browser: check <code>AppDomainGroup-group.org.mozilla.ios.Firefox</code> (Firefox) or the
+Chrome group container. Bookmarks are often years old but name the banks, brokers, utilities and
+memberships the person actually used.</li>
+<li><strong>Texts as sender ids + counts, then masked snippets with the owner/family’s approval.</strong> A “code-like”
+flag (<code>code|verify|sign in|security…</code>) is only a lead: a phone that has gone quiet is mostly <strong>bulk
+campaign and marketing texts</strong> (many numbers in sequential blocks, one text each), and those use the same
+words. Confirm with 40-character snippets (digits, links and emails masked) before concluding anything.
+In the case this was written from, 20 “code-like” texts contained <strong>zero</strong> real login codes.</li>
+<li><strong>Extract specific items only when needed</strong> (voicemails, Camera Roll, a database), to a drive outside any
+synced folder, and process them like any other source.</li>
+</ol>
+<p><strong>Tooling (what worked, 2026).</strong> <code>iphone_backup_decrypt</code> (pip) decrypts an encrypted Finder backup offline:
+<code>EncryptedBackup(backup_directory=…, passphrase=…)</code>, <code>extract_file(relative_path=…, output_filename=…)</code>,
+<code>RelativePath.TEXT_MESSAGES</code> (= <code>Library/SMS/sms.db</code>), and <code>manifest_db_cursor()</code>. It also works as an
+alternative to <code>iOSbackup</code> above. Gotchas, each of which cost a failed run:</p>
+<ul>
+<li><code>manifest_db_cursor()</code> is a <strong>context manager</strong>: <code>with bk.manifest_db_cursor() as cur:</code>. Reduce each
+manifest row to what you need (the <code>file</code> column is a bplist; size is the <code>Size</code> key of its
+<code>$objects</code> dict) instead of keeping the blobs.</li>
+<li><code>sms.db</code> is in <strong>WAL mode</strong>. A read-only/<code>mode=ro</code> open of the decrypted copy fails with “unable to open
+database file”, and recent messages may sit in <code>sms.db-wal</code>. Also extract <code>Library/SMS/sms.db-wal</code> and
+<code>-shm</code> when present, and open the throwaway temp copy normally.</li>
+<li><strong><code>attributedBody</code> is a “typedstream” blob; never regex the raw blob.</strong> Its header holds
+<code>streamtyped … NSMutableAttributedString …</code>, and a flag or snippet built on the raw blob will show that
+header instead of the message. Parse it: find <code>NSString</code>, then <code>\x01+</code>, then a length (one byte, or <code>0x81</code>
+plus a 2-byte little-endian length), then that many UTF-8 bytes.</li>
+<li><strong>Never type or paste the backup password into a chat or a command line.</strong> Prompt with <code>getpass</code> in a real
+Terminal (it will not work inside a tool that has no TTY), decrypt one file at a time into a temp dir
+outside iCloud, delete it at the end, and write only derived tables (ids, counts, host names).</li>
+<li>Set the backup password in a password manager <strong>before</strong> starting the backup: a lost backup password
+cannot be recovered. An encrypted backup also contains what a plain one omits (Keychain, Health, saved
+Wi-Fi), but the Keychain is encrypted a second time and this library cannot read it.</li>
+</ul>
+<p><strong>What else is in a 40 GB backup.</strong> <code>Media/PhotoData</code> can be tens of GB: on a phone with iCloud Photos and
+“Optimize Storage” it is a <strong>local cache of the whole iCloud library</strong> (thumbnails and medium-size
+derivatives) next to <code>Photos.sqlite</code>. It is a possible source of low-resolution copies of photos that are
+missing everywhere else; extract <code>Photos.sqlite</code> first and match before pulling gigabytes. The Camera Roll
+(<code>Media/DCIM</code>) is only what is physically on the device. <strong>Attachments under <code>SMS/Attachments</code> may be tiny
+(link previews) when Messages in iCloud is on.</strong></p>
+<p><strong>Before any device is wiped, reset, traded in or replaced:</strong> make an encrypted Finder backup of it first, and
+check iCloud for device backups (Settings &gt; [name] &gt; iCloud &gt; Manage Account Storage &gt; Backups) and the old
+computer for <code>MobileSync/Backup</code> folders and Time Machine. A phone that has been erased cannot be read, and the
+replacement phone only holds what arrived since it was set up (often a few months, and mostly bulk texts).
+Restoring a backup onto a phone erases that phone, so never do it on the only device you have.</p>
+<p><strong>Scope for estate work.</strong> Report what categories exist before opening any; show the family contact lists and
+sender ids, not message text; get explicit approval before looking at snippets, notes, voicemail or health
+data; and prefer reading Notes and Contacts on the device itself over copying their databases.</p>
 <p><strong>Worked result (Fred’s archive):</strong> one unencrypted iPhone 6s Plus backup yielded <strong>44,993 messages
 (2008–2020), 968 contacts, 2,307 attached media</strong> and <strong>118 voicemails (2019–2020)</strong> — including 7 more
 recordings of his late father’s voice that existed nowhere else.</p>
