@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Excel file opens empty: diagnose, recover, prevent — Fred Heald</title>
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="../../pub/pub.css">
+<script data-goatcounter="https://fheald.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+<!--pub:header--><header class="site-head"><nav class="crumbs"><a class="brand" href="../../index.html">obtainium.org</a><span class="sep">/</span><a href="../../dev/index.html">dev</a><span class="sep">/</span><a href="../../dev/index.html#development">development</a></nav><nav class="top-links"><a href="../../biography/">Biography</a><a href="../../food-and-drink/">Food &amp; Drink</a><a href="../../politics/">Politics</a><a href="../../burning-man/">Burning Man</a><a href="../../photography/">Photography</a><a href="../../vehicles/">Vehicles</a><a href="../../misc/">Misc</a><a href="../../search/">🔍 Search</a></nav></header><!--/pub:header-->
+<main>
+<h1>Excel file opens empty: diagnose, recover, prevent</h1>
+<p><strong>Use when:</strong> a client opens an older Excel file (recent Excel, Windows) and the data appears to be gone.
+<strong>Rule one:</strong> don’t save, and work on a <em>copy</em>. Saving an “empty” view can overwrite what’s left.
+<strong>Updated:</strong> 2026-11-07</p>
+<h2>At a glance</h2>
+<ol>
+<li><strong>Is the data in the file?</strong> Size + zip test (Part 1). Big file = recoverable.</li>
+<li><strong>If yes:</strong> find out whether it’s hidden (Part 2) or was cleared or blanked on open (Part 3).</li>
+<li><strong>If no or tiny:</strong> go to versions and backups (Part 4).</li>
+<li><strong>Record evidence</strong> (Part 5), pick the next step (Part 6).</li>
+<li><strong>Then prevent a repeat</strong> (Part 7). Known reports are in Part 8.</li>
+</ol>
+<hr>
+<h2>Part 1. Is the data actually in the file? (2 minutes)</h2>
+<ul>
+<li>[ ] <strong>File size</strong> (right-click &gt; Properties). Hundreds of KB or more = data almost certainly present. A few KB (an empty .xlsx is about 12 KB) or 0 KB = truly empty or a cloud placeholder (Part 4).</li>
+<li>[ ] <strong>Zip test (.xlsx/.xlsm):</strong> copy the file, rename the <em>copy</em> to <code>.zip</code>, open it. Check <code>xl/worksheets/sheet*.xml</code> and <code>xl/sharedStrings.xml</code>. Large = data is there, so it’s a display or link problem and recoverable.</li>
+<li>[ ] <strong>Old .xls:</strong> try LibreOffice or Google Sheets; either may read what Excel won’t.</li>
+</ul>
+<h2>Part 2. Is it hidden? (5 minutes)</h2>
+<ul>
+<li>[ ] Ctrl+End: where is the last used cell? Scroll there.</li>
+<li>[ ] Hidden sheets: right-click a tab &gt; Unhide. “Very hidden” sheets need the VBA editor (Alt+F11, Properties &gt; Visible).</li>
+<li>[ ] Hidden rows and columns; clear all filters (Data &gt; Clear).</li>
+<li>[ ] Hidden workbook window: View &gt; Unhide.</li>
+<li>[ ] Invisible text: white font, or custom number format <code>;;;</code>. Select all, set a visible font color, set format to General.</li>
+<li>[ ] Calculation mode: Formulas &gt; Calculation Options &gt; Automatic, then F9.</li>
+</ul>
+<h2>Part 3. Did something clear or replace it on open?</h2>
+<ul>
+<li>[ ] <strong>Update Links prompt</strong> declined or source path gone: Data &gt; Edit Links. Formulas show 0 or <code>#REF!</code> when the source is missing.</li>
+<li>[ ] <strong>Power Query, connections, pivots</strong> set to refresh on open: Data &gt; Queries &amp; Connections. A failed refresh can empty the result table. Open with refresh disabled or offline.</li>
+<li>[ ] <strong>Macros:</strong> a <code>Workbook_Open</code> macro may clear ranges. Open with macros disabled (hold Shift while opening, or Trust Center), then inspect in Alt+F11.</li>
+<li>[ ] <strong>Repair dialog</strong> (“found unreadable content”): note exactly what it said; content may have been dropped. Keep the original; try Open &gt; Open and Repair &gt; Extract Data.</li>
+<li>[ ] <strong>Protected View or blocked file:</strong> Enable Editing, or unblock in file Properties.</li>
+<li>[ ] <strong>Blank window or grey screen</strong> (no workbook shown at all): usually add-ins, file associations, or a hidden window, not data loss. Open via File &gt; Open, test with <code>excel /safe</code>, disable add-ins one at a time, try Online Repair of Microsoft 365. See Microsoft’s <a href="https://learn.microsoft.com/troubleshoot/microsoft-365-apps/excel/excel-opens-blank">troubleshooting article</a>.</li>
+</ul>
+<h2>Part 4. Sync, storage, versions</h2>
+<ul>
+<li>[ ] OneDrive/SharePoint/Dropbox: is it a cloud-only placeholder or a sync-conflict copy (name has the computer name or “-conflict”)?</li>
+<li>[ ] <strong>Version history</strong> (OneDrive/SharePoint: right-click &gt; Version history). Windows: Previous Versions. Mac: Time Machine. A file reverted to an old version with sheets missing has been recovered this way.</li>
+<li>[ ] File &gt; Info &gt; Manage Workbook &gt; Recover Unsaved Workbooks; check the AutoRecover folder and <code>%temp%</code>. With AutoSave on, there may be no local AutoRecover copy.</li>
+<li>[ ] OneDrive recycle bin and any other device’s sync folder.</li>
+<li>[ ] Backups: compare size and modified date with the last good copy.</li>
+</ul>
+<h2>Part 5. Evidence to record (for the client and for you)</h2>
+<ul>
+<li>[ ] File name, path, size, created, modified, last saved by</li>
+<li>[ ] Excel version, build, and update channel (File &gt; Account &gt; About Excel); platform of the client and of anyone for whom it opens fine</li>
+<li>[ ] Where the file lives (local, file server, OneDrive/SharePoint) and whether AutoSave was on</li>
+<li>[ ] Exact text of any prompt (links, macros, repair)</li>
+<li>[ ] Zip-test result (sheet XML sizes)</li>
+<li>[ ] Windows Application event log entries around the time</li>
+<li>[ ] Which version or backup, if any, still has the data</li>
+</ul>
+<h2>Part 6. Decision</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Finding</th>
+<th>Next step</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Large file, data hidden or invisible</td>
+<td>Unhide, restore formatting, save a new copy</td>
+</tr>
+<tr>
+<td>Large file, links or queries blanked it</td>
+<td>Repoint or disable the sources; extract values from the XML if needed</td>
+</tr>
+<tr>
+<td>Macro cleared it</td>
+<td>Disable macro, recover from the earlier version</td>
+</tr>
+<tr>
+<td>Repair dropped content</td>
+<td>Open and Repair &gt; Extract Data; pull from the XML; use backups</td>
+</tr>
+<tr>
+<td>Tiny or 0 KB file</td>
+<td>Version history, backups, AutoRecover, OneDrive recycle bin</td>
+</tr>
+<tr>
+<td>Reverted to older state, sheets missing</td>
+<td>Walk back through version history for a version that has everything</td>
+</tr>
+<tr>
+<td>Opens fine elsewhere</td>
+<td>Client-side issue: version, Trust Center, add-ins, profile</td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+<h2>Part 7. Prevention</h2>
+<p>Root cause varies, so the aim is layers that make any cause recoverable and visible.</p>
+<p><strong>Recover</strong></p>
+<ul>
+<li>[ ] <strong>Versions, not just copies:</strong> OneDrive/SharePoint version history, or Windows Previous Versions/VSS on the file server, plus a real backup with weeks to months of retention. Sync alone copies an empty file as faithfully as a good one.</li>
+<li>[ ] <strong>Second medium:</strong> import important workbooks into <strong>Google Sheets</strong>, either as an automatic mirror (Google Drive for desktop) or as dated copies. It’s a different vendor and format, with its own always-on version history, so one Excel failure mode can’t hit both. It loses macros, Power Query, and some formatting and pivot fidelity, so <em>keep the original <code>.xlsx</code> too</em>. Test with a few real files first and compare cell by cell. A mirrored <code>.xlsx</code> alone is just another sync copy.</li>
+<li>[ ] <strong>Archive:</strong> monthly or quarterly dated read-only copies of important workbooks, plus CSV or PDF exports of the key data.</li>
+</ul>
+<p><strong>Settings and habits</strong></p>
+<ul>
+<li>[ ] <strong>AutoRecover:</strong> every 1–5 minutes, with “Keep the last autosaved version if I close without saving.”</li>
+<li>[ ] <strong>AutoSave on cloud files</strong> commits a bad state within seconds. Use it only with version history on.</li>
+<li>[ ] <strong>Old files:</strong> open read-only or in Protected View; convert legacy <code>.xls</code> to <code>.xlsx</code> once and keep the original.</li>
+</ul>
+<p><strong>Design</strong></p>
+<ul>
+<li>[ ] Avoid refresh-on-open links, queries, and macros on important files; keep a values-only copy of the data.</li>
+<li>[ ] Raw data on its own sheet, as Excel Tables, separate from reports.</li>
+<li>[ ] Long term, real data in a database or SharePoint list, with Excel as the viewer. Or Google Sheets as the primary for shared, simple data (weaker for heavy formulas, macros, large files).</li>
+</ul>
+<p><strong>Detect</strong></p>
+<ul>
+<li>[ ] A Control sheet with a row count or checksum against an expected value, so an emptied file is obvious on open.</li>
+<li>[ ] Backup alert on a sharp file-size drop.</li>
+</ul>
+<p><strong>Environment</strong></p>
+<ul>
+<li>[ ] Check antivirus/EDR and Controlled Folder Access; test with <code>excel /safe</code>.</li>
+<li>[ ] Record the Office build and channel and see whether cases cluster around an update.</li>
+</ul>
+<p><strong>Next time it happens:</strong> don’t resave; keep the file and the zip-test result (Part 5); submit via Feedback Hub or Microsoft support with the file and build number. Two or three captured cases will likely show a pattern.</p>
+<hr>
+<h2>Part 8. Known reports (web check, 2026-11-07)</h2>
+<p>No official Microsoft acknowledgment of a bug that empties recent Excel files was found. The evidence is user reports, so treat it as a pattern to watch.</p>
+<ul>
+<li><strong>AutoSave plus OneDrive</strong> is the leading suspect: files returning empty or partial, with no local AutoRecover copy to fall back on (one user’s account, unconfirmed). <a href="https://libreddit.winscloud.net/r/excel/comments/1ndxkja/warning_recent_windows_10officeonedrivecopilot">r/excel thread</a></li>
+<li><strong>Lost days of work after an update</strong> with AutoSave on; a moderator cited a known Excel/OneDrive sync-merge problem and advised restoring an older version. <a href="https://learn.microsoft.com/en-us/answers/questions/5837976/i-just-lost-several-days-of-work-in-excel-followin">Microsoft Q&amp;A</a></li>
+<li><strong>Reverted file, sheets missing</strong>, recovered from version history (same thread family).</li>
+<li><strong>Unverified (titles only):</strong> <a href="https://techcommunity.microsoft.com/discussions/excelgeneral/excel-repair-strips-all-formulas-from-large-xlsm-after-march-2026-security-updat/4508359">xlsm formulas stripped by repair after the March 2026 security update</a> and <a href="https://techcommunity.microsoft.com/discussions/microsoft365copilot/has-anyone-seen-excel-workbooks-become-corrupt-after-using-m365-copilot-to-summa/4524962">workbooks corrupt after M365 Copilot summarize</a>.</li>
+<li><strong>Older, acknowledged:</strong> a 2022 build made cells look blank or white. <a href="https://office-watch.com/2022/excel-cells-are-white-or-disappearing-bug-how-to-fix/">Office Watch</a></li>
+<li><strong>Microsoft’s own list:</strong> <a href="https://support.microsoft.com/topic/49d932ce-0240-49cf-94df-1587d9d97093">Fixes or workarounds for recent issues in Excel for Windows</a>. Check it against the client’s build.</li>
+</ul>
+<p>These concern recent saves. A client’s problem with <em>old</em> files may have a different cause, so don’t assume it’s the same.</p>
+
+</main>
+<!--pub:footer--><footer class="site-foot">© 2026 Fred Heald · <a href="../../dev/index.html">obtainium.org/dev</a></footer><!--/pub:footer-->
+</body>
+</html>
