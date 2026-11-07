@@ -66,6 +66,7 @@ a:hover { color: var(--accent); }
 .top-links { display: flex; gap: 1rem; font-family: var(--font-ui); font-size: 0.85rem; }
 .top-links a { text-decoration: none; color: var(--ink-soft); }
 .top-links a:hover { color: var(--accent); }
+.top-links a[aria-current] { color: var(--ink); font-weight: 600; }
 .top-links .nav-right { margin-left: auto; }
 .top-links .admin-first { padding-left: 1.25rem; border-left: 1px solid var(--rule); }
 .search { margin-left: auto; min-width: 12rem; flex: 1 1 14rem; max-width: 22rem; }

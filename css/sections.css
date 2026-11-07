@@ -1,0 +1,37 @@
+/* Section looks for Biography, Food & Drink, Photography and Vehicles (politics keeps politics.css; Burning Man keeps the base "playa" look).
+   Chosen by Fred 2026-11-07 from palette-preview.html: Bio B (walnut and gold), Food A (tiki lagoon), Photo A (darkroom), Vehicles B (rally blue and yellow).
+   base.njk adds `themed` plus one of bio-look / food-look / photo-look / vehicles-look to <body>. Loaded after style.css. */
+
+body.bio-look      { --th-side:#5a3d29; --th-head:#4a2f1d; --th-headink:#f6efe0; --accent:#c19a3a; --accent-soft:#d6b560; --paper:#f7f0e0; --paper-2:#eee3cb; --ink:#2b2218; --ink-soft:#6a5a45; --th-h1:#4a2f1d; --th-h2:#6a4528; --link:#7a4a1e; --rule:#dccdae;
+  background-color:#5a3d29; background-image:repeating-linear-gradient(0deg, rgba(255,255,255,0.04) 0 2px, rgba(0,0,0,0.05) 2px 4px); }
+body.food-look     { --th-side:#18807a; --th-head:#0f5c5c; --th-headink:#fff6df; --accent:#f0a030; --accent-soft:#c97f10; --paper:#fcf4de; --paper-2:#f6e8c4; --ink:#2a2418; --ink-soft:#6a5a3a; --th-h1:#0f5c5c; --th-h2:#c8384f; --link:#0f6a68; --rule:#e6d3a2;
+  background-color:#18807a; background-image:repeating-linear-gradient(90deg, rgba(255,255,255,0.07) 0 3px, rgba(0,0,0,0.07) 3px 6px); }
+body.photo-look    { --th-side:#2a2a2d; --th-head:#1c1c1e; --th-headink:#eeeeee; --accent:#d9822b; --accent-soft:#e8a560; --paper:#f4f4f2; --paper-2:#e8e8e5; --ink:#202022; --ink-soft:#5a5a5e; --th-h1:#1c1c1e; --th-h2:#555555; --link:#a85a10; --rule:#d0d0cc;
+  background-color:#2a2a2d; background-image:none; }
+body.vehicles-look { --th-side:#1a4478; --th-head:#14396b; --th-headink:#f4f6fa; --accent:#f2c230; --accent-soft:#f6d669; --paper:#f7f8fb; --paper-2:#e9edf5; --ink:#1c2230; --ink-soft:#4a5570; --th-h1:#14396b; --th-h2:#2a5da0; --link:#14509a; --rule:#cdd6e6;
+  background-image:repeating-linear-gradient(45deg, rgba(255,255,255,0.06) 0 8px, rgba(0,0,0,0.06) 8px 16px); background-color:#1a4478; }
+
+.themed .site-head { background: var(--th-head); border-bottom: 4px solid var(--accent); position: relative; }
+.themed .brand, .themed .crumbs a.brand, .themed .crumbs .crumb-current, .themed .top-links a[aria-current] { color: var(--th-headink); }
+.themed .crumbs a, .themed .top-links a { color: var(--th-headink); opacity: 0.85; }
+.themed .crumbs a:hover, .themed .top-links a:hover { opacity: 1; color: var(--th-headink); }
+.themed .crumbs .sep { color: var(--th-headink); opacity: 0.5; }
+.themed main { background: var(--paper); border: 1px solid var(--rule); border-top: 0; margin-top: 0; box-shadow: 0 6px 18px rgba(0,0,0,0.12); }
+.themed .site-foot { color: var(--ink-soft); background: var(--paper); border: 1px solid var(--rule); border-top: 4px solid var(--accent); margin-bottom: 1.5rem; }
+
+.themed h1 { color: var(--th-h1); border-bottom: 5px solid var(--accent); padding-bottom: 0.35rem; letter-spacing: 0.01em; }
+.themed h2 { color: var(--th-h2); border-left: 6px solid var(--accent); padding-left: 0.6rem; }
+.themed h3 { color: var(--th-h1); }
+.themed a { color: var(--link); }
+.themed a:hover { color: var(--accent); }
+.themed hr { border-top: 3px double var(--rule); }
+.themed blockquote { border-left: 8px solid var(--accent); background: var(--paper-2); color: var(--ink); padding: 0.7rem 1rem; margin: 0 0 1.2rem; border-radius: 0 6px 6px 0; }
+.themed table { border-top: 4px solid var(--accent); }
+.themed th { background: var(--th-head); color: var(--th-headink); }
+.themed td, .themed th { border-bottom: 1px solid var(--rule); }
+
+/* Reset the base playa texture's tile sizes (they would distort each section's own stripes) and recolor the Biography sub-nav. */
+body.themed { background-size: auto; background-attachment: scroll; }
+.themed .sub-nav { border-bottom: 1px solid rgba(255,255,255,0.18); }
+.themed .sub-nav a { color: var(--th-headink); opacity: 0.85; }
+.themed .sub-nav a:hover { color: var(--th-headink); opacity: 1; }
