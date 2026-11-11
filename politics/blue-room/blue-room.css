@@ -37,6 +37,7 @@ body.blue-room {
 .blue-room .who.wonka  { background: var(--navy); }
 .blue-room .who.shelby { background: var(--red); }
 .blue-room .who.walt   { background: var(--blue); }
+.blue-room .who.anji   { background: var(--red); }
 .blue-room .who.dale   { background: #ffffff; color: var(--red); box-shadow: inset 0 0 0 2px var(--red); }
 .blue-room .who.margo  { background: #ffffff; color: var(--blue); box-shadow: inset 0 0 0 2px var(--blue); }
 .blue-room .who.chip  { background: #1b2233; color: #ffd0d4; }
