@@ -1,0 +1,3 @@
+/* Vehicles I've owned: whole photos inside the column, never cropped. */
+body.owned-vehicles main img { max-width: 100%; height: auto; display: block; margin: 0.6rem 0 0.9rem; border-radius: 0.4rem; border: 1px solid var(--rule); }
+body.owned-vehicles main p:has(> img) { margin: 0; }
